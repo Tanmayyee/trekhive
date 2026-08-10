@@ -21,17 +21,25 @@ console.log("seeds")
 const randomTitle= array => array[Math.floor(Math.random()*array.length)]
 
 const seedDb= async()=>{
-    await Trekhive.deleteMany({})
-    for(let i=0; i<=100; i++){
+    try {
+        await Trekhive.deleteMany({});
 
-        const randomCity= Math.floor(Math.random()*cities.length)
+        for (let i = 0; i < 100; i++) {
+            const randomCity = Math.floor(Math.random() * cities.length);
 
-      const camp=  new Trekhive({
-            location:`${cities[randomCity].city}, ${cities[randomCity].state}`,
-            title:`${randomTitle(places)} ${randomTitle(descriptors)}`
-        })
-        await camp.save();
+            const camp = new Trekhive({
+                location: `${cities[randomCity].city}, ${cities[randomCity].state}`,
+                title: `${randomTitle(places)} ${randomTitle(descriptors)}`
+            });
+
+            await camp.save();
+        }
+    } catch (error) {
+        console.error(`Seeding error: ${error.message}`);
+    } finally {
+        await mongoose.connection.close();
     }
-}
+};
+
 
 seedDb()
