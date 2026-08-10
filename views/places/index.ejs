@@ -11,10 +11,10 @@
 <body>
     <main class="p-2">
         <h1 class="text-3xl font-bold uppercase">running</h1>
-        <ul>
+        <ul class="list-disc pl-5">
             <% for(let list of listings){ %>
                 <li>
-                    <%= list.title %>
+                    <a href="/listing/<%= list._id %>" class="underline text-blue-500"><%= list.title %></a>
                 </li>
                 <% } %>
         </ul>
