@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import cities from "./cities";
-import { places,descriptors } from "./seedHelpers";
+import cities from "./cities.js";
+import { places,descriptors } from "./seedHelpers.js";
 
 import Trekhive from './models/trekhiveschema.js';  //model
 
@@ -24,7 +24,7 @@ const seedDb= async()=>{
     for(let i=0; i<=100; i++){
 
         const randomCity= Math.floor(Math.random()*cities.length)
-        
+
       const camp=  new Trekhive({
             location:`${cities[randomCity].city}, ${cities[randomCity].state}`,
             title:`${randomTitle(places)} ${randomTitle(descriptors)}`
