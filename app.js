@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 const app = express();
 import mongoose from 'mongoose'
-import Trekhive from './models/trekhiveschema.js';
+import Listing from './models/trekhiveschema.js';
 
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
 
@@ -26,10 +26,16 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.get('/trekhivedb',async(req,res)=>{
-  const check =new Trekhive({title:"hello checking",price:23})
-  await check.save()
-  res.send(check)
+// =========================== to check model working or not =============================
+// app.get('/trekhivedb',async(req,res)=>{
+//   const check =new Listing({title:"hello checking",price:23})
+//   await check.save()
+//   res.send(check)
+// })
+
+app.get('/Listing',async(req,res)=>{
+ const listings= await Listing.find({})
+ res.render('places/index',{listings})
 })
 
 app.listen(3000, () => {
