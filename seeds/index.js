@@ -53,3 +53,7 @@ seedDb()
 // Insert the new seed data
 // Close the MongoDB connection
 // Exit the Node.js process
+
+// Seed database with 100 random listings.
+// Running this script again deletes the existing listings and creates 100 new ones.
+// Otherwise, the existing data stays unchanged in MongoDB.
