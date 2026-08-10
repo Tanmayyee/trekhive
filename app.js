@@ -33,9 +33,14 @@ app.get('/', (req, res) => {
 //   res.send(check)
 // })
 
-app.get('/Listing',async(req,res)=>{
+app.get('/listing',async(req,res)=>{
  const listings= await Listing.find({})
  res.render('places/index',{listings})
+})
+
+app.get('/listing/:id',async(req,res)=>{
+  const listing= await Listing.findById(req.params.id)
+  res.render('places/show',{listing})
 })
 
 app.listen(3000, () => {
