@@ -11,6 +11,8 @@
     --color-emerald-400: oklch(76.5% 0.177 163.223);
     --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-indigo-500: oklch(58.5% 0.233 277.117);
+    --color-slate-200: oklch(92.9% 0.013 255.508);
+    --color-slate-400: oklch(70.4% 0.04 256.788);
     --color-zinc-300: oklch(87.1% 0.006 286.286);
     --color-zinc-900: oklch(21% 0.006 285.885);
     --spacing: 0.25rem;
@@ -212,14 +214,29 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .bg-slate-200 {
+    background-color: var(--color-slate-200);
+  }
+  .bg-slate-400 {
+    background-color: var(--color-slate-400);
+  }
   .bg-zinc-900 {
     background-color: var(--color-zinc-900);
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
   }
+  .p-3 {
+    padding: calc(var(--spacing) * 3);
+  }
   .p-5 {
     padding: calc(var(--spacing) * 5);
+  }
+  .px-2 {
+    padding-inline: calc(var(--spacing) * 2);
+  }
+  .py-1 {
+    padding-block: var(--spacing);
   }
   .pl-5 {
     padding-left: calc(var(--spacing) * 5);
