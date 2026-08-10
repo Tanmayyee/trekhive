@@ -72,6 +72,12 @@ app.put('/listing/:id',async(req,res)=>{
   res.redirect(`/listing/${updatedListing._id}`)  
 })
 
+app.delete('/listing/:id',async(req,res)=>{
+  const {id}=req.params;
+  await Listing.findByIdAndDelete(id)
+  res.redirect('/listing')
+})
+
 
 app.listen(3000, () => {
     console.log('Trekhive server is running on port 3000!');
