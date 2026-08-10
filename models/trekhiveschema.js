@@ -15,6 +15,6 @@ const trekhiveSchema= new mongoose.Schema({
     }
 })
 
-const Trekhive= mongoose.model('Trekhive',trekhiveSchema)
+const Listing= mongoose.model('Listing',trekhiveSchema)
 
-export default Trekhive;
+export default Listing;
