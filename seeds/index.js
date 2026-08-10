@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import cities from "./cities.js";
-import { places,descriptors } from "./seedHelpers.js";
+import { places,descriptors } from "./seedHelpers.js"
 
-import Trekhive from './models/trekhiveschema.js';  //model
+import Trekhive from '../models/trekhiveschema.js';  //model
 
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
 
@@ -16,6 +16,7 @@ const connectDB = async () => {
   }
 };
 await connectDB();
+console.log("seeds")
 
 const randomTitle= array => array[Math.floor(Math.random()*array.length)]
 
