@@ -48,7 +48,7 @@ app.get('/listing/new',async(req,res)=>{           //new should come before /:id
 
 app.post('/listing',async(req,res)=>{
   // res.send(req.body)                           //for testing
-  
+
   // req.body.listing contains the listing object created from form fields named like listing[title], listing[location], etc.
   const newListing= new Listing(req.body.listing)       
   await newListing.save()
@@ -58,6 +58,15 @@ app.post('/listing',async(req,res)=>{
 app.get('/listing/:id',async(req,res)=>{
   const listing= await Listing.findById(req.params.id)
   res.render('places/show',{listing})
+})
+
+app.get('/listing/:id/edit',async(req,res)=>{
+  const listing= await Listing.findById(req.params.id)
+  res.render('places/edit',{listing})
+})
+
+app.put('/listing/:id',async(req,res)=>{
+  
 })
 
 
