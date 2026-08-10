@@ -43,3 +43,13 @@ const seedDb= async()=>{
 
 
 seedDb()
+
+
+//closing mongoose connection - 
+// Because your seedDB() script is a one-time script. Its job is:
+
+// Connect to MongoDB
+// Delete old data
+// Insert the new seed data
+// Close the MongoDB connection
+// Exit the Node.js process
