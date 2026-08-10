@@ -66,7 +66,10 @@ app.get('/listing/:id/edit',async(req,res)=>{
 })
 
 app.put('/listing/:id',async(req,res)=>{
-  
+  // res.send("workeddd")
+  const {id}= req.params
+  const updatedListing= await Listing.findByIdAndUpdate(id,{...req.body.listing},{ runValidators: true, returnDocument: "after" })  // Spread operator (...) creates a new object containing all properties from req.body.listing. This lets us pass the listing fields directly to findByIdAndUpdate().
+  res.redirect(`/listing/${updatedListing._id}`)  
 })
 
 
