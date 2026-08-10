@@ -3,6 +3,7 @@ import path from 'path';
 const app = express();
 import mongoose from 'mongoose'
 import Listing from './models/trekhiveschema.js';
+import methodOverride from "method-override";
 
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
 
@@ -22,6 +23,9 @@ app.set('views', path.join(import.meta.dirname, '/views'));
 
 app.use(express.static(path.join(import.meta.dirname, "public")));
 
+app.use(express.urlencoded({ extended: true }));       
+app.use(methodOverride("_method")); 
+
 app.get('/', (req, res) => {
     res.render('home');
 });
@@ -38,10 +42,19 @@ app.get('/listing',async(req,res)=>{
  res.render('places/index',{listings})
 })
 
+app.get('/listing/new',async(req,res)=>{           //new should come before /:id
+  res.render('places/new')
+})
+
+app.post('listing',async(req,res)=>{
+  res.send(req.body)
+})
+
 app.get('/listing/:id',async(req,res)=>{
   const listing= await Listing.findById(req.params.id)
   res.render('places/show',{listing})
 })
+
 
 app.listen(3000, () => {
     console.log('Trekhive server is running on port 3000!');
