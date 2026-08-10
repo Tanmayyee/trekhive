@@ -11,6 +11,9 @@
     <h2 class="text-xl"><%= listing.location %></h2>
     <br>
     <a href="/listing/<%= listing._id %>/edit">Edit</a>
+    <form action="/listing/<%= listing._id %>?_method=DELETE" method="POST">
+        <button class="border bg-red-600 py-1 px-2 text-white cursor-pointer ">DELETE</button>
+    </form>
     <br>
     <a href="/listing">Explore all treks</a>
 </body>
