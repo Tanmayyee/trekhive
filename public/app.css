@@ -342,6 +342,9 @@
   .mt-auto {
     margin-top: auto;
   }
+  .mb-1 {
+    margin-bottom: var(--spacing);
+  }
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
   }
@@ -350,6 +353,9 @@
   }
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
+  }
+  .mb-5 {
+    margin-bottom: calc(var(--spacing) * 5);
   }
   .mb-8 {
     margin-bottom: calc(var(--spacing) * 8);
@@ -471,6 +477,9 @@
   .gap-2 {
     gap: calc(var(--spacing) * 2);
   }
+  .gap-3 {
+    gap: calc(var(--spacing) * 3);
+  }
   .gap-4 {
     gap: calc(var(--spacing) * 4);
   }
@@ -481,6 +490,11 @@
     --tw-space-y-reverse: 0;
     margin-block-start: calc(var(--spacing) * var(--tw-space-y-reverse));
     margin-block-end: calc(var(--spacing) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-4 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
   }
   :where(.space-y-6 > :not(:last-child)) {
     --tw-space-y-reverse: 0;
@@ -939,6 +953,9 @@
     }
     .sm\:gap-0 {
       gap: 0px;
+    }
+    .sm\:p-6 {
+      padding: calc(var(--spacing) * 6);
     }
     .sm\:p-8 {
       padding: calc(var(--spacing) * 8);
