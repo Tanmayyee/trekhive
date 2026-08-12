@@ -1,6 +1,6 @@
 <% layout('/layout/boilerplate') %>
 
-   <!-- header -->
+    <!-- header -->
     <div class="mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 sm:gap-0">
 
         <div>
@@ -20,17 +20,53 @@
         </a>
     </div>
 
-    
+    <!-- grid section -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         <% for(let list of listings){ %>
             <!-- card container -->
-                <div class="group flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2 hover:border-sky-500/40 h-full">
-                   <!-- img section -->
-                    <div class="relative w-full h-72 overflow-hidden shrink-0 bg-slate-950">
-                        <img src="<%= list.image %>" alt="random image" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+            <div
+                class="group flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2 hover:border-sky-500/40 h-full">
+                <!-- img section -->
+                <div class="relative w-full h-72 overflow-hidden shrink-0 bg-slate-950">
+                    <img src="<%= list.image %>" alt="random image"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                </div>
+
+                <!-- content section -->
+                <div
+                    class="p-5 md:p-6 flex flex-col grow relative bg-slate-900 transition-colors duration-500 group-hover:bg-slate-800/50">
+                    <!-- title and location -->
+                    <div class="relative z-10 mb-4">
+
+                        <div
+                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-sky-500/10 border border-sky-500/20 text-sky-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <%= list.location %>
+                        </div>
+
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-100 mb-2 transition-all duration-300">
+                            <%= list.title %>
+                        </h2>
+                    </div>
+
+                    <!-- action -->
+                    <div class="mt-auto pt-4 border-t border-slate-700/50 relative z-10">
+                        <a href="/listing/<%= list._id %>"
+                            class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 text-slate-200 border border-slate-700 hover:border-sky-500 hover:text-white hover:bg-sky-500 text-sm font-bold rounded-lg transition-all duration-300 focus:ring-4 focus:ring-sky-500/20 group/btn">
+                            View Details
+                            <svg class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
                     </div>
                 </div>
-                <% } %>
+            </div>
+            <% } %>
     </div>
-            
-        
