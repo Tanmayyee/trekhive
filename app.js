@@ -3,7 +3,9 @@ import path from 'path';
 const app = express();
 import mongoose from 'mongoose'
 import Listing from './models/trekhiveschema.js';
+import ejsMate from 'ejs-mate'
 import methodOverride from "method-override";
+
 
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
 
@@ -18,6 +20,8 @@ const connectDB = async () => {
 };
 await connectDB();
 
+
+app.engine("ejs", ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(import.meta.dirname, '/views'));
 
