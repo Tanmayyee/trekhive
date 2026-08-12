@@ -426,6 +426,9 @@
   .table {
     display: table;
   }
+  .h-2 {
+    height: calc(var(--spacing) * 2);
+  }
   .h-3 {
     height: calc(var(--spacing) * 3);
   }
@@ -452,6 +455,9 @@
   }
   .h-16 {
     height: calc(var(--spacing) * 16);
+  }
+  .h-20 {
+    height: calc(var(--spacing) * 20);
   }
   .h-72 {
     height: calc(var(--spacing) * 72);
@@ -874,8 +880,68 @@
     --tw-gradient-position: to right in oklab;
     background-image: linear-gradient(var(--tw-gradient-stops));
   }
+  .bg-\[url\(\'http\:\/\/nativetrekking\.in\/wp-content\/uploads\/2025\/06\/sources-ganga-banner\.jpg\'\)\] {
+    background-image: url('http://nativetrekking.in/wp-content/uploads/2025/06/sources-ganga-banner.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/c0\.wallpaperflare\.com\/preview\/418\/168\/52\/annapurna-himalayas-range-nepal\.jpg\'\)\] {
+    background-image: url('https://c0.wallpaperflare.com/preview/418/168/52/annapurna-himalayas-range-nepal.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/encrypted-tbn0\.gstatic\.com\/images\?q\=tbn\:ANd9GcQRhIU6vK475Y6stDeivIWLaX9JQvFubvTVbdtZrEr5nae3nDPF_x9R5fM\&s\=10\'\)\] {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRhIU6vK475Y6stDeivIWLaX9JQvFubvTVbdtZrEr5nae3nDPF_x9R5fM&s=10');
+  }
+  .bg-\[url\(\'https\:\/\/i\.pinimg\.com\/236x\/ab\/e2\/bc\/abe2bce4da69d9a73a5d713f4a5b8634\.jpg\'\)\] {
+    background-image: url('https://i.pinimg.com/236x/ab/e2/bc/abe2bce4da69d9a73a5d713f4a5b8634.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/i\.pinimg\.com\/736x\/8e\/7d\/f3\/8e7df3fc1307b66a4e066f2e60324635\.jpg\'\)\] {
+    background-image: url('https://i.pinimg.com/736x/8e/7d/f3/8e7df3fc1307b66a4e066f2e60324635.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/i\.pinimg\.com\/736x\/34\/72\/b9\/3472b9561b8706a5fd879c50307b7100\.jpg\'\)\] {
+    background-image: url('https://i.pinimg.com/736x/34/72/b9/3472b9561b8706a5fd879c50307b7100.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/i\.pinimg\.com\/736x\/b4\/c7\/40\/b4c740ccc518fef6c16b0f5e8817a3a9\.jpg\'\)\] {
+    background-image: url('https://i.pinimg.com/736x/b4/c7/40/b4c740ccc518fef6c16b0f5e8817a3a9.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/i\.pinimg\.com\/736x\/c8\/d2\/99\/c8d299b359db111df285f66777661387\.jpg\'\)\] {
+    background-image: url('https://i.pinimg.com/736x/c8/d2/99/c8d299b359db111df285f66777661387.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/i\.pinimg\.com\/1200x\/0a\/96\/21\/0a96211ba46536a35cec06bfd42c17b9\.jpg\'\)\] {
+    background-image: url('https://i.pinimg.com/1200x/0a/96/21/0a96211ba46536a35cec06bfd42c17b9.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/i\.pinimg\.com\/1200x\/5e\/1c\/4d\/5e1c4d3cd83e7f0f439b41089c1cbe5c\.jpg\'\)\] {
+    background-image: url('https://i.pinimg.com/1200x/5e/1c/4d/5e1c4d3cd83e7f0f439b41089c1cbe5c.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/i\.pinimg\.com\/1200x\/8c\/19\/f4\/8c19f450ec5c6a2a0e4c844af41a0c48\.jpg\'\)\] {
+    background-image: url('https://i.pinimg.com/1200x/8c/19/f4/8c19f450ec5c6a2a0e4c844af41a0c48.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/i\.pinimg\.com\/1200x\/43\/8e\/f0\/438ef0209078df972acc872f0fa15b00\.jpg\'\)\] {
+    background-image: url('https://i.pinimg.com/1200x/43/8e/f0/438ef0209078df972acc872f0fa15b00.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/i\.pinimg\.com\/1200x\/69\/6f\/ec\/696fec57e0df4ce0b22b9afe14b4aa79\.jpg\'\)\] {
+    background-image: url('https://i.pinimg.com/1200x/69/6f/ec/696fec57e0df4ce0b22b9afe14b4aa79.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/i\.pinimg\.com\/1200x\/e9\/2f\/20\/e92f208fe9cfcd4368b8d703008b69dc\.jpg\'\)\] {
+    background-image: url('https://i.pinimg.com/1200x/e9/2f/20/e92f208fe9cfcd4368b8d703008b69dc.jpg');
+  }
+  .bg-\[url\(\'https\:\/\/images\.unsplash\.com\/photo-1551632811-561732d1e306\?fm\=jpg\&q\=60\&w\=3000\&auto\=format\&fit\=crop\&ixlib\=rb-4\.1\.0\&ixid\=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGlraW5nfGVufDB8fDB8fHww\'\)\] {
+    background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e306?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGlraW5nfGVufDB8fDB8fHww');
+  }
   .bg-\[url\(\'https\:\/\/images\.unsplash\.com\/photo-1506318137071-a8e063b4bec0\?q\=80\&w\=1920\&auto\=format\&fit\=crop\'\)\] {
     background-image: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=1920&auto=format&fit=crop');
+  }
+  .bg-\[url\(\'https\:\/\/images\.unsplash\.com\/photo-1519681393784-d120267933ba\?fm\=jpg\&q\=60\&w\=3000\&auto\=format\&fit\=crop\&ixlib\=rb-4\.1\.0\&ixid\=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3RhcnMlMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA\%3D\'\)\] {
+    background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3RhcnMlMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D');
+  }
+  .bg-\[url\(\'https\:\/\/images\.unsplash\.com\/photo-1519681393784-d120267933ba\?fm\=jpg\&q\=60\&w\=3000\&auto\=format\&fit\=crop\&ixlib\=rb-4\.1\.0\&ixid\=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmlnaHQlMjBza3klMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA\%3D\'\)\] {
+    background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmlnaHQlMjBza3klMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D');
+  }
+  .bg-\[url\(\'https\:\/\/img\.magnific\.com\/free-photo\/silhouette-person-standing-top-hill-beautiful-colorful-sky-morning_181624-24501\.jpg\?semt\=ais_test_b\&w\=740\&q\=80\'\)\] {
+    background-image: url('https://img.magnific.com/free-photo/silhouette-person-standing-top-hill-beautiful-colorful-sky-morning_181624-24501.jpg?semt=ais_test_b&w=740&q=80');
+  }
+  .bg-\[url\(\'https\:\/\/in\.pinterest\.com\/pin\/654992339611592630\/\'\)\] {
+    background-image: url('https://in.pinterest.com/pin/654992339611592630/');
+  }
+  .bg-\[url\(\'https\:\/\/wallpaperaccess\.com\/full\/1546328\.jpg\'\)\] {
+    background-image: url('https://wallpaperaccess.com/full/1546328.jpg');
   }
   .from-amber-400 {
     --tw-gradient-from: var(--color-amber-400);
@@ -1023,8 +1089,53 @@
   .bg-cover {
     background-size: cover;
   }
+  .bg-\[80\%_40\%\] {
+    background-position: 80% 40%;
+  }
+  .bg-bottom {
+    background-position: bottom;
+  }
+  .bg-bottom-left {
+    background-position: left bottom;
+  }
   .bg-center {
     background-position: center;
+  }
+  .bg-position-\[30\%_10\%\] {
+    background-position: 30% 10%;
+  }
+  .bg-position-\[30\%_25\%\] {
+    background-position: 30% 25%;
+  }
+  .bg-position-\[30\%_30\%\] {
+    background-position: 30% 30%;
+  }
+  .bg-position-\[30\%_40\%\] {
+    background-position: 30% 40%;
+  }
+  .bg-position-\[30\%_70\%\] {
+    background-position: 30% 70%;
+  }
+  .bg-position-\[60\%\] {
+    background-position: 60%;
+  }
+  .bg-position-\[60\%_40\%\] {
+    background-position: 60% 40%;
+  }
+  .bg-position-\[60\%_40\] {
+    background-position: 60% 40;
+  }
+  .bg-position-\[60\%_\] {
+    background-position: 60% ;
+  }
+  .bg-position-\[60\] {
+    background-position: 60;
+  }
+  .bg-position-\[80\%_40\%\] {
+    background-position: 80% 40%;
+  }
+  .bg-top {
+    background-position: top;
   }
   .object-cover {
     object-fit: cover;
@@ -1671,6 +1782,10 @@
       --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
+    .hover\:shadow-md:hover {
+      --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
     .hover\:shadow-xl:hover {
       --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -1685,6 +1800,14 @@
     @supports (color: color-mix(in lab, red, red)) {
       .hover\:shadow-black\/30:hover {
         --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-black) 30%, transparent) var(--tw-shadow-alpha), transparent);
+      }
+    }
+    .hover\:shadow-black\/50:hover {
+      --tw-shadow-color: color-mix(in srgb, #000 50%, transparent);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:shadow-black\/50:hover {
+        --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-black) 50%, transparent) var(--tw-shadow-alpha), transparent);
       }
     }
     .hover\:shadow-olive-50:hover {
@@ -1709,6 +1832,14 @@
     @supports (color: color-mix(in lab, red, red)) {
       .hover\:shadow-white\/30:hover {
         --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-white) 30%, transparent) var(--tw-shadow-alpha), transparent);
+      }
+    }
+    .hover\:shadow-white\/50:hover {
+      --tw-shadow-color: color-mix(in srgb, #fff 50%, transparent);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:shadow-white\/50:hover {
+        --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-white) 50%, transparent) var(--tw-shadow-alpha), transparent);
       }
     }
   }
@@ -1760,6 +1891,9 @@
     --tw-scale-y: 95%;
     --tw-scale-z: 95%;
     scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .active\:bg-slate-100:active {
+    background-color: var(--color-slate-100);
   }
   @media (width >= 40rem) {
     .sm\:top-6 {
