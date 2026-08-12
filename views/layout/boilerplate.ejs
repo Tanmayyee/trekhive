@@ -5,17 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boiler plate</title>
+    <title>Trekhive</title>
     <link rel="stylesheet" href="/app.css">
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
    <%- include('../partials/navbar') %>
 
-   <main>
+   <main class="grow max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 w-full py-6">
      <%- body %>   <!-- Inserts the content of the current EJS page into this layout -->
    </main>
 
    <%- include('../partials/footer') %>
-   
+
 </body>
 </html>
