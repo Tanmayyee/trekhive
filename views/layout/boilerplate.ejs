@@ -9,10 +9,13 @@
     <link rel="stylesheet" href="/app.css">
 </head>
 <body>
-    
+   <%- include('../partials/navbar') %>
+
    <main>
      <%- body %>   <!-- Inserts the content of the current EJS page into this layout -->
    </main>
+
+   <%- include('../partials/footer') %>
    
 </body>
 </html>
