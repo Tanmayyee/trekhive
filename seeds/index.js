@@ -19,6 +19,7 @@ await connectDB();
 console.log("seeds")
 
 const randomTitle= array => array[Math.floor(Math.random()*array.length)]
+const randomPrice= Math.floor(Math.random()*20000)
 
 const seedDb= async()=>{
     try {
@@ -29,7 +30,10 @@ const seedDb= async()=>{
 
             const camp = new Listing({
                 location: `${cities[randomCity].city}, ${cities[randomCity].state}`,
-                title: `${randomTitle(places)} ${randomTitle(descriptors)}`
+                title: `${randomTitle(places)} ${randomTitle(descriptors)}`,
+                image: `https://loremflickr.com/400/400/nature,mountain`,
+                price: `${randomPrice}`,
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
             });
 
             await camp.save();
