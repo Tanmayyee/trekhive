@@ -3,6 +3,10 @@
     <h1 class="text-3xl font-bold uppercase"><%= listing.title %></h1>
     <h2 class="text-xl"><%= listing.location %></h2>
     <br>
+    <img src="<%= listing.image %>" alt="random image">
+    <br>
+    <p><%= listing.description%></p>
+    <br>
     <a href="/listing/<%= listing._id %>/edit">Edit</a>
     <form action="/listing/<%= listing._id %>?_method=DELETE" method="POST">
         <button class="border bg-red-600 py-1 px-2 text-white cursor-pointer ">DELETE</button>
