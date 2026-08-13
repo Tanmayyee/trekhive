@@ -1,12 +1,11 @@
-<!-- Innovative "Starry Night Trek" Navbar (Slim Height & Black Cosmic Blend) -->
-<nav class="sticky top-0 z-50 w-full bg-slate-950 border-b border-slate-800 shadow-sm transition-all duration-300 overflow-hidden">
+<nav class="sticky top-0 z-50 w-full  bg-linear-to-b from-gray-900/90 to-gray-900/70 backdrop-blur-md border-b border-gray-700/50 shadow-sm transition-all duration-300 overflow-hidden">
     
-    <div class="absolute inset-0 w-full h-full bg-[url('https://i.pinimg.com/1200x/69/6f/ec/696fec57e0df4ce0b22b9afe14b4aa79.jpg')] bg-cover bg-center opacity-50 pointer-events-none"></div>
+    <div class="absolute inset-0 w-full h-full   pointer-events-none"></div>
     
-    <div class="absolute inset-0 w-full h-full bg-linear-to-r from-black/95 via-black/40 to-black/95 pointer-events-none"></div>
+    <div class="absolute inset-0 w-full h-full bg-linear-to-r from-black/80 via-black/35 to-black/80 pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="flex justify-between items-center h-16">
+        <div class="flex justify-between items-center h-14">
             
             <div class="shrink-0 flex items-center gap-2 group cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white group-hover:text-amber-400 transform group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -18,32 +17,45 @@
                 </a>
             </div>
 
-            <!-- Desktop Menu -->
+                <!-- Desktop Menu -->
             <div class="hidden md:flex md:space-x-4 items-center">
                 
-                <a href="/" class="relative text-white hover:text-white text-sm font-semibold tracking-wide group flex items-center">
-                    <div class="h-5 overflow-hidden">
-                        <div class="flex flex-col transition-transform duration-300 ease-in-out group-hover:-translate-y-5">
-                            <span class="h-5 flex items-center">Home</span>
-                            <!-- The text that rolls up into view -->
-                            <span class="h-5 flex items-center">Home</span> 
-                        </div>
-                    </div>
-                </a>
-
-                <a href="/listing" class="relative text-white hover:text-white text-sm font-semibold tracking-wide group flex items-center">
-                    <div class="h-5 overflow-hidden">
-                        <div class="flex flex-col transition-transform duration-300 ease-in-out group-hover:-translate-y-5">
-                            <span class="h-5 flex items-center">Treks</span>
-                            <span class="h-5 flex items-center">Treks</span>
-                        </div>
-                    </div>
-                </a>
+                <!-- Home Link -->
+             <a href="/" class="group relative inline-flex items-center justify-center px-2 py-2 rounded-lg text-sm font-semibold text-white transition-colors duration-200">
+                      <span>Home</span>
+                   <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 flex items-center justify-center gap-1.5 h-2">
+                     <!-- Dot 1 -->
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out"></span>
+                      <!-- Dot 2 (slight delay) -->
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out delay-75"></span>
+                      <!-- Dot 3 (more delay) -->
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out delay-150"></span>
+                   </div>
+             </a>
+    <
+            
+                <!-- Treks Link -->
+             <a href="/listing" class="group relative inline-flex items-center justify-center px-3.5 py-2 rounded-lg text-sm font-semibold text-white transition-colors duration-200">
+                      <span>Treks</span>
+                   <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 flex items-center justify-center gap-1.5 h-2">
+                     <!-- Dot 1 -->
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out"></span>
+                      <!-- Dot 2 (slight delay) -->
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out delay-75"></span>
+                      <!-- Dot 3 (more delay) -->
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out delay-150"></span>
+                   </div>
+             </a>
                 
-                <a href="/listing/new" class="ml-2 inline-flex items-center justify-center text-slate-900 bg-white hover:shadow-md hover:shadow-white/50 active:scale-95 active:bg-slate-100 px-5 py-1.5 rounded-full text-sm font-bold tracking-wide transition-all duration-200">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 text-slate-900" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                  </svg>
+                <!-- New Trek Button -->
+                <a href="/listing/new" class="group ml-2 inline-flex items-center justify-center text-slate-900 bg-white hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(251,191,36,0.4)] active:scale-[0.98] active:translate-y-0 active:bg-slate-50 pl-2 pr-5 py-1.5 rounded-full text-sm font-bold tracking-wide transition-all duration-300">
+    
+                    <div class="flex items-center justify-center bg-slate-100 rounded-full h-6 w-6 mr-2 transition-all duration-300 group-hover:rotate-90 group-hover:bg-amber-400 group-hover:scale-110">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-900 group-hover:text-white transition-colors duration-300" viewBox="0 0 20 20" fill="currentColor">
+                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                      </svg>
+                   </div>
+                 
                     New Trek
                 </a>
             </div>
@@ -75,7 +87,7 @@
             <a href="/" class="block text-slate-300 hover:text-white hover:bg-white/10 px-4 py-3 rounded-xl text-base font-semibold font-['JetBrains_Mono'] transition-all duration-300">Home</a>
             <a href="/listing" class="block text-slate-300 hover:text-white hover:bg-white/10 px-4 py-3 rounded-xl text-base font-semibold font-['JetBrains_Mono'] transition-all duration-300">Treks</a>
             
-            <a href="/listing/new" class="block text-slate-900 bg-white hover:bg-slate-200 px-4 py-3 rounded-xl text-base font-bold font-['JetBrains_Mono'] transition-all duration-300 items-center shadow-sm mt-4">
+            <a href="/listing/new" class="flex text-slate-900 bg-white hover:bg-slate-200 px-4 py-3 rounded-xl text-base font-bold font-['JetBrains_Mono'] transition-all duration-300 items-center shadow-sm mt-4 ">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                 </svg>
