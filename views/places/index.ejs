@@ -15,42 +15,50 @@
         </div>
 
         <a href="/listing/new"
-            class="inline-flex items-center justify-center bg-slate-900 hover:bg-slate-800  text-white font-semibold rounded-full px-6 py-2.5 transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2">
-            Add new Trek
+             class="group inline-flex items-center justify-center gap-2 bg-slate-900 text-white font-semibold rounded-full px-6 py-2.5 transition-all duration-300 ease-out shadow-md hover:bg-slate-800 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-500/40 active:scale-95 active:translate-y-0.5 active:shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2">
+    
+    
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               class="h-4 w-4 transition-transform duration-300 ease-out group-hover:rotate-90 group-active:scale-75" 
+               fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+
+          <span>Add new Trek</span>
         </a>
     </div>
 
     <!-- grid section -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
         <% for(let list of listings){ %>
             <!-- card container -->
             <div
                 class="group flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2  h-full hover:shadow-xl hover:shadow-black/30">
 
                 <!-- img section -->
-                <div class="relative w-full h-72 overflow-hidden shrink-0 bg-slate-100">
+                <div class="relative w-full h-40  sm:h-72 overflow-hidden shrink-0 bg-slate-100">
                     <img src="<%= list.image %>" alt="random image"
                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
                 </div>
 
                 <!-- content section -->
                 <div
-                    class="p-5 md:p-6 flex flex-col grow relative bg-white transition-colors duration-500 ">
+                    class="p-3 sm:p-5 md:p-6 flex flex-col grow relative bg-white transition-colors duration-500 ">
                     <!-- title and location -->
                     <div class="relative z-10 mb-4">
 
                         <div
-                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-100 border border-gray-100 text-gray-600 text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20"
+                            class="inline-flex items-center max-w-full gap-1 sm:gap-1.5 px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-md bg-gray-100 border border-gray-100 text-gray-600 text-[9px] sm:text-xs font-bold uppercase tracking-wide sm:tracking-widest mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-2.5 w-2.5 sm:h-3 sm:w-3 shrink-0" viewBox="0 0 20 20"
                                 fill="currentColor">
                                 <path fill-rule="evenodd"
                                     d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
                                     clip-rule="evenodd" />
                             </svg>
-                            <%= list.location %>
+                            <span class="truncate"><%= list.location %></span>
                         </div>
 
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-900 mb-2 transition-all duration-300">
+                        <h2 class=" text-base sm:text-xl md:text-2xl font-bold text-slate-900 mb-2 transition-all duration-300">
                             <%= list.title %>
                         </h2>
                     </div>
@@ -58,7 +66,7 @@
                     <!-- action -->
                     <div class="mt-auto pt-4 border-t border-slate-200 relative z-10">
                         <a href="/listing/<%= list._id %>"
-                           class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-900 text-white border border-slate-900 hover:bg-white hover:text-slate-900 text-sm font-bold rounded-lg transition-all duration-300 focus:ring-4 focus:ring-slate-200 group/btn">
+                           class="w-full inline-flex items-center justify-center gap-1 sm:gap-2 px-2 py-2 sm:px-4 sm:py-2.5 bg-slate-900 text-white border border-slate-900 hover:bg-white hover:text-slate-900 text-[11px] sm:text-sm font-bold rounded-lg transition-all duration-300 focus:ring-4 focus:ring-slate-200 group/btn">
                             View Details
                             <svg class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
