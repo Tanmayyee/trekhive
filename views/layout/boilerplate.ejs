@@ -8,8 +8,8 @@
     <title>Trekhive</title>
     <link rel="stylesheet" href="/app.css">
 </head>
-<body class="flex flex-col min-h-screen">
-   <%- include('../partials/navbar') %>
+<body class="flex flex-col min-h-screen bg-slate-50 ">
+   <%- include('../partials/navbar') %> <!-- to include ejs file -->
 
    <main class="grow max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 w-full py-6">
      <%- body %>   <!-- Inserts the content of the current EJS page into this layout -->
@@ -17,22 +17,12 @@
 
    <%- include('../partials/footer') %>
    
-   <!-- Client-side Validation Script -->
-   <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const forms = document.querySelectorAll('.needs-validation');
-            
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        });
-    </script>
+   <script src="/clientSideStyle.js"></script> <!-- to include js files -->
+   <!-- clietSideStyle.js file present inside public folder but ,
+        Express treats public as a root folder because of "app.use(express.static(path.join(import.meta.dirname, "public")))"
+       , so the path starts from '/' -->
+
+    
 
 </body>
 </html>
