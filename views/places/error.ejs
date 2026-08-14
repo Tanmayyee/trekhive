@@ -1,0 +1,47 @@
+<% layout('/layout/boilerplate') %>
+
+<div class="flex items-center justify-center min-h-[80vh] px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-lg w-full text-center">
+        
+        <!-- Glowing Warning Icon -->
+        <div class="relative flex justify-center mb-6">
+            <div class="absolute inset-0 bg-rose-100 rounded-full blur-2xl opacity-60 w-32 h-32 mx-auto"></div>
+            <svg class="relative w-24 h-24 text-rose-500 drop-shadow-sm mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+        </div>
+
+        <!-- Dynamic Status Code (e.g., 404, 500) -->
+        <h1 class="text-7xl sm:text-8xl font-black text-slate-900 tracking-tighter mb-2">
+            <%= err.status || 500 %>
+        </h1>
+
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight mb-3">
+            <% if(err.status === 404) { %>
+                Whoops! You lost the trail.
+            <% } else { %>
+                Looks like we hit a roadblock.
+            <% } %>
+        </h2>
+
+        <!-- The Actual Error Message passed from Express -->
+        <p class="text-base sm:text-lg text-slate-500 mb-8 font-medium px-4">
+            <%= err.message %>
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <!-- go back to the exact page they were just on -->
+            <button onclick="window.history.back()" 
+                class="w-full sm:w-auto px-6 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 text-slate-700 text-sm font-bold rounded-xl transition-all duration-200">
+                &larr; Go Back
+            </button>
+            
+            <a href="/listing" 
+                class="w-full sm:w-auto px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200">
+                Return to Basecamp
+            </a>
+        </div>
+
+    </div>
+</div>
