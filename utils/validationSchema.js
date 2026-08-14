@@ -16,3 +16,6 @@ export const listingValidationSchema=joi.object({
 // It checks required fields, data types, and values to prevent invalid data from being saved.
 // It validates the req.body data coming from the client before it reaches the database.
 // Joi checks the form data before it reaches the database.
+
+// Used to validate data coming from POST, PUT, and PATCH requests before saving or updating the database.
+// GET requests usually don't need this because they don't send data in req.body.
