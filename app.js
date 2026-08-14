@@ -35,9 +35,12 @@ app.use(methodOverride("_method"));
 // Checks the form data before allowing the request to continue.
 //joi validation schema -> listingvalidationschema present in ./utils/validation
 const listingValidation=(req,res,next)=>{
-  const {error}=listingValidationSchema.validate(req.body);
+  const {error}=listingValidationSchema.validate(req.body,{abortEarly:false});
   if(error){
-    throw new ExpressError("Please check your input and try again.", 400)
+    // 1. .replace(/"/g, '') removes all the ugly quotation marks
+    // 2. .replace(/listing\./g, '') removes the word "listing."
+    const err=error.details.map(el=>el.message.replace(/"/g, '').replace(/listing\./g, '')).join(' | ')
+    throw new ExpressError(err, 400)
   }else{
     next()
   }
