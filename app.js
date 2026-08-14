@@ -114,10 +114,17 @@ app.all('/{*path}',(req,res)=>{
 
 //error handling middleware or global error
 app.use((err,req,res,next)=>{
-  const {status=500}= err;
+
   if (!err.message){
     err.message='Oh No, Something went wrong.'
   }
+
+  if (err.name === 'CastError') {
+      err.message = 'Page not found! The link to this trek is invalid or broken.';
+      err.status = 404;
+  }
+  
+  const {status=500}= err;
   res.status(status).render('./places/error',{err});
 })
 
