@@ -6,6 +6,7 @@ import Listing from './models/trekhiveschema.js';
 import ejsMate from 'ejs-mate'
 import methodOverride from "method-override";
 import ExpressError from './utils/ExpressError.js';
+import joi from 'joi'
 
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
 
@@ -119,11 +120,12 @@ app.use((err,req,res,next)=>{
     err.message='Oh No, Something went wrong.'
   }
 
+  // Occurs when the ObjectId is invalid, such as having an incorrect length or invalid characters.
   if (err.name === 'CastError') {
       err.message = 'Page not found! The link to this trek is invalid or broken.';
       err.status = 404;
   }
-  
+
   const {status=500}= err;
   res.status(status).render('./places/error',{err});
 })
