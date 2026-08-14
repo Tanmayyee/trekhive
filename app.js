@@ -6,7 +6,7 @@ import Listing from './models/trekhiveschema.js';
 import ejsMate from 'ejs-mate'
 import methodOverride from "method-override";
 import ExpressError from './utils/ExpressError.js';
-import joi from 'joi'
+import { listingValidationSchema } from './utils/validationSchema.js';
 
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
 
@@ -31,6 +31,18 @@ app.use(express.static(path.join(import.meta.dirname, "public")));
 app.use(express.urlencoded({ extended: true }));       
 app.use(methodOverride("_method")); 
 
+//validation middleware -----------------------------------------
+// Checks the form data before allowing the request to continue.
+//joi validation schema -> listingvalidationschema present in ./utils/validation
+const listingValidation=(req,res,next)=>{
+  const {error}=listingValidationSchema.validate(req.body);
+  if(error){
+    throw new ExpressError("Please check your input and try again.", 400)
+  }else{
+    next()
+  }
+}
+
 app.get('/', (req, res) => {
     res.render('places/home');
 });
@@ -51,13 +63,10 @@ app.get('/listing/new',async(req,res)=>{           //new should come before /:id
   res.render('places/new')
 })
 
-app.post('/listing',async(req,res)=>{
+// listingValidation middleware checks the form data before creating a new listing.
+app.post('/listing',listingValidation,async(req,res)=>{
   // res.send(req.body)                           //for testing
-  
-  // Throws an error if the user submits an empty form, preventing an empty database entry.
-  if(!req.body.listing){
-    throw new ExpressError('Invalid trek data',400)
-  }  
+
   // req.body.listing contains the listing object created from form fields named like listing[title], listing[location], etc.
   const newListing= new Listing(req.body.listing)     
   await newListing.save()
@@ -84,7 +93,9 @@ app.get('/listing/:id/edit',async(req,res)=>{
   res.render('places/edit',{listing})
 })
 
-app.put('/listing/:id',async(req,res)=>{
+
+// listingValidation middleware checks the form data before updating.
+app.put('/listing/:id',listingValidation,async(req,res)=>{
   // res.send("workeddd")
   const {id}= req.params
   const updatedListing= await Listing.findByIdAndUpdate(id,{...req.body.listing},{ runValidators: true, returnDocument: "after" })  // Spread operator (...) creates a new object containing all properties from req.body.listing. This lets us pass the listing fields directly to findByIdAndUpdate().
