@@ -114,8 +114,11 @@ app.all('/{*path}',(req,res)=>{
 
 //error handling middleware or global error
 app.use((err,req,res,next)=>{
-  const {message='Something went wrong' , status=500}= err;
-  res.status(status).send(message);
+  const {status=500}= err;
+  if (!err.message){
+    err.message='Oh No, Something went wrong.'
+  }
+  res.status(status).render('./places/error',{err});
 })
 
 app.listen(3000, () => {
