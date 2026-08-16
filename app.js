@@ -121,6 +121,10 @@ app.delete('/listing/:id',async(req,res)=>{
   res.redirect('/listing')
 })
 
+app.post('/listing/:id/reviews',async(req,res)=>{
+      res.send('Working!!!')
+})
+
 //for paths/routes other than previosly defined(above) paths
 app.all('/{*path}',(req,res)=>{
   throw new ExpressError('Page not found',404)
