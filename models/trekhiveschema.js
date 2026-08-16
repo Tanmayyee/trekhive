@@ -1,4 +1,5 @@
 import mongoose from "mongoose"; 
+import Review from "./reviewmodel.js";
 
 const listingSchema= new mongoose.Schema({
     title:{
@@ -20,6 +21,16 @@ const listingSchema= new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Review'
     }]
+})
+
+listingSchema.post('findOneAndDelete',async function(doc){
+    if(doc){
+        await Review.deleteMany({
+            _id:{
+                $in:doc.reviews
+            }
+        })
+    }
 })
 
 const Listing= mongoose.model('Listing',listingSchema)
