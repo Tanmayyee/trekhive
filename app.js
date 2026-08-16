@@ -7,7 +7,7 @@ import Review from './models/reviewmodel.js';
 import ejsMate from 'ejs-mate'
 import methodOverride from "method-override";
 import ExpressError from './utils/ExpressError.js';
-import { listingValidationSchema } from './utils/validationSchema.js';
+import { listingValidationSchema, reviewValidationSchema } from './utils/validationSchema.js';
 
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
 
@@ -42,6 +42,16 @@ const listingValidation=(req,res,next)=>{
     // 2. .replace(/listing\./g, '') removes the word "listing."
     const err=error.details.map(el=>el.message.replace(/"/g, '').replace(/listing\./g, '')).join(' | ')
     throw new ExpressError(err, 400)
+  }else{
+    next()
+  }
+}
+
+const reviewValidation=(req,res,next)=>{
+  const {error}=reviewValidationSchema.validate(req.body,{abortEarly:false})
+  if(error){
+    const err=error.details.map(el=>el.message.replace(/"/g, '').replace(/review\./g, '')).join(' | ')
+    throw new ExpressError(err,400)
   }else{
     next()
   }
@@ -115,7 +125,6 @@ app.delete('/listing/:id',async(req,res)=>{
   const {id}=req.params;
   const deleted= await Listing.findByIdAndDelete(id)
   
-  // Throws a 404 error to let the app know it can't delete something that is already missing from the database.
   if(!deleted){
     throw new ExpressError('Trek not found',404)
   }
@@ -123,7 +132,7 @@ app.delete('/listing/:id',async(req,res)=>{
 })
 
 // review submission route
-app.post('/listing/:id/reviews',async(req,res)=>{
+app.post('/listing/:id/reviews',reviewValidation,async(req,res)=>{
      const foundListing= await Listing.findById(req.params.id)
      const newReview= new Review(req.body.review)      //inside form - review[body] , review[rating]
      foundListing.reviews.push(newReview);
