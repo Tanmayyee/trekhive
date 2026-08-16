@@ -1,4 +1,4 @@
-import { required } from "joi";
+import joi from 'joi'
 import mongoose from "mongoose"
 
 const reviewSchema= new mongoose.Schema({
