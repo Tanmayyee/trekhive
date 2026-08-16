@@ -144,6 +144,14 @@ app.post('/listing/:id/reviews',reviewValidation,async(req,res)=>{
     res.redirect(`/listing/${foundListing._id}`)
 })
 
+app.delete('/listing/:id/reviews/:reviewId',async(req,res)=>{
+  const {id,reviewId}= req.params
+  await Listing.findByIdAndUpdate(id,{$pull: {reviews:reviewId}})   //mongo - pull operator - removes elements from an array that match a specified condition.
+  await Review.findByIdAndDelete(reviewId)
+  res.redirect(`/listing/${id}`)
+  // res.send('working ')
+})
+
 //for paths/routes other than previosly defined(above) paths
 app.all('/{*path}',(req,res)=>{
   throw new ExpressError('Page not found',404)
