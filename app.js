@@ -3,6 +3,7 @@ import path from 'path';
 const app = express();
 import mongoose from 'mongoose'
 import Listing from './models/trekhiveschema.js';
+import Review from './models/reviewmodel.js';
 import ejsMate from 'ejs-mate'
 import methodOverride from "method-override";
 import ExpressError from './utils/ExpressError.js';
@@ -121,8 +122,15 @@ app.delete('/listing/:id',async(req,res)=>{
   res.redirect('/listing')
 })
 
+// review submission route
 app.post('/listing/:id/reviews',async(req,res)=>{
-      res.send('Working!!!')
+     const foundListing= await Listing.findById(req.params.id)
+     const newReview= new Review(req.body.review)      //inside form - review[body] , review[rating]
+     foundListing.reviews.push(newReview);
+     await newReview.save()
+     await foundListing.save()
+    //  res.send(foundListing) //to check 
+    res.redirect(`/listing/${foundListing._id}`)
 })
 
 //for paths/routes other than previosly defined(above) paths
