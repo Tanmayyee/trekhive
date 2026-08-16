@@ -10,6 +10,14 @@ export const listingValidationSchema=joi.object({
     }).required()
 })
 
+
+export const reviewValidationSchema=joi.object({
+    review:joi.object({
+        body:joi.string().required(),
+        rating:joi.number().required()
+    })
+})
+
 // "listing" must match the key used in req.body (e.g. listing[title] in the form)
 // "listing" matches the key in req.body, not the Mongoose model name
 // Joi checks the data coming from the request using this schema before it reaches the Mongoose model/database.
