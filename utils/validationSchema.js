@@ -15,7 +15,7 @@ export const reviewValidationSchema=joi.object({
     review:joi.object({
         body:joi.string().required(),
         rating:joi.number().required()
-    })
+    }).required()
 })
 
 // "listing" must match the key used in req.body (e.g. listing[title] in the form)
