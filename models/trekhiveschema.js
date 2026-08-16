@@ -1,6 +1,6 @@
 import mongoose from "mongoose"; 
 
-const trekhiveSchema= new mongoose.Schema({
+const listingSchema= new mongoose.Schema({
     title:{
         type:String
     },
@@ -15,9 +15,13 @@ const trekhiveSchema= new mongoose.Schema({
     },
     image:{
         type:String
-    }
+    },
+    reviews:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Review'
+    }]
 })
 
-const Listing= mongoose.model('Listing',trekhiveSchema)
+const Listing= mongoose.model('Listing',listingSchema)
 
 export default Listing;
