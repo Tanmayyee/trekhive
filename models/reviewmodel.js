@@ -1,11 +1,16 @@
+import { required } from "joi";
 import mongoose from "mongoose"
 
 const reviewSchema= new mongoose.Schema({
     body:{
-        type:String
+        type:String,
+        required:true
     },
     rating:{
-        type:String
+        type:Number,
+        min:1,
+        max:5,
+        required: true
     }
 })
 
