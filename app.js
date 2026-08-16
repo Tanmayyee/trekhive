@@ -88,8 +88,7 @@ app.post('/listing',listingValidation,async(req,res)=>{
 })
 
 app.get('/listing/:id',async(req,res)=>{
-  const listing= await Listing.findById(req.params.id)
-  
+  const listing = await Listing.findById(req.params.id).populate('reviews') // Populate the reviews array with actual review documents by using stored Review ObjectIds to fetch and replace them with full review data from the database  
   // Throws error if someone types a URL for a trek that doesn't exist.
   if(!listing){
     throw new ExpressError('Trek not found',404)
