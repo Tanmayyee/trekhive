@@ -134,6 +134,9 @@ app.delete('/listing/:id',async(req,res)=>{
 // review submission route
 app.post('/listing/:id/reviews',reviewValidation,async(req,res)=>{
      const foundListing= await Listing.findById(req.params.id)
+     if(!foundListing){
+      throw new ExpressError('Trek not found',404)
+     }
      const newReview= new Review(req.body.review)      //inside form - review[body] , review[rating]
      foundListing.reviews.push(newReview);
      await newReview.save()
