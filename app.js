@@ -7,7 +7,8 @@ import methodOverride from "method-override";
 import ExpressError from './utils/ExpressError.js';
 import listings from './routes/listings.js'
 import reviews from './routes/reviews.js'
-import session from 'express-session';
+import session, { Cookie } from 'express-session';
+
 
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
 
@@ -35,7 +36,13 @@ app.use(methodOverride("_method"));
 const sessionConfig= {
   secret:'thisshouldbeabettersecret',
   resave:false,
-  saveUninitialized:true
+  saveUninitialized:true,
+  rolling:true,   // Refresh the cookie expiration on each request
+  cookie:{
+    httpOnly:true,  // Prevent JavaScript from accessing the cookie
+    // expires:new Date(Date.now()+7*24*60*60*1000),  
+    maxAge:7*24*60*60*1000 
+  }
 }
 app.use(session(sessionConfig))
 
