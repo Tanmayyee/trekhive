@@ -26,6 +26,7 @@ router.post('/',reviewValidation,async(req,res)=>{
      await newReview.save()
      await foundListing.save()
     //  res.send(foundListing) //to check 
+    req.flash('success', 'Successfully shared your experience!'); 
     res.redirect(`/listing/${foundListing._id}`)
 })
 
@@ -33,6 +34,7 @@ router.delete('/:reviewId',async(req,res)=>{
   const {id,reviewId}= req.params
   await Listing.findByIdAndUpdate(id,{$pull: {reviews:reviewId}})   //mongo - pull operator - removes elements from an array that match a specified condition.
   await Review.findByIdAndDelete(reviewId)
+  req.flash('success', 'Review removed successfully.'); 
   res.redirect(`/listing/${id}`)
   // res.send('working ')
 })

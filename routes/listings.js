@@ -37,7 +37,7 @@ router.post('/',listingValidation,async(req,res)=>{
   // req.body.listing contains the listing object created from form fields named like listing[title], listing[location], etc.
   const newListing= new Listing(req.body.listing)     
   await newListing.save()
-  req.flash('success','Successfully made a new trek!') 
+  req.flash('success', 'Awesome! Successfully added a new trek!'); 
   res.redirect(`/listing/${newListing._id}`)
 })
 
@@ -71,6 +71,7 @@ router.put('/:id',listingValidation,async(req,res)=>{
    if (!updatedListing) {
         throw new ExpressError('Trek not found', 404);
     }
+  req.flash('success', 'Trek details updated successfully!'); 
   res.redirect(`/listing/${updatedListing._id}`)  
 })
 
@@ -81,6 +82,7 @@ router.delete('/:id',async(req,res)=>{
   if(!deleted){
     throw new ExpressError('Trek not found',404)
   }
+  req.flash('success', 'Trek deleted successfully.'); 
   res.redirect('/listing')
 })
 
