@@ -8,6 +8,7 @@ import ExpressError from './utils/ExpressError.js';
 import listings from './routes/listings.js'
 import reviews from './routes/reviews.js'
 import session, { Cookie } from 'express-session';
+import flash from 'connect-flash'
 
 
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
@@ -45,6 +46,8 @@ const sessionConfig= {
   }
 }
 app.use(session(sessionConfig))
+
+app.use(flash())
 
 
 app.use('/listing',listings);
