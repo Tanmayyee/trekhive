@@ -37,6 +37,7 @@ router.post('/',listingValidation,async(req,res)=>{
   // req.body.listing contains the listing object created from form fields named like listing[title], listing[location], etc.
   const newListing= new Listing(req.body.listing)     
   await newListing.save()
+  req.flash('success','Successfully made a new trek!') 
   res.redirect(`/listing/${newListing._id}`)
 })
 
