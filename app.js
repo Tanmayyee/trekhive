@@ -7,6 +7,7 @@ import methodOverride from "method-override";
 import ExpressError from './utils/ExpressError.js';
 import listings from './routes/listings.js'
 import reviews from './routes/reviews.js'
+import session from 'express-session';
 
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
 
@@ -30,6 +31,14 @@ app.use(express.static(path.join(import.meta.dirname, "public")));
 
 app.use(express.urlencoded({ extended: true }));       
 app.use(methodOverride("_method")); 
+
+const sessionConfig= {
+  secret:'thisshouldbeabettersecret',
+  resave:false,
+  saveUninitialized:true
+}
+app.use(session(sessionConfig))
+
 
 app.use('/listing',listings);
 
