@@ -1,0 +1,83 @@
+<!-- Flash Messages Alert Banner (Below Navbar) -->
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+    
+    <% if(success && success.length) { %>
+        <!-- Success Alert -->
+        <div id="flash-alert-success" 
+             class="flex items-center justify-between p-4 mb-2 bg-emerald-50 border border-emerald-200 rounded-xl shadow-sm transition-all duration-300 overflow-hidden opacity-100">
+            
+            <div class="flex items-center gap-3">
+                <!-- Soft background for icon -->
+                <div class="flex items-center justify-center p-1.5 bg-emerald-100 rounded-lg text-emerald-600 shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+
+                <div class="text-sm font-semibold text-emerald-800">
+                    <%= success %>
+                </div>
+            </div>
+
+            <!-- Dismiss Button -->
+            <button type="button" onclick="closeAlert('flash-alert-success')" 
+                class="p-1.5 ml-4 shrink-0 text-emerald-500 hover:text-emerald-700 hover:bg-emerald-100 rounded-lg transition-colors focus:ring-2 focus:ring-emerald-400 focus:outline-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    <% } %>
+
+    <% if(error && error.length) { %>
+        <!-- Error Alert -->
+        <div id="flash-alert-error" 
+             class="flex items-center justify-between p-4 mb-2 bg-rose-50 border border-rose-200 rounded-xl shadow-sm transition-all duration-300 overflow-hidden opacity-100">
+            
+            <div class="flex items-center gap-3">
+                <!-- Soft background for icon -->
+                <div class="flex items-center justify-center p-1.5 bg-rose-100 rounded-lg text-rose-600 shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+
+                <div class="text-sm font-semibold text-rose-800">
+                    <%= error %>
+                </div>
+            </div>
+
+            <!-- Dismiss Button -->
+            <button type="button" onclick="closeAlert('flash-alert-error')" 
+                class="p-1.5 ml-4 shrink-0 text-rose-500 hover:text-rose-700 hover:bg-rose-100 rounded-lg transition-colors focus:ring-2 focus:ring-rose-400 focus:outline-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    <% } %>
+
+</div>
+
+<!-- Smooth Collapse Script -->
+<script>
+    function closeAlert(id) {
+        const alertBox = document.getElementById(id);
+        if (alertBox) {
+            // UI/UX Trick: Smoothly shrink the height and margin to 0 before removing
+            // This prevents a sudden layout jump which looks buggy
+            alertBox.style.opacity = '0';
+            alertBox.style.margin = '0';
+            alertBox.style.padding = '0';
+            alertBox.style.height = '0';
+            alertBox.style.borderWidth = '0';
+            setTimeout(() => alertBox.remove(), 300); 
+        }
+    }
+
+    // Optional: Auto dismiss after 4 seconds (Tum chaho toh ise hata sakte ho agar manually hi dismiss karwana hai)
+    setTimeout(() => {
+        closeAlert('flash-alert-success');
+        closeAlert('flash-alert-error');
+    }, 3000);
+</script>
