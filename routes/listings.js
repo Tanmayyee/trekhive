@@ -37,7 +37,7 @@ router.post('/',listingValidation,async(req,res)=>{
   // req.body.listing contains the listing object created from form fields named like listing[title], listing[location], etc.
   const newListing= new Listing(req.body.listing)     
   await newListing.save()
-  req.flash('success', 'Awesome! Successfully added a new trek!'); 
+  req.flash('success', 'Successfully added a new trek!'); 
   res.redirect(`/listing/${newListing._id}`)
 })
 
@@ -45,7 +45,9 @@ router.get('/:id',async(req,res)=>{
   const listing = await Listing.findById(req.params.id).populate('reviews') // Populate the reviews array with actual review documents by using stored Review ObjectIds to fetch and replace them with full review data from the database  
   // Throws error if someone types a URL for a trek that doesn't exist.
   if(!listing){
-    throw new ExpressError('Trek not found',404)
+    req.flash('error', 'Cannot find that trek! It may have been deleted.');
+    return res.redirect('/listing');
+    // throw new ExpressError('Trek not found',404)
   }
   res.render('places/show',{listing})
 })
@@ -55,7 +57,9 @@ router.get('/:id/edit',async(req,res)=>{
   
   // Throws an error so the router doesn't try to load an edit form for a trek that has already been deleted.
   if(!listing){
-    throw new ExpressError('Trek not found',404)
+    req.flash('error', 'Cannot find that trek to edit!');
+    return res.redirect('/listing');
+    // throw new ExpressError('Trek not found',404)
   }
   res.render('places/edit',{listing})
 })
@@ -69,7 +73,9 @@ router.put('/:id',listingValidation,async(req,res)=>{
   
    // Throws a 404 error just in case the trek was deleted by someone else exactly when you clicked "update".
    if (!updatedListing) {
-        throw new ExpressError('Trek not found', 404);
+     req.flash('error', 'Cannot update! Trek not found.');
+     return res.redirect('/listing');
+     // throw new ExpressError('Trek not found', 404);
     }
   req.flash('success', 'Trek details updated successfully!'); 
   res.redirect(`/listing/${updatedListing._id}`)  
