@@ -49,4 +49,14 @@ router.post('/login', passport.authenticate('local', {failureFlash:true, failure
     res.redirect('/listing')
 })
 
+router.get('/logout',(req,res,next)=>{
+    req.logout(function(err){
+        if(err){
+            return next(err);
+        }
+         req.flash('success',"logged out!")
+         res.redirect('/listing')
+    });
+})
+
 export default router
