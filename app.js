@@ -67,11 +67,11 @@ app.use((req,res,next)=>{
 
 // to check working of passport->
 
-app.get('/fakeuser',async(req,res)=>{
-  const u= new User({email:'samplee@gmail.com',username:'tanmayy'})
-  const newUser= await User.register(u,'mypassword')   //method provide by passport 
-  res.send(newUser)
-})
+// app.get('/fakeuser',async(req,res)=>{
+//   const u= new User({email:'samplee@gmail.com',username:'tanmayy'})
+//   const newUser= await User.register(u,'mypassword')   //method provide by passport 
+//   res.send(newUser)
+// })
 
 app.use('/listing',listings);
 
