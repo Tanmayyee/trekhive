@@ -18,6 +18,25 @@ export const reviewValidationSchema=joi.object({
     }).required()
 })
 
+export const userValidationSchema= joi.object({
+         username: joi.string().alphanum().min(3).max(30).required().messages({
+            'string.alphanum': '"Username" can only contain letters, numbers, and underscores.',        
+            'string.empty': '"Username" is required.',
+            'string.min': '"Username" must be at least 3 characters long.',
+            'string.max': '"Username" cannot exceed 30 characters.'
+        }),
+        
+    email: joi.string().email().required().messages({
+            'string.email': 'Please provide a valid email address.',
+            'string.empty': 'Email is required.'
+        }),
+        
+    password: joi.string().min(8).required().messages({
+            'string.min': 'Password must be at least 8 characters long.',
+            'string.empty': 'Password is required.'
+        })
+})
+
 // "listing" must match the key used in req.body (e.g. listing[title] in the form)
 // "listing" matches the key in req.body, not the Mongoose model name
 // Joi checks the data coming from the request using this schema before it reaches the Mongoose model/database.
