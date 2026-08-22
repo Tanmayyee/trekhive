@@ -4,6 +4,7 @@ import User from '../models/usermodel.js'
 import passport from 'passport';
 import ExpressError from '../utils/ExpressError.js';
 import { userValidationSchema } from '../utils/validationSchema.js';
+import { storeReturnTo } from '../middleware.js';
 
 const userValidation=(req,res,next)=>{
   const {error}=userValidationSchema.validate(req.body)
@@ -24,7 +25,7 @@ router.get('/register',(req,res)=>{
 // Joi validates the incoming user data before it is saved to the database. or joi handles invalid input.
 // try...catch handles errors that occur during user registration, such as duplicate username/email.
 
-router.post('/register',userValidation,async(req,res)=>{
+router.post('/register',userValidation,async(req,res,next)=>{
     // res.send(req.body)
     try{
          const {username,password,email}= req.body
@@ -35,7 +36,7 @@ router.post('/register',userValidation,async(req,res)=>{
             if(err){
                 return next(err)
             }else{
-                req.flash('success','welcome!')
+                req.flash('success','Account created successfully.')
                 res.redirect('/listing')
             }
          })
@@ -50,9 +51,10 @@ router.get('/login',(req,res)=>{
     res.render('auth/login')
 })
 
-router.post('/login', passport.authenticate('local', {failureFlash:true, failureRedirect:'/login'} ),(req,res)=>{
-    req.flash('success','welcome back!')
-    res.redirect('/listing')
+router.post('/login',storeReturnTo, passport.authenticate('local', {failureFlash:true, failureRedirect:'/login'} ),(req,res)=>{
+    req.flash('success','Signed in successfully.')
+    const redirectUrl= res.locals.returnTo || '/listing'
+    res.redirect(redirectUrl)
 })
 
 router.get('/logout',(req,res,next)=>{
@@ -60,7 +62,7 @@ router.get('/logout',(req,res,next)=>{
         if(err){
             return next(err);
         }
-         req.flash('success',"logged out!")
+         req.flash('success',"Signed out securely.")
          res.redirect('/listing')
     });
 })

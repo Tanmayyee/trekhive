@@ -1,4 +1,3 @@
-<!-- Custom Animations for Top-Center Dropdown -->
 <style>
     @keyframes toastSlideDown {
         0% { transform: translateY(-150%) scale(0.9); opacity: 0; }
@@ -13,11 +12,11 @@
         animation: toastSlideDown 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     }
     .toast-progress {
-        animation: toastProgress 4s linear forwards;
+        animation: toastProgress 2.5s linear forwards;
     }
 </style>
 
-<!-- Floating Flash Messages (Top Center) -->
+<!-- Floating Flash Messages -->
 <div class="fixed top-6 left-0 right-0 z-9999 flex flex-col items-center gap-3 pointer-events-none px-4">
     
     <% if(success && success.length) { %>
@@ -84,20 +83,19 @@
         const alertBox = document.getElementById(id);
         if (alertBox) {
             // Slide up and fade out smoothly
-            alertBox.style.transition = 'all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            alertBox.style.transition = 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
             alertBox.style.transform = 'translateY(-150%) scale(0.9)';
             alertBox.style.opacity = '0';
             
             // Collapse completely to clear DOM space
             setTimeout(() => {
                 alertBox.remove();
-            }, 400); 
+            }, 300); 
         }
     }
 
-    // Auto dismiss toasts after 4 seconds
     setTimeout(() => {
         closeAlert('flash-alert-success');
         closeAlert('flash-alert-error');
-    }, 4000);
+    }, 2500);
 </script>
