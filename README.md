@@ -10,7 +10,7 @@ Trekhive is a modern full-stack web application designed for exploring, reviewin
 ## 🛠️ Current Tech Stack
 
 * **Backend:** Node.js (ES Modules), Express.js
-* **Database:** MongoDB, Mongoose ORM
+* **Database:** MongoDB, Mongoose ODM
 * **Templating Engine:** EJS (Embedded JavaScript)
 * **Styling:** Tailwind CSS v4
 
