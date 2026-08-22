@@ -31,8 +31,14 @@ router.post('/register',userValidation,async(req,res)=>{
          const user=new User({email,username})
          const registeredUser= await User.register(user,password)
          // console.log(registeredUser)
-         req.flash('success','welcome!')
-         res.redirect('/listing')
+         req.login(registeredUser,err=>{
+            if(err){
+                return next(err)
+            }else{
+                req.flash('success','welcome!')
+                res.redirect('/listing')
+            }
+         })
     }catch(e){
         req.flash('error',e.message)
         res.redirect('/register')

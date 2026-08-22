@@ -61,7 +61,7 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 app.use((req,res,next)=>{
-  res.locals.currentUser= req.user;
+  res.locals.currentUser= req.user; // Make the currently authenticated user available in all views (templates), includes user object ( username , id , email etc...)
   res.locals.success= req.flash('success');
   res.locals.error= req.flash('error')
   next();
