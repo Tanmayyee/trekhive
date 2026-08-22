@@ -5,14 +5,15 @@ import mongoose from 'mongoose'
 import ejsMate from 'ejs-mate'
 import methodOverride from "method-override";
 import ExpressError from './utils/ExpressError.js';
-import listings from './routes/listings.js'
-import reviews from './routes/reviews.js'
 import session, { Cookie } from 'express-session';
 import flash from 'connect-flash'
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import User from './models/usermodel.js'
 
+import listingsRoutes from './routes/listings.js'
+import reviewsRoutes from './routes/reviews.js'
+import userRoutes from './routes/user.js'
 
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
 
@@ -73,9 +74,10 @@ app.use((req,res,next)=>{
 //   res.send(newUser)
 // })
 
-app.use('/listing',listings);
 
-app.use('/listing/:id/reviews',reviews)
+app.use('/',userRoutes)
+app.use('/listing',listingsRoutes);
+app.use('/listing/:id/reviews',reviewsRoutes)
 
 app.get('/', (req, res) => {
     res.render('places/home');
