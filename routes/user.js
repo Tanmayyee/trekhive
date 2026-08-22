@@ -3,7 +3,7 @@ const router=express.Router()
 import User from '../models/usermodel.js'
 
 router.get('/register',(req,res)=>{
-    res.render('register')
+    res.render('auth/register')
 })
 
 export default router
