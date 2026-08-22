@@ -28,7 +28,6 @@ router.post('/',reviewValidation,async(req,res)=>{
      await newReview.save()
      await foundListing.save()
     //  res.send(foundListing) //to check 
-    req.flash('success', 'Successfully shared your experience!'); 
     res.redirect(`/listing/${foundListing._id}`)
 })
 
