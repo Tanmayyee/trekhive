@@ -4,6 +4,7 @@ import Listing from '../models/trekhiveschema.js';
 import Review from '../models/reviewmodel.js';
 import ExpressError from '../utils/ExpressError.js';
 import { reviewValidationSchema } from '../utils/validationSchema.js';
+import { isLoggedIn } from '../middleware.js';
 
 const reviewValidation=(req,res,next)=>{
   const {error}=reviewValidationSchema.validate(req.body,{abortEarly:false})
@@ -16,7 +17,7 @@ const reviewValidation=(req,res,next)=>{
 }
 
 // review submission route
-router.post('/',reviewValidation,async(req,res)=>{
+router.post('/',isLoggedIn,reviewValidation,async(req,res)=>{
      const foundListing= await Listing.findById(req.params.id)
      if(!foundListing){
       req.flash('error', 'Cannot find that trek to review!');
@@ -31,7 +32,7 @@ router.post('/',reviewValidation,async(req,res)=>{
     res.redirect(`/listing/${foundListing._id}`)
 })
 
-router.delete('/:reviewId',async(req,res)=>{
+router.delete('/:reviewId',isLoggedIn,async(req,res)=>{
   const {id,reviewId}= req.params
   await Listing.findByIdAndUpdate(id,{$pull: {reviews:reviewId}})   //mongo - pull operator - removes elements from an array that match a specified condition.
   await Review.findByIdAndDelete(reviewId)

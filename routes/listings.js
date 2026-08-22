@@ -3,6 +3,7 @@ import Listing from '../models/trekhiveschema.js';
 import ExpressError from '../utils/ExpressError.js';
 const router=express.Router();
 import { listingValidationSchema } from '../utils/validationSchema.js';
+import { isLoggedIn } from '../middleware.js';
 
 
 //validation middleware -----------------------------------------
@@ -26,12 +27,12 @@ router.get('/',async(req,res)=>{
  res.render('places/index',{listings})
 })
 
-router.get('/new',async(req,res)=>{           //new should come before /:id
+router.get('/new',isLoggedIn,async(req,res)=>{           //new should come before /:id
   res.render('places/new')
 })
 
 // listingValidation middleware checks the form data before creating a new listing.
-router.post('/',listingValidation,async(req,res)=>{
+router.post('/',isLoggedIn,listingValidation,async(req,res)=>{
   // res.send(req.body)                           //for testing
 
   // req.body.listing contains the listing object created from form fields named like listing[title], listing[location], etc.
@@ -52,7 +53,7 @@ router.get('/:id',async(req,res)=>{
   res.render('places/show',{listing})
 })
 
-router.get('/:id/edit',async(req,res)=>{
+router.get('/:id/edit',isLoggedIn,async(req,res)=>{
   const listing= await Listing.findById(req.params.id)
   
   // Throws an error so the router doesn't try to load an edit form for a trek that has already been deleted.
@@ -66,7 +67,7 @@ router.get('/:id/edit',async(req,res)=>{
 
 
 // listingValidation middleware checks the form data before updating.
-router.put('/:id',listingValidation,async(req,res)=>{
+router.put('/:id',isLoggedIn,listingValidation,async(req,res)=>{
   // res.send("workeddd")
   const {id}= req.params
   const updatedListing= await Listing.findByIdAndUpdate(id,{...req.body.listing},{ runValidators: true, returnDocument: "after" })  // Spread operator (...) creates a new object containing all properties from req.body.listing. This lets us pass the listing fields directly to findByIdAndUpdate().
@@ -81,7 +82,7 @@ router.put('/:id',listingValidation,async(req,res)=>{
   res.redirect(`/listing/${updatedListing._id}`)  
 })
 
-router.delete('/:id',async(req,res)=>{
+router.delete('/:id',isLoggedIn,async(req,res)=>{
   const {id}=req.params;
   const deleted= await Listing.findByIdAndDelete(id)
   
