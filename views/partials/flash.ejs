@@ -1,22 +1,6 @@
-<style>
-    @keyframes toastSlideDown {
-        0% { transform: translateY(-150%) scale(0.9); opacity: 0; }
-        70% { transform: translateY(10%) scale(1.02); opacity: 1; }
-        100% { transform: translateY(0) scale(1); opacity: 1; }
-    }
-    @keyframes toastProgress {
-        0% { width: 100%; }
-        100% { width: 0%; }
-    }
-    .toast-enter {
-        animation: toastSlideDown 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    }
-    .toast-progress {
-        animation: toastProgress 2.5s linear forwards;
-    }
-</style>
+<link rel="stylesheet" href="/flash.css">
 
-<!-- Floating Flash Messages -->
+<!-- Flash Messages -->
 <div class="fixed top-6 left-0 right-0 z-9999 flex flex-col items-center gap-3 pointer-events-none px-4">
     
     <% if(success && success.length) { %>
@@ -42,8 +26,8 @@
                 </svg>
             </button>
             
-            <!-- Countdown Progress Bar -->
-            <div class="absolute bottom-0 left-0 h-0.75 bg-emerald-500 toast-progress"></div>
+            <!-- Countdown Progress Bar (3 seconds) -->
+            <div class="absolute bottom-0 left-0 h-0.75 bg-emerald-500 toast-progress-success"></div>
         </div>
     <% } %>
 
@@ -70,8 +54,8 @@
                 </svg>
             </button>
 
-            <!-- Countdown Progress Bar -->
-            <div class="absolute bottom-0 left-0 h-0.75 bg-rose-500 toast-progress"></div>
+            <!-- Countdown Progress Bar (4 seconds) -->
+            <div class="absolute bottom-0 left-0 h-0.75 bg-rose-500 toast-progress-error"></div>
         </div>
     <% } %>
 
@@ -87,7 +71,6 @@
             alertBox.style.transform = 'translateY(-150%) scale(0.9)';
             alertBox.style.opacity = '0';
             
-            // Collapse completely to clear DOM space
             setTimeout(() => {
                 alertBox.remove();
             }, 300); 
@@ -96,6 +79,9 @@
 
     setTimeout(() => {
         closeAlert('flash-alert-success');
+    }, 3000);
+
+    setTimeout(() => {
         closeAlert('flash-alert-error');
-    }, 2500);
+    }, 4000);
 </script>

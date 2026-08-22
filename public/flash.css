@@ -1,0 +1,19 @@
+    @keyframes toastSlideDown {
+        0% { transform: translateY(-150%) scale(0.9); opacity: 0; }
+        70% { transform: translateY(10%) scale(1.02); opacity: 1; }
+        100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    @keyframes toastProgress {
+        0% { width: 100%; }
+        100% { width: 0%; }
+    }
+    .toast-enter {
+        animation: toastSlideDown 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+    
+    .toast-progress-success {
+        animation: toastProgress 3s linear forwards;
+    }
+    .toast-progress-error {
+        animation: toastProgress 4s linear forwards;
+    }

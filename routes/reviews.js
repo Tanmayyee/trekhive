@@ -20,7 +20,7 @@ const reviewValidation=(req,res,next)=>{
 router.post('/',isLoggedIn,reviewValidation,async(req,res)=>{
      const foundListing= await Listing.findById(req.params.id)
      if(!foundListing){
-      req.flash('error', 'Cannot find that trek to review!');
+      req.flash('error', 'Trek not found.');
       return res.redirect('/listing');
       // throw new ExpressError('Trek not found',404)
      }
@@ -29,6 +29,7 @@ router.post('/',isLoggedIn,reviewValidation,async(req,res)=>{
      await newReview.save()
      await foundListing.save()
     //  res.send(foundListing) //to check 
+    req.flash('success', 'Review submitted successfully.');
     res.redirect(`/listing/${foundListing._id}`)
 })
 
@@ -36,7 +37,7 @@ router.delete('/:reviewId',isLoggedIn,async(req,res)=>{
   const {id,reviewId}= req.params
   await Listing.findByIdAndUpdate(id,{$pull: {reviews:reviewId}})   //mongo - pull operator - removes elements from an array that match a specified condition.
   await Review.findByIdAndDelete(reviewId)
-  req.flash('success', 'Review removed successfully.'); 
+  req.flash('success', 'Review deleted successfully.'); 
   res.redirect(`/listing/${id}`)
   // res.send('working ')
 })

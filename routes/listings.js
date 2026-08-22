@@ -38,7 +38,7 @@ router.post('/',isLoggedIn,listingValidation,async(req,res)=>{
   // req.body.listing contains the listing object created from form fields named like listing[title], listing[location], etc.
   const newListing= new Listing(req.body.listing)     
   await newListing.save()
-  req.flash('success', 'Successfully added a new trek!'); 
+  req.flash('success', 'Trek created successfully'); 
   res.redirect(`/listing/${newListing._id}`)
 })
 
@@ -46,7 +46,7 @@ router.get('/:id',async(req,res)=>{
   const listing = await Listing.findById(req.params.id).populate('reviews') // Populate the reviews array with actual review documents by using stored Review ObjectIds to fetch and replace them with full review data from the database  
   // Throws error if someone types a URL for a trek that doesn't exist.
   if(!listing){
-    req.flash('error', 'Cannot find that trek! It may have been deleted.');
+    req.flash('error', 'Trek not found.');
     return res.redirect('/listing');
     // throw new ExpressError('Trek not found',404)
   }
@@ -58,7 +58,7 @@ router.get('/:id/edit',isLoggedIn,async(req,res)=>{
   
   // Throws an error so the router doesn't try to load an edit form for a trek that has already been deleted.
   if(!listing){
-    req.flash('error', 'Cannot find that trek to edit!');
+    req.flash('error', 'Trek not found.');
     return res.redirect('/listing');
     // throw new ExpressError('Trek not found',404)
   }
@@ -74,11 +74,11 @@ router.put('/:id',isLoggedIn,listingValidation,async(req,res)=>{
   
    // Throws a 404 error just in case the trek was deleted by someone else exactly when you clicked "update".
    if (!updatedListing) {
-     req.flash('error', 'Cannot update! Trek not found.');
+     req.flash('error', 'Trek not found.');
      return res.redirect('/listing');
      // throw new ExpressError('Trek not found', 404);
     }
-  req.flash('success', 'Trek details updated successfully!'); 
+  req.flash('success', 'Trek updated successfully.'); 
   res.redirect(`/listing/${updatedListing._id}`)  
 })
 
@@ -87,7 +87,7 @@ router.delete('/:id',isLoggedIn,async(req,res)=>{
   const deleted= await Listing.findByIdAndDelete(id)
   
   if(!deleted){
-    throw new ExpressError('Trek not found',404)
+    req.flash('error','Trek not found.')
   }
   req.flash('success', 'Trek deleted successfully.'); 
   res.redirect('/listing')
