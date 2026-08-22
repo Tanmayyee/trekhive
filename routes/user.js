@@ -1,6 +1,7 @@
 import express from 'express'
 const router=express.Router()
 import User from '../models/usermodel.js'
+import passport from 'passport';
 import ExpressError from '../utils/ExpressError.js';
 import { userValidationSchema } from '../utils/validationSchema.js';
 
@@ -37,6 +38,15 @@ router.post('/register',userValidation,async(req,res)=>{
         res.redirect('/register')
     }
    
+})
+
+router.get('/login',(req,res)=>{
+    res.render('auth/login')
+})
+
+router.post('/login', passport.authenticate('local', {failureFlash:true, failureRedirect:'/login'} ),(req,res)=>{
+    req.flash('success','welcome back!')
+    res.redirect('/listing')
 })
 
 export default router
