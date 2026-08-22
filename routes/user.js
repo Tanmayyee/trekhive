@@ -20,6 +20,9 @@ router.get('/register',(req,res)=>{
     res.render('auth/register')
 })
 
+// Joi validates the incoming user data before it is saved to the database. or joi handles invalid input.
+// try...catch handles errors that occur during user registration, such as duplicate username/email.
+
 router.post('/register',userValidation,async(req,res)=>{
     // res.send(req.body)
     try{
