@@ -12,4 +12,6 @@ const userSchema= new mongoose.Schema({
 // Adds authentication features like username, password hashing, salt, and login methods to the schema
 userSchema.plugin(passportLocalMongoose.default);   
 
-export default userSchema;
+const User= mongoose.model('User',userSchema);
+
+export default User;
