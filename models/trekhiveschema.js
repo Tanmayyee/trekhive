@@ -17,6 +17,10 @@ const listingSchema= new mongoose.Schema({
     image:{
         type:String
     },
+    author:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+    },
     reviews:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Review'

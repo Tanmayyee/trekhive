@@ -29,6 +29,7 @@ const seedDb= async()=>{
             const randomCity = Math.floor(Math.random() * cities.length);
 
             const camp = new Listing({
+                author:'6a8aa4f04d20e85d7ebd7409',
                 location: `${cities[randomCity].city}, ${cities[randomCity].state}`,
                 title: `${randomTitle(places)} ${randomTitle(descriptors)}`,
                 image: `https://loremflickr.com/400/400/nature,mountain`,
