@@ -1,25 +1,8 @@
 import express from 'express'
 import Listing from '../models/trekhiveschema.js';
-import ExpressError from '../utils/ExpressError.js';
+// import ExpressError from '../utils/ExpressError.js';
 const router=express.Router();
-import { listingValidationSchema } from '../utils/validationSchema.js';
-import { isLoggedIn } from '../middleware.js';
-
-
-//validation middleware -----------------------------------------
-// Checks the form data before allowing the request to continue.
-//joi validation schema -> listingvalidationschema present in ./utils/validation
-const listingValidation=(req,res,next)=>{
-  const {error}=listingValidationSchema.validate(req.body,{abortEarly:false});
-  if(error){
-    // 1. .replace(/"/g, '') removes all the ugly quotation marks
-    // 2. .replace(/listing\./g, '') removes the word "listing."
-    const err=error.details.map(el=>el.message.replace(/"/g, '').replace(/listing\./g, '')).join(' | ')
-    throw new ExpressError(err, 400)
-  }else{
-    next()
-  }
-}
+import { isLoggedIn, listingValidation ,isAuthor} from '../middleware.js';
 
 
 router.get('/',async(req,res)=>{
@@ -54,7 +37,7 @@ router.get('/:id',async(req,res)=>{
   res.render('places/show',{listing})
 })
 
-router.get('/:id/edit',isLoggedIn,async(req,res)=>{
+router.get('/:id/edit',isLoggedIn,isAuthor,async(req,res)=>{
   const listing= await Listing.findById(req.params.id)
   
   // Throws an error so the router doesn't try to load an edit form for a trek that has already been deleted.
@@ -68,7 +51,7 @@ router.get('/:id/edit',isLoggedIn,async(req,res)=>{
 
 
 // listingValidation middleware checks the form data before updating.
-router.put('/:id',isLoggedIn,listingValidation,async(req,res)=>{
+router.put('/:id',isLoggedIn,isAuthor,listingValidation,async(req,res)=>{
   // res.send("workeddd")
   const {id}= req.params
   const updatedListing= await Listing.findByIdAndUpdate(id,{...req.body.listing},{ runValidators: true, returnDocument: "after" })  // Spread operator (...) creates a new object containing all properties from req.body.listing. This lets us pass the listing fields directly to findByIdAndUpdate().
@@ -83,7 +66,7 @@ router.put('/:id',isLoggedIn,listingValidation,async(req,res)=>{
   res.redirect(`/listing/${updatedListing._id}`)  
 })
 
-router.delete('/:id',isLoggedIn,async(req,res)=>{
+router.delete('/:id',isLoggedIn,isAuthor,async(req,res)=>{
   const {id}=req.params;
   const deleted= await Listing.findByIdAndDelete(id)
   

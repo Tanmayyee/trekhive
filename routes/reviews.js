@@ -3,18 +3,8 @@ const router=express.Router({mergeParams:true});   // to use params , or id in t
 import Listing from '../models/trekhiveschema.js';
 import Review from '../models/reviewmodel.js';
 import ExpressError from '../utils/ExpressError.js';
-import { reviewValidationSchema } from '../utils/validationSchema.js';
-import { isLoggedIn } from '../middleware.js';
+import { isLoggedIn,reviewValidation } from '../middleware.js';
 
-const reviewValidation=(req,res,next)=>{
-  const {error}=reviewValidationSchema.validate(req.body,{abortEarly:false})
-  if(error){
-    const err=error.details.map(el=>el.message.replace(/"/g, '').replace(/review\./g, '')).join(' | ')
-    throw new ExpressError(err,400)
-  }else{
-    next()
-  }
-}
 
 // review submission route
 router.post('/',isLoggedIn,reviewValidation,async(req,res)=>{
