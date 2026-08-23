@@ -80,7 +80,8 @@ router.delete('/:id',isLoggedIn,isAuthor,async(req,res)=>{
     req.flash('error','Trek not found.')
   }
   req.flash('success', 'Trek deleted successfully.'); 
-  res.redirect('/listing')
+  const redirectUrl = req.query.redirect || '/listing';
+  res.redirect(redirectUrl)
 })
 
 
