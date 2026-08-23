@@ -2,97 +2,96 @@
 
     <div class="flex items-center justify-center px-4 sm:px-6 lg:px-8 py-4 min-h-[80vh]">
 
-        <div class="max-w-xl w-full bg-white border border-slate-200 border-t-4 border-t-blue-500 rounded-2xl shadow-xl shadow-slate-900/5 p-4 sm:p-5 transition-all duration-300">
+        <div class="max-w-xl w-full bg-white border border-slate-200 border-t-4 border-t-blue-500 rounded-2xl shadow-xl shadow-slate-900/5 p-5 sm:p-6 transition-all duration-300">
 
             <!-- Header -->
-            <div class="mb-4 text-center sm:text-left">
+            <div class="mb-5 text-center sm:text-left">
                 <h1 class="text-xl sm:text-2xl font-extrabold uppercase text-slate-900 tracking-tight">
                     Edit <%= listing.title%>
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-500 mt-1">Update the details below to modify this adventure on Trekhive.</p>
             </div>
             
-            <!-- Form: Added novalidate, needs-validation, and group -->
-            <form action="/listing/<%= listing._id %>?_method=PUT" method="POST" novalidate class="needs-validation group flex flex-col gap-3">
+            <!-- Form -->
+            <form action="/listing/<%= listing._id %>?_method=PUT" method="POST" novalidate class="needs-validation group flex flex-col gap-4">
                 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <!-- Title -->
                   <div>
-                      <label for="title" class="block text-[13px] font-bold text-slate-700 mb-1">
+                      <label for="title" class="block text-[13px] font-bold text-slate-700 mb-1.5">
                           Trek Title
                       </label>
                       <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" required
-                          class="peer w-full px-3 py-1.5 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all duration-200 group-[.was-validated]:invalid:border-rose-500 group-[.was-validated]:invalid:focus:ring-rose-500 group-[.was-validated]:valid:border-emerald-500 group-[.was-validated]:valid:focus:ring-emerald-500">
+                          class="peer w-full px-3.5 py-2 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all duration-200 group-[.was-validated]:invalid:border-rose-500 group-[.was-validated]:invalid:focus:ring-rose-500 group-[.was-validated]:valid:border-emerald-500 group-[.was-validated]:valid:focus:ring-emerald-500">
                       <!-- Error Message -->
                       <p class="hidden group-[.was-validated]:peer-invalid:block text-[11px] text-rose-500 mt-1 font-medium">Please provide a valid trek title.</p>
                   </div>
 
                   <!-- Location -->
                   <div>
-                      <label for="location" class="block text-[13px] font-bold text-slate-700 mb-1">
+                      <label for="location" class="block text-[13px] font-bold text-slate-700 mb-1.5">
                           Location
                       </label>
                       <input type="text" name="listing[location]" id="location" value="<%= listing.location %>" required
-                          class="peer w-full px-3 py-1.5 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all duration-200 group-[.was-validated]:invalid:border-rose-500 group-[.was-validated]:invalid:focus:ring-rose-500 group-[.was-validated]:valid:border-emerald-500 group-[.was-validated]:valid:focus:ring-emerald-500">
+                          class="peer w-full px-3.5 py-2 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all duration-200 group-[.was-validated]:invalid:border-rose-500 group-[.was-validated]:invalid:focus:ring-rose-500 group-[.was-validated]:valid:border-emerald-500 group-[.was-validated]:valid:focus:ring-emerald-500">
                       <p class="hidden group-[.was-validated]:peer-invalid:block text-[11px] text-rose-500 mt-1 font-medium">Location cannot be empty.</p>
                   </div>
               </div>
 
                 <!-- Image -->
                 <div>
-                    <label for="image" class="block text-[13px] font-bold text-slate-700 mb-1">
+                    <label for="image" class="block text-[13px] font-bold text-slate-700 mb-1.5">
                         Image URL
                     </label>
                     <input type="url" name="listing[image]" id="image" value="<%= listing.image %>" required
-                        class="peer w-full px-3 py-1.5 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all duration-200 group-[.was-validated]:invalid:border-rose-500 group-[.was-validated]:invalid:focus:ring-rose-500 group-[.was-validated]:valid:border-emerald-500 group-[.was-validated]:valid:focus:ring-emerald-500">
+                        class="peer w-full px-3.5 py-2 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all duration-200 group-[.was-validated]:invalid:border-rose-500 group-[.was-validated]:invalid:focus:ring-rose-500 group-[.was-validated]:valid:border-emerald-500 group-[.was-validated]:valid:focus:ring-emerald-500">
                     <p class="hidden group-[.was-validated]:peer-invalid:block text-[11px] text-rose-500 mt-1 font-medium">Please provide a valid image URL.</p>
-                    <p class="block group-[.was-validated]:peer-invalid:hidden text-[11px] sm:text-xs text-slate-500 mt-1">Paste a high-quality image link of the trek.</p>
                 </div>
 
                 <!-- Estimated Cost -->
                 <div>
-                    <label for="price" class="block text-[13px] font-bold text-slate-700 mb-1">
+                    <label for="price" class="block text-[13px] font-bold text-slate-700 mb-1.5">
                         Estimated Cost
                     </label>   
                     
                     <div class="group/price">
                         <div class="flex rounded-lg border border-slate-300 focus-within:ring-2 focus-within:ring-slate-900 focus-within:border-transparent transition-all duration-200 group-[.was-validated]:group-has-invalid/price:border-rose-500 group-[.was-validated]:group-has-invalid/price:focus-within:ring-rose-500 group-[.was-validated]:group-has-valid/price:border-emerald-500 group-[.was-validated]:group-has-valid/price:focus-within:ring-emerald-500">
                             
-                            <span class="inline-flex items-center px-3 py-1.5 text-sm bg-slate-100 text-slate-600 font-bold border-r border-slate-300 rounded-l-lg transition-colors group-[.was-validated]:group-has-invalid/price:border-rose-500 group-[.was-validated]:group-has-valid/price:border-emerald-500 group-[.was-validated]:group-has-invalid/price:text-rose-600">
+                            <span class="inline-flex items-center px-3.5 py-2 text-sm bg-slate-100 text-slate-600 font-bold border-r border-slate-300 rounded-l-lg transition-colors group-[.was-validated]:group-has-invalid/price:border-rose-500 group-[.was-validated]:group-has-valid/price:border-emerald-500 group-[.was-validated]:group-has-invalid/price:text-rose-600">
                                 ₹
                             </span>
                             
                             <input type="number" name="listing[price]" id="price" value="<%= listing.price %>" min="1" required
-                                class="w-full px-3 py-1.5 rounded-r-lg text-sm text-slate-900 placeholder-slate-400 focus:outline-none">
+                                class="w-full px-3.5 py-2 rounded-r-lg text-sm text-slate-900 placeholder-slate-400 focus:outline-none">
                         </div>
 
                         <!-- Price Error Message -->
                         <p class="hidden group-[.was-validated]:group-has-invalid/price:block text-[11px] text-rose-500 mt-1 font-medium">Please enter a valid cost greater than 0.</p>
                     </div>
 
-                    <div class="mt-1 flex items-start gap-1.5 group-[.was-validated]:group-has-invalid/price:hidden">
+                    <div class="mt-1.5 flex items-start gap-1.5 group-[.was-validated]:group-has-invalid/price:hidden">
                         <svg class="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         <p class="text-[12px] text-slate-500 leading-tight">
-                           Only enter the on-ground trekking cost (like stay, food) for the week. <span class="font-bold text-slate-600">No travel/flight expenses.</span>
+                           On-ground costs only (stay, food). <span class="font-bold text-slate-600">No travel/flight expenses.</span>                        
                         </p>
                     </div>
                 </div>
 
                 <!-- Description -->
                 <div>
-                    <label for="description" class="block text-[13px] font-bold text-slate-700 mb-1">
+                    <label for="description" class="block text-[13px] font-bold text-slate-700 mb-1.5">
                         Description
                     </label>
                     <textarea name="listing[description]" id="description" rows="3" required
                         placeholder="Describe the trek highlights, difficulty, and itinerary..."
-                        class="peer w-full px-3 py-1.5 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all duration-200 group-[.was-validated]:invalid:border-rose-500 group-[.was-validated]:invalid:focus:ring-rose-500 group-[.was-validated]:valid:border-emerald-500 group-[.was-validated]:valid:focus:ring-emerald-500"><%= listing.description %></textarea>
+                        class="peer w-full px-3.5 py-2 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all duration-200 group-[.was-validated]:invalid:border-rose-500 group-[.was-validated]:invalid:focus:ring-rose-500 group-[.was-validated]:valid:border-emerald-500 group-[.was-validated]:valid:focus:ring-emerald-500"><%= listing.description %></textarea>
                     <p class="hidden group-[.was-validated]:peer-invalid:block text-[11px] text-rose-500 mt-1 font-medium">A description of the trek is required.</p>
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-3 mt-1 border-t border-slate-100">
+                <div class="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-4 mt-1 border-t border-slate-100">
                     <a href="/listing/<%= listing._id %>"
                         class="w-full sm:w-auto text-center px-5 py-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors duration-200">
                         Cancel
@@ -107,4 +106,3 @@
             </form>
         </div>
     </div>
-
