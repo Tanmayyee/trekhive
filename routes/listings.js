@@ -26,6 +26,11 @@ router.post('/',isLoggedIn,listingValidation,async(req,res)=>{
   res.redirect(`/listing/${newListing._id}`)
 })
 
+router.get('/mytreks',isLoggedIn,async(req,res)=>{
+  const myTreks= await Listing.find({author:req.user._id});
+  res.render('places/mytreks',{myTreks})
+})
+
 router.get('/:id',async(req,res)=>{
   const listing = await Listing.findById(req.params.id)
   .populate({path:'reviews',populate:{path:'author'}}).populate('author')//nested populate  // Populate the reviews array with actual review documents by using stored Review ObjectIds to fetch and replace them with full review data from the database  
