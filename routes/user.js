@@ -35,6 +35,9 @@ router.post('/register',userValidation,async(req,res,next)=>{
 })
 
 router.get('/login',(req,res)=>{
+    if (req.query.returnTo) {          //If the user clicked "Log in to Review" from a show page, save that exact URL to the session,otherwise storeReturnTo works in post route
+        req.session.returnTo = req.query.returnTo; 
+    }
     res.render('auth/login')
 })
 

@@ -1,6 +1,7 @@
 import {listingValidationSchema,reviewValidationSchema,userValidationSchema} from './utils/validationSchema.js';
 import ExpressError from './utils/ExpressError.js';
 import Listing from './models/trekhiveschema.js'
+import Review from './models/reviewmodel.js'
 
 export const isLoggedIn=(req,res,next)=>{
     if(!req.isAuthenticated()){
@@ -22,6 +23,16 @@ export const isAuthor= async(req,res,next)=>{
     const {id}=req.params;
     const listing = await Listing.findById(id)
     if(!listing.author.equals(req.user._id)){
+        req.flash('error','You do not have permission to do that!')
+        return res.redirect(`/listing/${id}`)
+    }
+    next()
+}
+
+export const isReviewAuthor= async(req,res,next)=>{
+    const {id,reviewId}=req.params;
+    const review= await Review.findById(reviewId)
+    if(!review.author.equals(req.user._id)){
         req.flash('error','You do not have permission to do that!')
         return res.redirect(`/listing/${id}`)
     }

@@ -27,7 +27,8 @@ router.post('/',isLoggedIn,listingValidation,async(req,res)=>{
 })
 
 router.get('/:id',async(req,res)=>{
-  const listing = await Listing.findById(req.params.id).populate('reviews').populate('author') // Populate the reviews array with actual review documents by using stored Review ObjectIds to fetch and replace them with full review data from the database  
+  const listing = await Listing.findById(req.params.id)
+  .populate({path:'reviews',populate:{path:'author'}}).populate('author')//nested populate  // Populate the reviews array with actual review documents by using stored Review ObjectIds to fetch and replace them with full review data from the database  
   // Throws error if someone types a URL for a trek that doesn't exist.
   if(!listing){
     req.flash('error', 'Trek not found.');

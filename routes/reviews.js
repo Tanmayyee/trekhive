@@ -3,7 +3,7 @@ const router=express.Router({mergeParams:true});   // to use params , or id in t
 import Listing from '../models/trekhiveschema.js';
 import Review from '../models/reviewmodel.js';
 import ExpressError from '../utils/ExpressError.js';
-import { isLoggedIn,reviewValidation } from '../middleware.js';
+import { isLoggedIn,reviewValidation,isReviewAuthor } from '../middleware.js';
 
 
 // review submission route
@@ -15,6 +15,7 @@ router.post('/',isLoggedIn,reviewValidation,async(req,res)=>{
       // throw new ExpressError('Trek not found',404)
      }
      const newReview= new Review(req.body.review)      //inside form - review[body] , review[rating]
+     newReview.author= req.user._id
      foundListing.reviews.push(newReview);
      await newReview.save()
      await foundListing.save()
@@ -23,7 +24,7 @@ router.post('/',isLoggedIn,reviewValidation,async(req,res)=>{
     res.redirect(`/listing/${foundListing._id}`)
 })
 
-router.delete('/:reviewId',isLoggedIn,async(req,res)=>{
+router.delete('/:reviewId',isLoggedIn,isReviewAuthor,async(req,res)=>{
   const {id,reviewId}= req.params
   await Listing.findByIdAndUpdate(id,{$pull: {reviews:reviewId}})   //mongo - pull operator - removes elements from an array that match a specified condition.
   await Review.findByIdAndDelete(reviewId)
