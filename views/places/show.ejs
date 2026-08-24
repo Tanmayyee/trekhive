@@ -17,11 +17,13 @@
 
         <div class="lg:col-span-7 space-y-6">
             
+            <% for(let img of listing.image) { %>
             <div class="relative w-full rounded-xl overflow-hidden bg-slate-100 shadow-sm border border-slate-200 aspect-4/3 group">
-                <img src="<%= listing.image %>" alt="<%= listing.title %>"
-                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-[1.03]">
+                <img src="<%= img.url %>" alt="<%= listing.filename %>"
+                    class="absolute inset-0 w-full h-full object-cover ">
                 <div class="absolute inset-0 bg-linear-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
+            <% } %>
 
             <div>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase mb-2">
