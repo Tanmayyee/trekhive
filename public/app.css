@@ -639,8 +639,20 @@
   .w-px {
     width: 1px;
   }
+  .max-w-1 {
+    max-width: var(--spacing);
+  }
   .max-w-2xl {
     max-width: var(--container-2xl);
+  }
+  .max-w-3 {
+    max-width: calc(var(--spacing) * 3);
+  }
+  .max-w-4 {
+    max-width: calc(var(--spacing) * 4);
+  }
+  .max-w-5 {
+    max-width: calc(var(--spacing) * 5);
   }
   .max-w-5xl {
     max-width: var(--container-5xl);
@@ -654,8 +666,20 @@
   .max-w-24 {
     max-width: calc(var(--spacing) * 24);
   }
+  .max-w-25 {
+    max-width: calc(var(--spacing) * 25);
+  }
+  .max-w-28 {
+    max-width: calc(var(--spacing) * 28);
+  }
   .max-w-32 {
     max-width: calc(var(--spacing) * 32);
+  }
+  .max-w-40 {
+    max-width: calc(var(--spacing) * 40);
+  }
+  .max-w-50 {
+    max-width: calc(var(--spacing) * 50);
   }
   .max-w-\[24rem\] {
     max-width: 24rem;
@@ -1045,6 +1069,9 @@
   }
   .bg-slate-200 {
     background-color: var(--color-slate-200);
+  }
+  .bg-slate-400 {
+    background-color: var(--color-slate-400);
   }
   .bg-slate-800 {
     background-color: var(--color-slate-800);

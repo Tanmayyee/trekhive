@@ -1,3 +1,11 @@
+if (process.env.NODE_ENV !== "production") {
+    const dotenv = await import('dotenv');
+    dotenv.config();
+}
+
+console.log(process.env.SECRET);
+console.log(process.env.API_KEY);
+
 import express from 'express';
 import path from 'path';
 const app = express();
