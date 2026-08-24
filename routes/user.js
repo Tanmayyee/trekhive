@@ -6,16 +6,16 @@ import ExpressError from '../utils/ExpressError.js';
 import { storeReturnTo,userValidation } from '../middleware.js';
 import { createNewUser, login, logout, renderLogin, renderRegisterForm } from '../controllers/usercontroller.js';
 
-router.get('/register', renderRegisterForm)
+router.route('/register')
+    .get(renderRegisterForm)
+    .post(userValidation,createNewUser)
 
 // Joi validates the incoming user data before it is saved to the database. or joi handles invalid input.
 // try...catch handles errors that occur during user registration, such as duplicate username/email.
 
-router.post('/register',userValidation,createNewUser)
-
-router.get('/login',renderLogin)
-
-router.post('/login',storeReturnTo, passport.authenticate('local', {failureFlash:true, failureRedirect:'/login'} ),login)
+router.route('/login')
+    .get(renderLogin)
+    .post(storeReturnTo, passport.authenticate('local', {failureFlash:true, failureRedirect:'/login'} ),login)
 
 router.get('/logout', logout)
 
