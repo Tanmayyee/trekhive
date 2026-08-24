@@ -5,7 +5,8 @@ const router=express.Router();
 import { isLoggedIn, listingValidation ,isAuthor} from '../middleware.js';
 import {index, renderNewForm, createTrek, myTreks, renderShowPage, renderEditForm, updateTrek, deleteTrek} from '../controllers/listingcontroller.js'
 import multer from 'multer'
-const upload = multer({ dest: 'uploads/' })
+import { storage } from '../cloudinary/index.js';
+const upload = multer({ storage })
 
 router.route('/')
     .get(index)
