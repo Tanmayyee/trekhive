@@ -5,24 +5,20 @@ const router=express.Router();
 import { isLoggedIn, listingValidation ,isAuthor} from '../middleware.js';
 import {index, renderNewForm, createTrek, myTreks, renderShowPage, renderEditForm, updateTrek, deleteTrek} from '../controllers/listingcontroller.js'
 
-
-router.get('/',index)
+router.route('/')
+    .get(index)
+    .post(isLoggedIn,listingValidation, createTrek)
+    // listingValidation middleware checks the form data before creating a new listing.
 
 router.get('/new',isLoggedIn,renderNewForm)
 
-// listingValidation middleware checks the form data before creating a new listing.
-router.post('/',isLoggedIn,listingValidation, createTrek)
-
 router.get('/mytreks',isLoggedIn, myTreks)
 
-router.get('/:id', renderShowPage)
+router.route('/:id')
+    .get(renderShowPage)
+    .put(isLoggedIn,isAuthor,listingValidation,updateTrek)
+    .delete(isLoggedIn,isAuthor,deleteTrek)
 
 router.get('/:id/edit',isLoggedIn,isAuthor, renderEditForm)
-
-// listingValidation middleware checks the form data before updating.
-router.put('/:id',isLoggedIn,isAuthor,listingValidation,updateTrek)
-
-router.delete('/:id',isLoggedIn,isAuthor,deleteTrek)
-
 
 export default router;
