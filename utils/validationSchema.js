@@ -12,7 +12,7 @@ export const listingValidationSchema=joi.object({
 
 export const reviewValidationSchema=joi.object({
     review:joi.object({
-        body:joi.string().required(),
+        body:joi.string().max(600).required(),
         rating:joi.number().required().min(1).max(5)
     }).required()
 })
