@@ -102,6 +102,7 @@
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --blur-sm: 8px;
     --blur-md: 12px;
+    --blur-xl: 24px;
     --blur-2xl: 40px;
     --aspect-video: 16 / 9;
     --default-transition-duration: 150ms;
@@ -390,6 +391,12 @@
   .z-50 {
     z-index: 50;
   }
+  .z-100 {
+    z-index: 100;
+  }
+  .z-110 {
+    z-index: 110;
+  }
   .z-9999 {
     z-index: 9999;
   }
@@ -561,8 +568,14 @@
   .aspect-4\/3 {
     aspect-ratio: 4/3;
   }
+  .aspect-16\/10 {
+    aspect-ratio: 16/10;
+  }
   .aspect-\[4\/3\] {
     aspect-ratio: 4/3;
+  }
+  .aspect-\[16\/10\] {
+    aspect-ratio: 16/10;
   }
   .aspect-video {
     aspect-ratio: var(--aspect-video);
@@ -632,6 +645,9 @@
   }
   .h-\[350px\] {
     height: 350px;
+  }
+  .h-\[400px\] {
+    height: 400px;
   }
   .h-full {
     height: 100%;
@@ -1825,6 +1841,9 @@
   .opacity-0 {
     opacity: 0%;
   }
+  .opacity-40 {
+    opacity: 40%;
+  }
   .opacity-60 {
     opacity: 60%;
   }
@@ -1903,6 +1922,10 @@
   }
   .blur-2xl {
     --tw-blur: blur(var(--blur-2xl));
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+  }
+  .blur-xl {
+    --tw-blur: blur(var(--blur-xl));
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
   .drop-shadow-lg {
@@ -2236,6 +2259,14 @@
         background-color: color-mix(in oklab, var(--color-white) 20%, transparent);
       }
     }
+    .hover\:bg-white\/40:hover {
+      background-color: color-mix(in srgb, #fff 40%, transparent);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-white\/40:hover {
+        background-color: color-mix(in oklab, var(--color-white) 40%, transparent);
+      }
+    }
     .hover\:bg-white\/80:hover {
       background-color: color-mix(in srgb, #fff 80%, transparent);
     }
@@ -2458,6 +2489,9 @@
     .sm\:aspect-4\/5 {
       aspect-ratio: 4/5;
     }
+    .sm\:aspect-video {
+      aspect-ratio: var(--aspect-video);
+    }
     .sm\:h-3 {
       height: calc(var(--spacing) * 3);
     }
@@ -2475,6 +2509,9 @@
     }
     .sm\:h-\[450px\] {
       height: 450px;
+    }
+    .sm\:h-\[500px\] {
+      height: 500px;
     }
     .sm\:w-3 {
       width: calc(var(--spacing) * 3);
@@ -2734,6 +2771,9 @@
     }
     .lg\:h-\[500px\] {
       height: 500px;
+    }
+    .lg\:h-\[600px\] {
+      height: 600px;
     }
     .lg\:grid-cols-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));

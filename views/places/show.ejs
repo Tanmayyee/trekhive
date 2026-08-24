@@ -1,442 +1,481 @@
 <% layout('/layout/boilerplate') %>
-<link rel="stylesheet" href="/star.css">
+    <link rel="stylesheet" href="/star.css">
 
-<!-- CHANGED: max-w-5xl to max-w-7xl for better screen utilization -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
-    <a href="/listing"
-        class="group inline-flex items-center text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
-        <svg class="w-4 h-4 mr-1.5 transition-transform duration-300 group-hover:-translate-x-1" fill="none"
-            stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
-            </path>
-        </svg>
-        Explore all places
-    </a>
+        <a href="/listing"
+            class="group inline-flex items-center text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+            <svg class="w-4 h-4 mr-1.5 transition-transform duration-300 group-hover:-translate-x-1" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+                </path>
+            </svg>
+            Explore all places
+        </a>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
 
-        <!-- CHANGED: col-span-7 to col-span-8 to give main content more breathing room -->
-        <div class="lg:col-span-8 space-y-6">
-            
-            <!-- CHANGED: aspect-[4/3] to aspect-video (16:9) to reduce vertical height and scrolling -->
-            <div class="relative w-full rounded-xl overflow-hidden bg-slate-200 shadow-sm border border-slate-200 aspect-video group" id="image-carousel">
-                
-                <!-- Slides Track -->
-                <div id="carousel-track" class="flex w-full h-full transition-transform duration-300 ease-out will-change-transform" style="transform: translate3d(0%, 0px, 0px);">
-                    <% listing.image.forEach((img, index) => { %>
-                    <div class="relative w-full h-full flex-[0_0_100%] overflow-hidden">
-                        <img src="<%= img.url %>" alt="<%= listing.title %> - image <%= index + 1 %>"
-                            class="absolute inset-0 w-full h-full object-cover cursor-pointer hover:scale-[1.02] transition-transform duration-500 ease-out"
-                            onclick="openLightbox(<%= index %>)"
-                            title="Click to expand">
-                    </div>
-                    <% }) %>
-                </div>
+            <div class="lg:col-span-8 space-y-6">
 
-                <!-- Navigation Buttons -->
-                <% if (listing.image && listing.image.length > 1) { %>
-                <button onclick="prevSlide()" aria-label="Previous slide"
-                    class="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 text-white p-2.5 rounded-full backdrop-blur-md transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/50 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
-                <button onclick="nextSlide()" aria-label="Next slide"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 text-white p-2.5 rounded-full backdrop-blur-md transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/50 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
+                <!-- Image Carousel -->
+                <div class="relative w-full rounded-xl overflow-hidden bg-slate-900 shadow-sm border border-slate-200 aspect-16/10 sm:aspect-video group"
+                    id="image-carousel">
 
-                <!-- Indicators -->
-                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2 bg-black/30 px-3 py-2 rounded-full backdrop-blur-md pointer-events-auto">
-                    <% listing.image.forEach((_, index) => { %>
-                    <button onclick="goToSlide(<%= index %>)"
-                        class="carousel-dot h-1.5 rounded-full transition-all duration-300 ease-out cursor-pointer focus:outline-none <%= index === 0 ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/90 w-1.5' %>"
-                        aria-label="Go to slide <%= index + 1 %>"></button>
-                    <% }) %>
-                </div>
-                <% } %>
-            </div>
-
-            <!-- Title & Info -->
-            <div>
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase mb-2">
-                    <%= listing.title %>
-                </h1>
-                <div class="flex items-center text-slate-600 font-medium text-sm">
-                    <svg class="w-4 h-4 mr-1.5 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z">
-                        </path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <%= listing.location %>
-                </div>
-                <div class="mt-2.5 flex items-center text-sm">
-                    <svg class="w-4 h-4 mr-1.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    <span class="text-slate-500 mr-1.5">Listed by</span>
-                    <span class="font-semibold text-slate-900"><%= listing.author.username %></span>
-                </div>
-            </div>
-
-            <div class="text-slate-600 leading-relaxed text-sm sm:text-base">
-                <p class="whitespace-pre-line"><%= listing.description %></p>
-            </div>
-
-        </div>
-
-        <!-- CHANGED: col-span-5 to col-span-4 AND added sticky positioning so it follows you down -->
-        <div class="lg:col-span-4 space-y-6 lg:sticky lg:top-6 lg:self-start">
-            
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
-                
-                <div class="mb-5">
-                    <div class="flex items-baseline gap-2 mb-2">
-                        <span class="text-2xl font-bold text-slate-900">₹<%= listing.price || "5,000" %></span>
-                        <span class="text-sm font-medium text-slate-500">avg / week</span>
+                    <div id="carousel-track"
+                        class="flex w-full h-full transition-transform duration-300 ease-out will-change-transform"
+                        style="transform: translate3d(0%, 0px, 0px);">
+                        <% listing.image.forEach((img, index)=> { %>
+                            <div
+                                class="relative w-full h-full flex-[0_0_100%] overflow-hidden flex items-center justify-center">
+                                <img src="<%= img.url %>"
+                                    class="absolute inset-0 w-full h-full object-cover blur-xl opacity-40 scale-110 pointer-events-none"
+                                    alt="">
+                                <img src="<%= img.url %>" alt="<%= listing.title %> - image <%= index + 1 %>"
+                                    class="relative w-full h-full cursor-pointer hover:scale-[1.02] transition-transform duration-500 ease-out z-10"
+                                    onload="this.classList.add(this.naturalWidth > this.naturalHeight ? 'object-cover' : 'object-contain')"
+                                    onclick="openLightbox(<%= index %>)">
+                            </div>
+                            <% }) %>
                     </div>
 
-                    <div class="flex items-start gap-2 p-2.5 bg-slate-50 rounded-lg border border-slate-100 text-xs sm:text-sm mt-3">
-                        <svg class="w-4 h-4 shrink-0 text-amber-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <p class="text-slate-600 leading-relaxed">
-                            <span class="font-semibold text-slate-800">Note:</span> 
-                            Covers average weekly stay and food. <span class="font-semibold text-slate-700">Travel and tickets are excluded.</span>
-                        </p>
-                    </div>
-                </div>
-                
-                <% if(currentUser && listing.author.equals(currentUser._id)) { %>
-                <div class="flex flex-col sm:flex-row gap-2.5 pt-5 border-t border-slate-100">
-                    <a href="/listing/<%= listing._id %>/edit"
-                        class="flex-1 inline-flex items-center justify-center px-4 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-slate-800 focus:ring-4 focus:ring-slate-200 focus:outline-none transition-all duration-200">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                        </svg>
-                        Edit
-                    </a>
-
-                    <form action="/listing/<%= listing._id %>?_method=DELETE" method="POST" class="flex-1 m-0 flex">
-                        <button type="submit"
-                            class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-white text-rose-600 border border-rose-200 text-sm font-semibold rounded-lg shadow-sm hover:bg-rose-50 hover:border-rose-300 focus:ring-4 focus:ring-rose-100 focus:outline-none transition-all duration-200 cursor-pointer">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    <% if (listing.image && listing.image.length> 1) { %>
+                        <button onclick="prevSlide()" aria-label="Previous slide"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-2.5 rounded-full backdrop-blur-md transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/50 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M15 19l-7-7 7-7"></path>
                             </svg>
-                            Delete
                         </button>
-                    </form>
-                </div>
-                <% } %>
-            </div>
-            
-            <% if(currentUser) { %>
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
-                    <h2 class="text-lg font-bold text-slate-900 mb-4">Share Your Experience</h2>
+                        <button onclick="nextSlide()" aria-label="Next slide"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-2.5 rounded-full backdrop-blur-md transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/50 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
 
-                    <form action="/listing/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation group">
-                        <div class="mb-3">
-                            <fieldset class="starability-basic m-0" onclick="this.className='starability-growRotate m-0'">
-                                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" aria-label="No rating." />
-                                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-                                <label for="first-rate1" title="Terrible">1 star</label>
-                                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-                                <label for="first-rate2" title="Not good">2 stars</label>
-                                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-                                <label for="first-rate3" title="Average">3 stars</label>
-                                <input type="radio" id="first-rate4" name="review[rating]" value="4" checked />
-                                <label for="first-rate4" title="Very good">4 stars</label>
-                                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-                                <label for="first-rate5" title="Amazing">5 stars</label>
-                            </fieldset>
+                        <div
+                            class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2 bg-black/50 px-3 py-2 rounded-full backdrop-blur-md pointer-events-auto">
+                            <% listing.image.forEach((_, index)=> { %>
+                                <button onclick="goToSlide(<%= index %>)"
+                                    class="carousel-dot h-1.5 rounded-full transition-all duration-300 ease-out cursor-pointer focus:outline-none <%= index === 0 ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/90 w-1.5' %>"
+                                    aria-label="Go to slide <%= index + 1 %>"></button>
+                                <% }) %>
                         </div>
-                
-                        <div class="mb-4">
-                            <label for="reviewbody" id="bodylabel" class="block text-sm font-semibold text-slate-700 mb-1.5">Your Experience</label>
-                            <textarea name="review[body]" id="reviewbody" cols="40" rows="3"
-                                placeholder="What did you do? Any tips on food or stay?"
-                                class="peer w-full rounded-lg border border-slate-200 p-3 text-sm text-slate-700 focus:ring-4 focus:ring-slate-100 focus:border-slate-400 focus:outline-none transition-all duration-200 resize-y group-[.was-validated]:invalid:border-rose-500 group-[.was-validated]:valid:border-emerald-500"
-                                maxlength="600"
-                                required></textarea>
-                            <p class="hidden group-[.was-validated]:peer-invalid:block text-[11px] text-rose-500 mt-1 font-medium">
-                                Please write about your experience before submitting.
+                        <% } %>
+                </div>
+
+                <!-- Title & Info -->
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase mb-2">
+                        <%= listing.title %>
+                    </h1>
+                    <div class="flex items-center text-slate-600 font-medium text-sm">
+                        <svg class="w-4 h-4 mr-1.5 text-rose-500 shrink-0" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <%= listing.location %>
+                    </div>
+                    <div class="mt-2.5 flex items-center text-sm">
+                        <svg class="w-4 h-4 mr-1.5 text-slate-400 shrink-0" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        <span class="text-slate-500 mr-1.5">Listed by</span>
+                        <span class="font-semibold text-slate-900">
+                            <%= listing.author.username %>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="text-slate-600 leading-relaxed text-sm sm:text-base">
+                    <p class="whitespace-pre-line wrap-break-word">
+                        <%= listing.description %>
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Pricing & Actions -->
+            <div class="lg:col-span-4 space-y-6 lg:sticky lg:top-6 lg:self-start">
+
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
+
+                    <div class="mb-5">
+                        <div class="flex items-baseline gap-2 mb-2">
+                            <span class="text-2xl font-bold text-slate-900">₹<%= listing.price || "5,000" %></span>
+                            <span class="text-sm font-medium text-slate-500">avg / week</span>
+                        </div>
+
+                        <div
+                            class="flex items-start gap-2 p-2.5 bg-slate-50 rounded-lg border border-slate-100 text-xs sm:text-sm mt-3">
+                            <svg class="w-4 h-4 shrink-0 text-amber-500 mt-0.5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p class="text-slate-600 leading-relaxed">
+                                <span class="font-semibold text-slate-800">Note:</span>
+                                Covers average weekly stay and food. <span class="font-semibold text-slate-700">Travel
+                                    and tickets are excluded.</span>
                             </p>
                         </div>
-                
-                        <button type="submit"
-                            class="w-full inline-flex items-center justify-center px-4 py-2.5 cursor-pointer bg-slate-900 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-slate-800 focus:ring-4 focus:ring-slate-200 focus:outline-none transition-all duration-200">
-                            Share Experience
-                        </button>
-                    </form>
-                </div>
-            <% } else { %>
-                <div class="bg-slate-50 border border-slate-200 border-dashed rounded-xl p-8 text-center flex flex-col items-center justify-center">
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm border border-slate-200 mb-4">
-                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-base font-semibold text-slate-900">Want to share your experience?</h3>
-                <p class="text-sm text-slate-500 mt-1 mb-5 max-w-xs mx-auto">
-                    Log in to leave a review and help other travelers make great choices.
-                </p>
+                    </div>
 
-                <a href="/login?returnTo=/listing/<%= listing._id %>"  
-                    class="inline-flex items-center justify-center px-5 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-slate-800 focus:ring-4 focus:ring-slate-200 focus:outline-none transition-all duration-200">
-                    Log in to Review
-                </a>
+                    <% if(currentUser && listing.author.equals(currentUser._id)) { %>
+                        <div class="flex flex-col sm:flex-row gap-2.5 pt-5 border-t border-slate-100">
+                            <a href="/listing/<%= listing._id %>/edit"
+                                class="flex-1 inline-flex items-center justify-center px-4 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-slate-800 focus:ring-4 focus:ring-slate-200 focus:outline-none transition-all duration-200">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                    </path>
+                                </svg>
+                                Edit
+                            </a>
+
+                            <form action="/listing/<%= listing._id %>?_method=DELETE" method="POST"
+                                class="flex-1 m-0 flex">
+                                <button type="submit"
+                                    class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-white text-rose-600 border border-rose-200 text-sm font-semibold rounded-lg shadow-sm hover:bg-rose-50 hover:border-rose-300 focus:ring-4 focus:ring-rose-100 focus:outline-none transition-all duration-200 cursor-pointer">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                        </path>
+                                    </svg>
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                        <% } %>
+                </div>
+
+                <!-- Add Review Form -->
+                <% if(currentUser) { %>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
+                        <h2 class="text-lg font-bold text-slate-900 mb-4">Share Your Experience</h2>
+
+                        <form action="/listing/<%= listing._id %>/reviews" method="POST" novalidate
+                            class="needs-validation group">
+                            <div class="mb-3">
+                                <fieldset class="starability-basic m-0"
+                                    onclick="this.className='starability-growRotate m-0'">
+                                    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]"
+                                        value="1" aria-label="No rating." />
+                                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                                    <label for="first-rate1" title="Terrible">1 star</label>
+                                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                                    <label for="first-rate2" title="Not good">2 stars</label>
+                                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                                    <label for="first-rate3" title="Average">3 stars</label>
+                                    <input type="radio" id="first-rate4" name="review[rating]" value="4" checked />
+                                    <label for="first-rate4" title="Very good">4 stars</label>
+                                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                                    <label for="first-rate5" title="Amazing">5 stars</label>
+                                </fieldset>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="reviewbody" id="bodylabel"
+                                    class="block text-sm font-semibold text-slate-700 mb-1.5">Your Experience</label>
+                                <textarea name="review[body]" id="reviewbody" cols="40" rows="3"
+                                    placeholder="What did you do? Any tips on food or stay?"
+                                    class="peer w-full rounded-lg border border-slate-200 p-3 text-sm text-slate-700 focus:ring-4 focus:ring-slate-100 focus:border-slate-400 focus:outline-none transition-all duration-200 resize-y group-[.was-validated]:invalid:border-rose-500 group-[.was-validated]:valid:border-emerald-500"
+                                    maxlength="600" required></textarea>
+                                <p
+                                    class="hidden group-[.was-validated]:peer-invalid:block text-[11px] text-rose-500 mt-1 font-medium">
+                                    Please write about your experience before submitting.
+                                </p>
+                            </div>
+
+                            <button type="submit"
+                                class="w-full inline-flex items-center justify-center px-4 py-2.5 cursor-pointer bg-slate-900 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-slate-800 focus:ring-4 focus:ring-slate-200 focus:outline-none transition-all duration-200">
+                                Share Experience
+                            </button>
+                        </form>
+                    </div>
+                    <% } else { %>
+                        <div
+                            class="bg-slate-50 border border-slate-200 border-dashed rounded-xl p-8 text-center flex flex-col items-center justify-center">
+                            <div
+                                class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm border border-slate-200 mb-4">
+                                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-base font-semibold text-slate-900">Want to share your experience?</h3>
+                            <p class="text-sm text-slate-500 mt-1 mb-5 max-w-xs mx-auto">
+                                Log in to leave a review and help other travelers make great choices.
+                            </p>
+
+                            <a href="/login?returnTo=/listing/<%= listing._id %>"
+                                class="inline-flex items-center justify-center px-5 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-slate-800 focus:ring-4 focus:ring-slate-200 focus:outline-none transition-all duration-200">
+                                Log in to Review
+                            </a>
+                        </div>
+                        <% } %>
+
             </div>
-            <% } %>
+        </div>
 
+        <!-- Reviews Section -->
+        <div class="pt-6 border-t border-slate-200">
+            <h2 class="text-xl font-bold text-slate-900 mb-5">
+                Traveler Experiences <% if(listing.reviews && listing.reviews.length> 0) { %>(<%= listing.reviews.length
+                        %>)<% } %>
+            </h2>
+
+            <% if(listing.reviews && listing.reviews.length> 0) { %>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="reviews-grid">
+                    <% listing.reviews.forEach(function(review, index) { %>
+                        <div
+                            class="review-card bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-300 flex flex-col h-full <%= index >= 6 ? 'hidden' : '' %>">
+
+                            <div class="flex items-start gap-3 mb-3">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold uppercase shrink-0 mt-0.5">
+                                    <%= review.author.username.charAt(0) %>
+                                </div>
+
+                                <div>
+                                    <p class="text-sm font-bold text-slate-900 leading-none mb-1.5">
+                                        @<%= review.author.username %>
+                                    </p>
+                                    <div class="h-4 flex items-center">
+                                        <p class="starability-result scale-[0.65] origin-left m-0"
+                                            data-rating="<%= review.rating %>">
+                                            Rated: <%= review.rating %> stars
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p
+                                class="text-slate-600 text-sm leading-relaxed grow wrap-break-word break-all max-h-40 overflow-y-auto pr-2">
+                                <%= review.body %>
+                            </p>
+
+                            <% if(currentUser && review.author.equals(currentUser._id)) { %>
+                                <form class="mt-4 flex"
+                                    action="/listing/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                    method="POST">
+                                    <button type="submit"
+                                        class="inline-flex items-center justify-center px-3 py-1.5 bg-white text-rose-600 border border-rose-200 text-xs font-semibold rounded-lg shadow-sm hover:bg-rose-50 hover:border-rose-300 focus:ring-4 focus:ring-rose-100 focus:outline-none transition-all duration-200 cursor-pointer">
+                                        <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                            </path>
+                                        </svg>
+                                        Remove
+                                    </button>
+                                </form>
+                                <% } %>
+                        </div>
+                        <% }) %>
+                </div>
+
+                <% if(listing.reviews.length> 6) { %>
+                    <div class="mt-10 flex justify-center" id="load-more-container">
+                        <button onclick="loadMoreReviews()"
+                            class="group relative inline-flex items-center justify-center px-8 py-3 bg-white border-2 border-slate-200 text-slate-700 text-sm font-bold rounded-full shadow-sm hover:border-slate-900 hover:text-slate-900 hover:shadow-md hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-slate-200 active:translate-y-0 transition-all duration-300 cursor-pointer overflow-hidden">
+
+                            <svg class="w-4.5 h-4.5 mr-2 transition-transform duration-300 ease-out group-hover:translate-y-1"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+
+                            <span>Load More Reviews</span>
+                        </button>
+                    </div>
+                    <% } %>
+
+                        <% } else { %>
+                            <div
+                                class="bg-slate-50 border border-slate-200 border-dashed rounded-xl p-8 text-center flex flex-col items-center justify-center">
+                                <svg class="w-10 h-10 text-slate-400 mb-3" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                                    </path>
+                                </svg>
+                                <h3 class="text-sm font-semibold text-slate-900">No experiences yet</h3>
+                                <p class="text-sm text-slate-500 mt-1">Be the first to share your trip!</p>
+                            </div>
+                            <% } %>
         </div>
     </div>
 
-    <!-- Experiences List -->
- <!-- Experiences List -->
-    <div class="pt-6 border-t border-slate-200">
-        <h2 class="text-xl font-bold text-slate-900 mb-5">
-            Traveler Experiences <% if(listing.reviews && listing.reviews.length > 0) { %>(<%= listing.reviews.length %>)<% } %>
-        </h2>
-        
-        <% if(listing.reviews && listing.reviews.length > 0) { %>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="reviews-grid">
-                <% listing.reviews.forEach(function(review, index) { %>
-                    <!-- Added 'review-card' class and conditional 'hidden' class for items after the 6th -->
-                    <div class="review-card bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-300 flex flex-col h-full <%= index >= 6 ? 'hidden' : '' %>">
-            
-                        <div class="flex items-start gap-3 mb-3">
-                            <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold uppercase shrink-0 mt-0.5">
-                                <%= review.author.username.charAt(0) %>
-                            </div>
-                            
-                            <div>
-                                <p class="text-sm font-bold text-slate-900 leading-none mb-1.5">
-                                    @<%= review.author.username %>
-                                </p>
-                                <div class="h-4 flex items-center">
-                                    <p class="starability-result scale-[0.65] origin-left m-0" data-rating="<%= review.rating %>">
-                                        Rated: <%= review.rating %> stars
-                                    </p>
-                                </div>
-                            </div>
-                        </div> 
-                        <p class="text-slate-600 text-sm leading-relaxed grow break-words break-all max-h-40 overflow-y-auto pr-2">
-                            <%= review.body %>
-                        </p>
+    <!-- Lightbox -->
+    <div id="lightbox"
+        class="fixed inset-0 z-100 hidden bg-black/95 flex-col items-center justify-center opacity-0 transition-opacity duration-300 backdrop-blur-sm"
+        onclick="closeLightbox(event)">
 
-                        <% if(currentUser && review.author.equals(currentUser._id)) { %>
-                        <form class="mt-4 flex" action="/listing/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                            <button type="submit" class="inline-flex items-center justify-center px-3 py-1.5 bg-white text-rose-600 border border-rose-200 text-xs font-semibold rounded-lg shadow-sm hover:bg-rose-50 hover:border-rose-300 focus:ring-4 focus:ring-rose-100 focus:outline-none transition-all duration-200 cursor-pointer">
-                                <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                                Remove
-                            </button>
-                        </form>
-                        <% } %>
-                    </div>
-                <% }) %>
-            </div>
+        <button onclick="closeLightbox(event)"
+            class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white/70 hover:text-white p-2 z-110 focus:outline-none transition-colors cursor-pointer">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
 
-            <!-- Load More Button -->
-<% if(listing.reviews.length > 6) { %>
-                <div class="mt-10 flex justify-center" id="load-more-container">
-                    <button onclick="loadMoreReviews()" 
-                            class="group relative inline-flex items-center justify-center px-8 py-3 bg-white border-2 border-slate-200 text-slate-700 text-sm font-bold rounded-full shadow-sm hover:border-slate-900 hover:text-slate-900 hover:shadow-md hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-slate-200 active:translate-y-0 transition-all duration-300 cursor-pointer overflow-hidden">
-                        
-                        <!-- Animated Chevron -->
-                        <svg class="w-4.5 h-4.5 mr-2 transition-transform duration-300 ease-out group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                        
-                        <span>Load More Reviews</span>
-                    </button>
-                </div>
+        <% if (listing.image && listing.image.length> 1) { %>
+            <button onclick="prevLightboxSlide(event)"
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-3 z-110 focus:outline-none transition-colors cursor-pointer">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            <button onclick="nextLightboxSlide(event)"
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-3 z-110 focus:outline-none transition-colors cursor-pointer">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
             <% } %>
 
-        <% } else { %>
-            <div class="bg-slate-50 border border-slate-200 border-dashed rounded-xl p-8 text-center flex flex-col items-center justify-center">
-                <svg class="w-10 h-10 text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                </svg>
-                <h3 class="text-sm font-semibold text-slate-900">No experiences yet</h3>
-                <p class="text-sm text-slate-500 mt-1">Be the first to share your trip!</p>
-            </div>
-        <% } %>
+                <div class="relative w-full h-full p-4 sm:p-12 flex items-center justify-center pointer-events-none">
+                    <img id="lightbox-img" src="" alt="Expanded View"
+                        class="max-w-full max-h-full object-contain rounded-md shadow-2xl transition-transform duration-300 scale-95 pointer-events-auto"
+                        onclick="event.stopPropagation()">
+                </div>
     </div>
-</div>
-</div>
 
-<!-- ============================================== -->
-<!-- FULLSCREEN LIGHTBOX OVERLAY (UNCHANGED) -->
-<!-- ============================================== -->
-<div id="lightbox" class="fixed inset-0 z-[100] hidden bg-black/95 flex-col items-center justify-center opacity-0 transition-opacity duration-300 backdrop-blur-sm" onclick="closeLightbox(event)">
-    
-    <!-- Close Button -->
-    <button onclick="closeLightbox(event)" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white/70 hover:text-white p-2 z-[110] focus:outline-none transition-colors cursor-pointer">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-    </button>
+    <script>
+        // --- Carousel Logic ---
+        let currentSlide = 0;
+        const totalSlides = <%= listing.image.length %>;
+        const track = document.getElementById('carousel-track');
 
-    <!-- Navigation inside Lightbox -->
-    <% if (listing.image && listing.image.length > 1) { %>
-    <button onclick="prevLightboxSlide(event)" class="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-3 z-[110] focus:outline-none transition-colors cursor-pointer">
-         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-    </button>
-    <button onclick="nextLightboxSlide(event)" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-3 z-[110] focus:outline-none transition-colors cursor-pointer">
-         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-    </button>
-    <% } %>
+        function updateCarousel() {
+            if (!track) return;
+            const dots = document.querySelectorAll('.carousel-dot');
+            track.style.transform = `translate3d(-${currentSlide * 100}%, 0px, 0px)`;
 
-    <!-- The Image itself -->
-    <div class="relative w-full h-full p-4 sm:p-12 flex items-center justify-center pointer-events-none">
-        <img id="lightbox-img" src="" alt="Expanded View" 
-             class="max-w-full max-h-full object-contain rounded-md shadow-2xl transition-transform duration-300 scale-95 pointer-events-auto"
-             onclick="event.stopPropagation()">
-    </div>
-</div>
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.remove('bg-white/50', 'w-1.5');
+                    dot.classList.add('bg-white', 'w-6');
+                } else {
+                    dot.classList.remove('bg-white', 'w-6');
+                    dot.classList.add('bg-white/50', 'w-1.5');
+                }
+            });
+        }
 
-<!-- ============================================== -->
-<!-- SCRIPTS (Carousel + Lightbox - UNCHANGED) -->
-<!-- ============================================== -->
-<script>
-    // --- 1. CAROUSEL LOGIC ---
-    let currentSlide = 0;
-    const totalSlides = <%= listing.image.length %>;
-    const track = document.getElementById('carousel-track');
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
 
-    function updateCarousel() {
-        if (!track) return;
-        const dots = document.querySelectorAll('.carousel-dot');
-        track.style.transform = `translate3d(-${currentSlide * 100}%, 0px, 0px)`;
-        
-        dots.forEach((dot, index) => {
-            if (index === currentSlide) {
-                dot.classList.remove('bg-white/50', 'w-1.5');
-                dot.classList.add('bg-white', 'w-6');
-            } else {
-                dot.classList.remove('bg-white', 'w-6');
-                dot.classList.add('bg-white/50', 'w-1.5');
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // --- Lightbox Logic ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        const imageUrls = <% - JSON.stringify(listing.image.map(img => img.url)) %>;
+        let currentLightboxIndex = 0;
+
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            lightboxImg.src = imageUrls[currentLightboxIndex];
+
+            lightbox.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+                lightboxImg.classList.remove('scale-95');
+                lightboxImg.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeLightbox(e) {
+            if (e) e.stopPropagation();
+
+            lightbox.classList.add('opacity-0');
+            lightboxImg.classList.remove('scale-100');
+            lightboxImg.classList.add('scale-95');
+            document.body.style.overflow = '';
+
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightboxImg.src = '';
+            }, 300);
+        }
+
+        function prevLightboxSlide(e) {
+            if (e) e.stopPropagation();
+            currentLightboxIndex = (currentLightboxIndex - 1 + imageUrls.length) % imageUrls.length;
+            lightboxImg.src = imageUrls[currentLightboxIndex];
+        }
+
+        function nextLightboxSlide(e) {
+            if (e) e.stopPropagation();
+            currentLightboxIndex = (currentLightboxIndex + 1) % imageUrls.length;
+            lightboxImg.src = imageUrls[currentLightboxIndex];
+        }
+
+        // --- Keyboard Navigation ---
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight' && totalSlides > 1) nextLightboxSlide();
+                if (e.key === 'ArrowLeft' && totalSlides > 1) prevLightboxSlide();
+            }
+            else {
+                if (e.key === 'ArrowRight' && totalSlides > 1) nextSlide();
+                if (e.key === 'ArrowLeft' && totalSlides > 1) prevSlide();
             }
         });
-    }
 
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateCarousel();
-    }
+        // --- Load More Reviews Logic ---
+        function loadMoreReviews() {
+            const hiddenReviews = document.querySelectorAll('.review-card.hidden');
+            const itemsToShow = 6;
 
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        updateCarousel();
-    }
+            for (let i = 0; i < itemsToShow && i < hiddenReviews.length; i++) {
+                const card = hiddenReviews[i];
 
-    function goToSlide(index) {
-        currentSlide = index;
-        updateCarousel();
-    }
+                card.classList.remove('hidden');
+                card.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500', 'ease-out');
 
-    // --- 2. LIGHTBOX LOGIC ---
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    
-    const imageUrls = <%- JSON.stringify(listing.image.map(img => img.url)) %>;
-    let currentLightboxIndex = 0;
+                void card.offsetWidth;
 
-    function openLightbox(index) {
-        currentLightboxIndex = index;
-        lightboxImg.src = imageUrls[currentLightboxIndex];
-        
-        lightbox.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        
-        setTimeout(() => {
-            lightbox.classList.remove('opacity-0');
-            lightboxImg.classList.remove('scale-95');
-            lightboxImg.classList.add('scale-100');
-        }, 10);
-    }
-
-    function closeLightbox(e) {
-        if(e) e.stopPropagation();
-        
-        lightbox.classList.add('opacity-0');
-        lightboxImg.classList.remove('scale-100');
-        lightboxImg.classList.add('scale-95');
-        document.body.style.overflow = '';
-        
-        setTimeout(() => {
-            lightbox.classList.add('hidden');
-            lightboxImg.src = '';
-        }, 300);
-    }
-
-    function prevLightboxSlide(e) {
-        if(e) e.stopPropagation();
-        currentLightboxIndex = (currentLightboxIndex - 1 + imageUrls.length) % imageUrls.length;
-        lightboxImg.src = imageUrls[currentLightboxIndex];
-    }
-
-    function nextLightboxSlide(e) {
-        if(e) e.stopPropagation();
-        currentLightboxIndex = (currentLightboxIndex + 1) % imageUrls.length;
-        lightboxImg.src = imageUrls[currentLightboxIndex];
-    }
-
-    // --- 3. KEYBOARD NAVIGATION ---
-    document.addEventListener('keydown', (e) => {
-        if (!lightbox.classList.contains('hidden')) {
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowRight' && totalSlides > 1) nextLightboxSlide();
-            if (e.key === 'ArrowLeft' && totalSlides > 1) prevLightboxSlide();
-        } 
-        else {
-            if (e.key === 'ArrowRight' && totalSlides > 1) nextSlide();
-            if (e.key === 'ArrowLeft' && totalSlides > 1) prevSlide();
-        }
-    });
-
-// --- 4. LOAD MORE REVIEWS LOGIC ---
-    function loadMoreReviews() {
-        const hiddenReviews = document.querySelectorAll('.review-card.hidden');
-        const itemsToShow = 6;
-        
-        for (let i = 0; i < itemsToShow && i < hiddenReviews.length; i++) {
-            const card = hiddenReviews[i];
-            
-            // Remove hidden and set initial animation states
-            card.classList.remove('hidden');
-            card.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500', 'ease-out');
-            
-            // Trigger reflow to ensure the transition applies
-            void card.offsetWidth;
-            
-            // Apply a staggered delay based on the index
-            setTimeout(() => {
-                card.classList.remove('opacity-0', 'translate-y-4');
-                card.classList.add('opacity-100', 'translate-y-0');
-            }, i * 100); // 100ms delay between each card revealing
-        }
-        
-        // Check if there are any hidden reviews left
-        const remainingHidden = document.querySelectorAll('.review-card.hidden');
-        
-        // If no more hidden reviews, fade out and remove the button
-        if (remainingHidden.length === 0) {
-            const loadMoreContainer = document.getElementById('load-more-container');
-            if (loadMoreContainer) {
-                loadMoreContainer.classList.add('opacity-0', 'transition-opacity', 'duration-500');
                 setTimeout(() => {
-                    loadMoreContainer.style.display = 'none';
-                }, 500);
+                    card.classList.remove('opacity-0', 'translate-y-4');
+                    card.classList.add('opacity-100', 'translate-y-0');
+                }, i * 100);
+            }
+
+            const remainingHidden = document.querySelectorAll('.review-card.hidden');
+
+            if (remainingHidden.length === 0) {
+                const loadMoreContainer = document.getElementById('load-more-container');
+                if (loadMoreContainer) {
+                    loadMoreContainer.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                    setTimeout(() => {
+                        loadMoreContainer.style.display = 'none';
+                    }, 500);
+                }
             }
         }
-    }
-</script>
+    </script>
