@@ -3,8 +3,8 @@ if (process.env.NODE_ENV !== "production") {
     dotenv.config();
 }
 
-console.log(process.env.SECRET);
-console.log(process.env.API_KEY);
+// console.log(process.env.SECRET);
+// console.log(process.env.API_KEY);
 
 import express from 'express';
 import path from 'path';

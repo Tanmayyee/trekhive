@@ -14,9 +14,10 @@ const listingSchema= new mongoose.Schema({
     description:{
         type:String
     },
-    image:{
-        type:String
-    },
+    image:[{
+        url:String,
+        filename:String
+    }],
     author:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'

@@ -10,12 +10,13 @@ export const renderNewForm= async(req,res)=>{           //new should come before
 }
 
 export const createTrek= async(req,res)=>{
-  // res.send(req.body)                           //for testing
-
+  // res.send(req.body)                           //testing
   // req.body.listing contains the listing object created from form fields named like listing[title], listing[location], etc.
   const newListing= new Listing(req.body.listing) 
+  newListing.image= req.files.map(f=>({url:f.path, filename:f.filename}))
   newListing.author= req.user._id    
   await newListing.save()
+  // console.log(newListing)
   req.flash('success', 'Trek created successfully'); 
   res.redirect(`/listing/${newListing._id}`)
 }

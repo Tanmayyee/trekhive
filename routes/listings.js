@@ -10,11 +10,11 @@ const upload = multer({ storage })
 
 router.route('/')
     .get(index)
-    // .post(isLoggedIn,listingValidation, createTrek)
-    .post(upload.array('listing[image]'),(req,res)=>{
-        console.log(req.body,req.files);
-        res.send('worked!!!')
-    })
+    .post(isLoggedIn,upload.array('listing[image]'),listingValidation, createTrek)
+    // .post(upload.array('listing[image]'),(req,res)=>{
+    //     console.log(req.body,req.files);
+    //     res.send('worked!!!')
+    // })
     // listingValidation middleware checks the form data before creating a new listing.
 
 router.get('/new',isLoggedIn,renderNewForm)
