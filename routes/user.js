@@ -1,6 +1,6 @@
 import express from 'express'
 const router=express.Router()
-import User from '../models/usermodel.js'
+// import User from '../models/usermodel.js'
 import passport from 'passport';
 import ExpressError from '../utils/ExpressError.js';
 import { storeReturnTo,userValidation } from '../middleware.js';
