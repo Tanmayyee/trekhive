@@ -61,6 +61,13 @@ export const updateTrek= async(req,res)=>{
      return res.redirect('/listing');
      // throw new ExpressError('Trek not found', 404);
     }
+
+   if (req.files && req.files.length > 0) {
+      const newimgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
+      updatedListing.image.push(...newimgs);
+    
+      await updatedListing.save();
+    }
   req.flash('success', 'Trek updated successfully.'); 
   res.redirect(`/listing/${updatedListing._id}`)  
 }

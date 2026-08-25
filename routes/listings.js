@@ -23,7 +23,7 @@ router.get('/mytreks',isLoggedIn, myTreks)
 
 router.route('/:id')
     .get(renderShowPage)
-    .put(isLoggedIn,isAuthor,listingValidation,updateTrek)
+    .put(isLoggedIn,isAuthor,upload.array('listing[image]'),listingValidation,updateTrek)
     .delete(isLoggedIn,isAuthor,deleteTrek)
 
 router.get('/:id/edit',isLoggedIn,isAuthor, renderEditForm)
