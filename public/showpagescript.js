@@ -95,34 +95,43 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Load More Reviews Logic
-function loadMoreReviews() {
-    const hiddenReviews = document.querySelectorAll('.review-card.hidden');
-    const itemsToShow = 6;
+// Reviews Modal functionality
+function openReviewsModal() {
+    const modal = document.getElementById('reviews-modal');
+    const modalBox = modal.querySelector('.scale-95');
+    
+    // Show the modal container
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    
+    // Prevent background scrolling on the main page
+    document.body.style.overflow = 'hidden';
+    
+    requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        modalBox.classList.remove('scale-95');
+        modalBox.classList.add('scale-100');
+    });
+}
 
-    for (let i = 0; i < itemsToShow && i < hiddenReviews.length; i++) {
-        const card = hiddenReviews[i];
-
-        card.classList.remove('hidden');
-        card.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500', 'ease-out');
-
-        void card.offsetWidth;
-
-        setTimeout(() => {
-            card.classList.remove('opacity-0', 'translate-y-4');
-            card.classList.add('opacity-100', 'translate-y-0');
-        }, i * 100);
-    }
-
-    const remainingHidden = document.querySelectorAll('.review-card.hidden');
-
-    if (remainingHidden.length === 0) {
-        const loadMoreContainer = document.getElementById('load-more-container');
-        if (loadMoreContainer) {
-            loadMoreContainer.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-            setTimeout(() => {
-                loadMoreContainer.style.display = 'none';
-            }, 500);
+function closeReviewsModal(event) {
+    const modal = document.getElementById('reviews-modal');
+    const modalBox = modal.querySelector('.scale-100');
+    
+    if (modal) {
+        // Reverse animation
+        modal.classList.add('opacity-0');
+        if(modalBox) {
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
         }
+        
+        // Restore background scrolling
+        document.body.style.overflow = 'auto';
+        
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }, 300);
     }
 }
