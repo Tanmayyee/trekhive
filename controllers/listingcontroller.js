@@ -1,5 +1,7 @@
 import Listing from '../models/trekhiveschema.js';
 
+import * as maptilerClient from "@maptiler/client";
+
 export const index= async(req,res)=>{
  const listings= await Listing.find({})
  res.render('places/index',{listings})
@@ -16,7 +18,18 @@ export const createTrek= async(req,res)=>{
     req.flash('error','You must upload at least one image!')
     return res.redirect('/listing/new');
   }
+
+  maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
+
+  const geoData = await maptilerClient.geocoding.forward(req.body.listing.location, { limit: 1 });
+   console.log(geoData);
+   if (!geoData.features?.length) {
+       req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
+       return res.redirect('/listing/new');
+   }
   const newListing= new Listing(req.body.listing) 
+  newListing.geometry = geoData.features[0].geometry;
+  newListing.location = geoData.features[0].place_name;
   newListing.image= req.files.map(f=>({url:f.path, filename:f.filename}))
   newListing.author= req.user._id    
   await newListing.save() 
@@ -57,6 +70,16 @@ export const renderEditForm = async(req,res)=>{
 export const updateTrek= async(req,res)=>{
   // res.send("workeddd")
   const {id}= req.params
+
+   maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
+
+   const geoData = await maptilerClient.geocoding.forward(req.body.listing.location, { limit: 1 });
+    // console.log(geoData);
+    if (!geoData.features?.length) {
+        req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
+        return res.redirect(`/listing/${id}/edit`);
+    }
+
   const updatedListing= await Listing.findByIdAndUpdate(id,{...req.body.listing},{ runValidators: true, returnDocument: "after" })  // Spread operator (...) creates a new object containing all properties from req.body.listing. This lets us pass the listing fields directly to findByIdAndUpdate().
   
    // Throws a 404 error just in case the trek was deleted by someone else exactly when you clicked "update".
@@ -65,6 +88,9 @@ export const updateTrek= async(req,res)=>{
      return res.redirect('/listing');
      // throw new ExpressError('Trek not found', 404);
     }
+
+   updatedListing.geometry = geoData.features[0].geometry;
+   updatedListing.location = geoData.features[0].place_name;
 
    if (req.files && req.files.length > 0) {
       const newimgs = req.files.map(f => ({ url: f.path, filename: f.filename }));

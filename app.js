@@ -1,6 +1,6 @@
 if (process.env.NODE_ENV !== "production") {
     const dotenv = await import('dotenv');
-    dotenv.config();
+    dotenv.config({quiet:true});
 }
 
 // console.log(process.env.SECRET);
@@ -23,7 +23,7 @@ import listingsRoutes from './routes/listings.js'
 import reviewsRoutes from './routes/reviews.js'
 import userRoutes from './routes/user.js'
 
-const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
+const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive-v2";
 
 const connectDB = async () => {
   try {
@@ -47,7 +47,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method")); 
 
 const sessionConfig= {
-  secret:'thisshouldbeabettersecret',
+  secret: process.env.SESSION_SECRET || 'fallbacksecret',
   resave:false,
   saveUninitialized:true,
   rolling:true,   // Refresh the cookie expiration on each request

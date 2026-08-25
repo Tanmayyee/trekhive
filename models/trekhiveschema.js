@@ -11,6 +11,17 @@ const listingSchema= new mongoose.Schema({
     location:{
         type:String
     },
+    geometry: {
+        type: {
+           type: String,
+           enum: ['Point'],
+           required: true
+       },
+        coordinates: {
+           type: [Number],
+           required: true
+       }
+    },
     description:{
         type:String
     },
@@ -35,7 +46,8 @@ const listingSchema= new mongoose.Schema({
     reviews:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Review'
-    }]
+    }],
+
 })
 
 listingSchema.post('findOneAndDelete',async function(doc){

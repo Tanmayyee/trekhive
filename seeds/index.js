@@ -4,7 +4,7 @@ import { places,descriptors } from "./seedHelpers.js"
 
 import Listing from '../models/trekhiveschema.js';  //model
 
-const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive";
+const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive-v2";
 
 const connectDB = async () => {
   try {
