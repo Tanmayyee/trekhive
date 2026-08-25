@@ -6,11 +6,15 @@ import { isLoggedIn, listingValidation ,isAuthor} from '../middleware.js';
 import {index, renderNewForm, createTrek, myTreks, renderShowPage, renderEditForm, updateTrek, deleteTrek} from '../controllers/listingcontroller.js'
 import multer from 'multer'
 import { storage } from '../cloudinary/index.js';
-const upload = multer({ storage })
+const upload = multer({ storage:storage,
+    limits: {
+        fileSize: 10 * 1024 * 1024, // 10 MB in bytes
+        files: 5
+ }});
 
 router.route('/')
     .get(index)
-    .post(isLoggedIn,upload.array('listing[image]'),listingValidation, createTrek)
+    .post(isLoggedIn,upload.array('listing[image]',5),listingValidation, createTrek)
     // .post(upload.array('listing[image]'),(req,res)=>{
     //     console.log(req.body,req.files);
     //     res.send('worked!!!')
@@ -23,7 +27,7 @@ router.get('/mytreks',isLoggedIn, myTreks)
 
 router.route('/:id')
     .get(renderShowPage)
-    .put(isLoggedIn,isAuthor,upload.array('listing[image]'),listingValidation,updateTrek)
+    .put(isLoggedIn,isAuthor,upload.array('listing[image]',5),listingValidation,updateTrek)
     .delete(isLoggedIn,isAuthor,deleteTrek)
 
 router.get('/:id/edit',isLoggedIn,isAuthor, renderEditForm)

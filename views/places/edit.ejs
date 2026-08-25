@@ -40,10 +40,31 @@
 
                 <!-- Image -->
                 <div>
-                    <label for="image" class="block text-[13px] font-bold text-slate-700 mb-1.5">
-                       Add images
+                    <label class="block text-[13px] font-bold text-slate-700 mb-1.5">
+                        Add New Images <span class="font-normal text-slate-500">(Max 5, up to 10MB each)</span>
                     </label>
-                    <input type="file" name="listing[image]" id="image" multiple class="border-2 bg-slate-400  cursor-pointer">
+                    
+                    <div class="flex flex-col sm:flex-row items-start gap-4">
+                        <!-- Hidden real input  -->
+                        <input type="file" name="listing[image]" id="image-upload" multiple accept="image/*" class="hidden">
+                        
+                        <!-- Button -->
+                        <label for="image-upload" class="shrink-0 inline-flex items-center justify-center px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 cursor-pointer shadow-sm transition-all focus-within:ring-2 focus-within:ring-slate-900 active:scale-95">
+                            <svg class="w-4 h-4 mr-2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            Choose Images
+                        </label>
+
+                        <!-- Preview area -->
+                        <div id="image-preview-container" class="flex flex-wrap gap-2 empty:hidden pt-0.5">
+                        </div>
+
+                    </div>
+                    
+                    <!-- Error -->
+                    <p id="image-error" class="hidden text-[11px] text-rose-500 mt-2 font-medium"></p>
+                    
                 </div>
 
                 <!-- Estimated Cost -->
@@ -104,3 +125,6 @@
             </form>
         </div>
     </div>
+
+
+<script src="/image.js"></script>
