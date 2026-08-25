@@ -14,10 +14,20 @@ const listingSchema= new mongoose.Schema({
     description:{
         type:String
     },
-    image:[{
-        url:String,
-        filename:String
-    }],
+    image: {
+        type: [
+            {
+                url: String,
+                filename: String
+            }
+        ],
+        validate: {
+            validator: function(v) {
+                return v && v.length > 0; 
+            },
+            message: 'A trek must have at least one image!'
+        }
+    },
     author:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
