@@ -56,7 +56,17 @@
                             Choose Images
                         </label>
                         <p class="hidden group-[.was-validated]:peer-invalid:block text-[11px] text-rose-500 mt-1 font-medium">You must upload at least one image.</p>
+                        
                         <!-- Preview area -->
+
+                        <% if(listing.image && listing.image.length > 0) { %>
+                            <% listing.image.forEach(function(img) { %>
+                                <div class="w-12 h-12 mt-0.5 rounded-md overflow-hidden border border-slate-200 shadow-sm relative group" title="Already Uploaded">
+                                    <img src="<%= img.url %>" class="w-full h-full object-cover">
+                                </div>
+                            <% }) %>
+                        <% } %>
+
                         <div id="image-preview-container" class="flex flex-wrap gap-2 empty:hidden pt-0.5">
                         </div>
 

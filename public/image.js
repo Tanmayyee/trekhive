@@ -31,7 +31,7 @@
             const imgUrl = URL.createObjectURL(file); // Creates a temporary URL for preview
             
             const imgBox = document.createElement('div');
-            imgBox.className = 'w-10 h-10 rounded-md overflow-hidden border border-slate-200 shadow-sm relative group';
+            imgBox.className = 'w-12 h-12 rounded-md overflow-hidden border border-slate-200 shadow-sm relative group';
             
             imgBox.innerHTML = `
                 <img src="${imgUrl}" class="w-full h-full object-cover">
