@@ -21,7 +21,11 @@ console.log("seeds")
 const randomTitle= array => array[Math.floor(Math.random()*array.length)]
 const randomPrice= Math.floor(Math.random()*20000)
 
-const seedDb= async()=>{
+const seedDb = async () => {
+    //SAFEGUARD: 
+    console.log("🛑 WARNING: Seeding is disabled for data safety. Exiting script...");
+    process.exit(0); 
+
     try {
         await Listing.deleteMany({});
 
@@ -29,7 +33,7 @@ const seedDb= async()=>{
             const randomCity = Math.floor(Math.random() * cities.length);
 
             const camp = new Listing({
-                author:'6a8aa4f04d20e85d7ebd7409',
+                author: '6a8aa4f04d20e85d7ebd7409',
                 location: `${cities[randomCity].city}, ${cities[randomCity].state}`,
                 title: `${randomTitle(places)} ${randomTitle(descriptors)}`,
                 image: `https://loremflickr.com/400/400/nature,mountain`,
@@ -47,7 +51,7 @@ const seedDb= async()=>{
 };
 
 
-seedDb()
+// seedDb()
 
 
 //closing mongoose connection - 
