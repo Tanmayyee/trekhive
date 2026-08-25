@@ -8,6 +8,8 @@
       "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-red-500: oklch(63.7% 0.237 25.331);
+    --color-red-600: oklch(57.7% 0.245 27.325);
     --color-amber-50: oklch(98.7% 0.022 95.277);
     --color-amber-100: oklch(96.2% 0.059 95.617);
     --color-amber-400: oklch(82.8% 0.189 84.429);
@@ -856,6 +858,9 @@
   .resize-y {
     resize: vertical;
   }
+  .appearance-none {
+    appearance: none;
+  }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -1001,6 +1006,9 @@
   .border-dashed {
     --tw-border-style: dashed;
     border-style: dashed;
+  }
+  .border-black {
+    border-color: var(--color-black);
   }
   .border-gray-700 {
     border-color: var(--color-gray-700);
@@ -1584,6 +1592,12 @@
   .text-green-600 {
     color: var(--color-green-600);
   }
+  .text-red-500 {
+    color: var(--color-red-500);
+  }
+  .text-red-600 {
+    color: var(--color-red-600);
+  }
   .text-rose-400 {
     color: var(--color-rose-400);
   }
@@ -1955,6 +1969,12 @@
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
+  .checked\:border-transparent:checked {
+    border-color: transparent;
+  }
+  .checked\:bg-blue-600:checked {
+    background-color: var(--color-blue-600);
+  }
   .group-\[\.was-validated\]\:valid\:border-emerald-500:is(:where(.group):is(.was-validated) *):valid {
     border-color: var(--color-emerald-500);
   }
@@ -2133,6 +2153,12 @@
   }
   .focus\:ring-amber-400:focus {
     --tw-ring-color: var(--color-amber-400);
+  }
+  .focus\:ring-blue-500\/20:focus {
+    --tw-ring-color: color-mix(in srgb, oklch(62.3% 0.214 259.815) 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-ring-color: color-mix(in oklab, var(--color-blue-500) 20%, transparent);
+    }
   }
   .focus\:ring-green-600:focus {
     --tw-ring-color: var(--color-green-600);

@@ -31,10 +31,15 @@
             const imgUrl = URL.createObjectURL(file); // Creates a temporary URL for preview
             
             const imgBox = document.createElement('div');
-            imgBox.className = 'w-12 h-12 rounded-md overflow-hidden border border-slate-200 shadow-sm relative group';
-            
+
             imgBox.innerHTML = `
-                <img src="${imgUrl}" class="w-full h-full object-cover">
+                <div>
+                    <div class="w-14 h-14 mt-0.5 rounded-md overflow-hidden border border-slate-200 shadow-sm relative group" title="Already Uploaded">
+                        <img src="${imgUrl}" class="w-full h-full object-cover">
+                    </div>
+                    <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%= img.filename %>" class="w-2 h-2 cursor-pointer rounded-full appearance-none border border-slate-800 bg-white checked:bg-blue-600 checked:border-transparent transition-all focus:outline-none focus:ring-2 focus:ring-blue-500/20  ">
+                    <label for="image-<%=i%>" class="text-[11px] font-bold text-red-600 cursor-pointer">Remove</label>
+                </div>
             `;
             previewContainer.appendChild(imgBox);
         });
