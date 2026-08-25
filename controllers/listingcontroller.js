@@ -67,41 +67,50 @@ export const renderEditForm = async(req,res)=>{
   res.render('places/edit',{listing})
 }
 
-export const updateTrek= async(req,res)=>{
-  // res.send("workeddd")
-  const {id}= req.params
+export const updateTrek = async (req, res) => {
+  const { id } = req.params;
 
-   maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
-
-   const geoData = await maptilerClient.geocoding.forward(req.body.listing.location, { limit: 1 });
-    // console.log(geoData);
-    if (!geoData.features?.length) {
-        req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
-        return res.redirect(`/listing/${id}/edit`);
-    }
-
-  const updatedListing= await Listing.findByIdAndUpdate(id,{...req.body.listing},{ runValidators: true, returnDocument: "after" })  // Spread operator (...) creates a new object containing all properties from req.body.listing. This lets us pass the listing fields directly to findByIdAndUpdate().
+  const listing = await Listing.findById(id);
   
-   // Throws a 404 error just in case the trek was deleted by someone else exactly when you clicked "update".
-   if (!updatedListing) {
-     req.flash('error', 'Trek not found.');
-     return res.redirect('/listing');
-     // throw new ExpressError('Trek not found', 404);
-    }
+  if (!listing) {
+    req.flash('error', 'Trek not found.');
+    return res.redirect('/listing');
+  }
 
-   updatedListing.geometry = geoData.features[0].geometry;
-   updatedListing.location = geoData.features[0].place_name;
+  // MINIMUM 1 IMAGE
+  const currentImagesCount = listing.image.length; 
+  const deletingImagesCount = req.body.deleteImages ? req.body.deleteImages.length : 0;
+  const newUploadsCount = req.files ? req.files.length : 0; 
 
-   if (req.files && req.files.length > 0) {
+  if ((currentImagesCount - deletingImagesCount + newUploadsCount) === 0) {
+      req.flash('error', 'A trek must have at least one image. Please upload a new image if you are deleting all existing ones.');
+      return res.redirect(`/listing/${id}/edit`);
+  }
+
+  // MapTiler Geocoding
+  maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
+  const geoData = await maptilerClient.geocoding.forward(req.body.listing.location, { limit: 1 });
+  
+  if (!geoData.features?.length) {
+      req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
+      return res.redirect(`/listing/${id}/edit`);
+  }
+
+  const updatedListing = await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { runValidators: true, returnDocument: "after" });
+
+  updatedListing.geometry = geoData.features[0].geometry;
+  updatedListing.location = geoData.features[0].place_name;
+
+  if (req.files && req.files.length > 0) {
       const newimgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
       updatedListing.image.push(...newimgs);
-    
-      await updatedListing.save();
-    }
-  req.flash('success', 'Trek updated successfully.'); 
-  res.redirect(`/listing/${updatedListing._id}`)  
-}
+  }
 
+  await updatedListing.save();
+
+  req.flash('success', 'Trek updated successfully.'); 
+  res.redirect(`/listing/${updatedListing._id}`);
+}
 
 export const deleteTrek= async(req,res)=>{
   const {id}=req.params;
