@@ -25,6 +25,8 @@
                     <div id="carousel-track"
                         class="flex w-full h-full transition-transform duration-300 ease-out will-change-transform"
                         style="transform: translate3d(0%, 0px, 0px);">
+                      <% if(listing.image && listing.image.length>0) { %>
+
                         <% listing.image.forEach((img, index)=> { %>
                             <div
                                 class="relative w-full h-full flex-[0_0_100%] overflow-hidden flex items-center justify-center">
@@ -36,7 +38,20 @@
                                     onload="this.classList.add(this.naturalWidth > this.naturalHeight ? 'object-cover' : 'object-contain')"
                                     onclick="openLightbox(parseInt('<%= index %>', 10))">
                             </div>
-                            <% }) %>
+                        <% }) %>
+
+                      <% }else{ %>
+                           <div class="relative w-full h-full flex-[0_0_100%] flex flex-col items-center justify-center bg-slate-100 text-slate-500">
+
+                               <svg class="w-16 h-16 text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                                         d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                   </path>
+                               </svg>
+                               <h3 class="text-lg font-semibold text-slate-700">No Image Preview</h3>
+                               <p class="text-sm text-slate-500 mt-1">The owner hasn't uploaded any photos yet.</p>
+                           </div>
+                        <% } %>
                     </div>
 
                     <% if (listing.image && listing.image.length> 1) { %>
@@ -410,13 +425,12 @@
                         onclick="event.stopPropagation()">
                 </div>
     </div>
-
     <!-- EJS data to the client-side JavaScript -->
     <script>
         window.listingData = {
-            totalSlides: parseInt('<%= listing.image.length %>', 10),
-            imageUrls: JSON.parse('<%- JSON.stringify(listing.image.map(img => img.url)) %>')
-        };
+        totalSlides: parseInt('<%= listing.image ? listing.image.length : 0 %>', 10),
+        imageUrls: JSON.parse('<%- JSON.stringify(listing.image ? listing.image.map(img => img.url) : []) %>')
+       };
     </script>
 
     <script src="/showpagescript.js"></script>

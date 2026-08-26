@@ -16,10 +16,6 @@ export const renderNewForm= async(req,res)=>{           //new should come before
 export const createTrek= async(req,res)=>{
   // res.send(req.body)                           //testing
   // req.body.listing contains the listing object created from form fields named like listing[title], listing[location], etc.
-  if(!req.files || req.files.length===0){
-    req.flash('error','You must upload at least one image!')
-    return res.redirect('/listing/new');
-  }
 
   maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
 
@@ -79,23 +75,6 @@ export const renderEditForm = async(req,res)=>{
 
 export const updateTrek = async (req, res) => {
   const { id } = req.params;
-
-  const listing = await Listing.findById(id);
-  
-  if (!listing) {
-    req.flash('error', 'Trek not found.');
-    return res.redirect('/listing');
-  }
-
-  // MINIMUM 1 IMAGE
-  const currentImagesCount = listing.image.length; 
-  const deletingImagesCount = req.body.deleteImages ? req.body.deleteImages.length : 0;
-  const newUploadsCount = req.files ? req.files.length : 0; 
-
-  if ((currentImagesCount - deletingImagesCount + newUploadsCount) === 0) {
-      req.flash('error', 'A trek must have at least one image. Please upload a new image if you are deleting all existing ones.');
-      return res.redirect(`/listing/${id}/edit`);
-  }
 
   // MapTiler Geocoding
   maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
