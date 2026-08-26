@@ -1,6 +1,8 @@
 import mongoose from "mongoose"; 
 import Review from "./reviewmodel.js";
 
+const opts = { toJSON: { virtuals: true } };
+
 const listingSchema= new mongoose.Schema({
     title:{
         type:String
@@ -48,7 +50,19 @@ const listingSchema= new mongoose.Schema({
         ref:'Review'
     }],
 
-})
+}, opts)
+
+listingSchema.virtual('properties.popUpMarkup').get(function () {
+    return `
+    <div style="font-family: inherit; padding: 2px;">
+        <a href="/listing/${this._id}" style="color: #2563eb; text-decoration: none; font-weight: 600;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+            ${this.title}
+        </a>
+        <p style="margin: 4px 0 0 0; color: #475569; font-size: 13px;">
+            ${this.description ? this.description.substring(0, 30) + '...' : ''}
+        </p>
+    </div>`
+});
 
 listingSchema.post('findOneAndDelete',async function(doc){
     if(doc){

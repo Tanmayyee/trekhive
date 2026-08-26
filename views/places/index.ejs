@@ -89,17 +89,27 @@
 </div>
 
 <%- "<script>" %>
+
 const maptilerApiKey = "<%- process.env.MAPTILER_API_KEY %>";
+
 const listings = {
-  type: "FeatureCollection",
-  features: <%- JSON.stringify(
-    listings.map(listing => ({
-      type: "Feature",
-      geometry: listing.geometry,
-      properties: { popUpMarkup: listing?.properties?.popUpMarkup }
-    }))
-  ) %>
+    type: "FeatureCollection",
+
+    features: <%- JSON.stringify(
+        listings.map(listing => ({
+            type: "Feature",
+            geometry: listing.geometry,
+
+            properties: {
+                popUpMarkup: listing?.properties?.popUpMarkup,
+                title: listing.title,
+                location: listing.location,
+                url: `/listing/${listing._id}`
+            }
+        }))
+    ) %>
 };
+
 <%- "</script>" %>
 
 <script src="/clusterMap.js"></script>
