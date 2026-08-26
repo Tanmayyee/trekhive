@@ -50,7 +50,7 @@
         <!-- The Dashboard List -->
         <% if(myTreks && myTreks.length> 0) { %>
             <div class="flex flex-col gap-5 pb-16">
-                <% for(let list of myTreks){ %>
+                <% for(let list of myTreks.slice().reverse()){ %>
                     <div
                         class="group relative bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-[0_8px_16px_rgba(0,0,0,0.06)] hover:border-slate-300 transition-all duration-300 flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6 cursor-pointer">
 
@@ -58,11 +58,20 @@
                             aria-label="View <%= list.title %>"></a>
 
                         <div class="flex items-center gap-4 sm:gap-6 flex-1 min-w-0">
-                            <div
+                                <% if(list.image && list.image.length>0) { %>
+                                     <div
                                 class="relative w-24 h-24 sm:w-44 sm:h-32 rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200 shadow-inner">
-                                <img src="<%= list.image %>" alt="<%= list.title %>"
+                                <img src="<%= list.image[0].url.replace('/upload/', '/upload/w_600,q_auto,f_auto/')  %>" alt="<%= list.title %>"
                                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                            </div>
+                                     </div>
+                                <% }else { %>
+                                       <div
+                                class="relative w-24 h-24 sm:w-44 sm:h-32 rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200 shadow-inner">
+                                <img src="https://img.icons8.com/color/1200/no-image.jpg" alt="no image"
+                                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                </div>
+                                <% } %>        
+                           
 
                             <div class="flex-1 min-w-0 py-1">
                                 <div class="flex items-center gap-1.5 mb-1.5">

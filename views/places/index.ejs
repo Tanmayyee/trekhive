@@ -37,10 +37,14 @@
     <% for(let list of listings){ %>
         <a href="/listing/<%= list._id %>"
             class="group block relative isolate aspect-3/4 sm:aspect-4/5 w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-900 shadow-sm transition-all duration-500 hover:shadow-xl hover:shadow-slate-900/20 hover:-translate-y-1 cursor-pointer focus:outline-none focus:ring-4 focus:ring-slate-900/20 transform-gpu [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
-
+            
+            <% if(list.image && list.image.length>0) { %>
             <img src="<%= list.image[0].url.replace('/upload/', '/upload/w_600,q_auto,f_auto/') %>" alt="<%= list.title %>"
                 class="absolute inset-0 w-full h-full object-cover will-change-transform transform-gpu backface-hidden transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105">
-
+            <% }else { %>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREEIHPzp6tiFZuUoh6EHziG0zM9hnpON8_buiGG75U8Q&s=10" alt="<%= list.title %>"
+                class="absolute inset-0 w-full h-full object-cover will-change-transform transform-gpu backface-hidden transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105">
+            <% } %>    
             <!-- Subtle baseline gradient -->
             <div class="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-95">
             </div>
