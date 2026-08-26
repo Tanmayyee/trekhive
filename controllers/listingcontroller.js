@@ -11,6 +11,8 @@ export const renderNewForm= async(req,res)=>{           //new should come before
   res.render('places/new')
 }
 
+//--------------------------------------------------------------------------------------------------------------------------
+
 export const createTrek= async(req,res)=>{
   // res.send(req.body)                           //testing
   // req.body.listing contains the listing object created from form fields named like listing[title], listing[location], etc.
@@ -22,7 +24,7 @@ export const createTrek= async(req,res)=>{
   maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
 
   const geoData = await maptilerClient.geocoding.forward(req.body.listing.location, { limit: 1 });
-   console.log(geoData);
+  //  console.log(geoData);
    if (!geoData.features?.length) {
        req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
        return res.redirect('/listing/new');
@@ -38,10 +40,14 @@ export const createTrek= async(req,res)=>{
   res.redirect(`/listing/${newListing._id}`)
 }
 
+//--------------------------------------------------------------------------------------------------------------------------
+
 export const myTreks = async(req,res)=>{
   const myTreks= await Listing.find({author:req.user._id});
   res.render('places/mytreks',{myTreks})
 }
+
+//--------------------------------------------------------------------------------------------------------------------------
 
 export const renderShowPage= async(req,res)=>{
   const listing = await Listing.findById(req.params.id)
@@ -55,6 +61,8 @@ export const renderShowPage= async(req,res)=>{
   res.render('places/show',{listing})
 }
 
+//--------------------------------------------------------------------------------------------------------------------------
+
 export const renderEditForm = async(req,res)=>{
   const listing= await Listing.findById(req.params.id)
   
@@ -66,6 +74,8 @@ export const renderEditForm = async(req,res)=>{
   }
   res.render('places/edit',{listing})
 }
+
+//--------------------------------------------------------------------------------------------------------------------------
 
 export const updateTrek = async (req, res) => {
   const { id } = req.params;
@@ -111,6 +121,8 @@ export const updateTrek = async (req, res) => {
   req.flash('success', 'Trek updated successfully.'); 
   res.redirect(`/listing/${updatedListing._id}`);
 }
+
+//--------------------------------------------------------------------------------------------------------------------------
 
 export const deleteTrek= async(req,res)=>{
   const {id}=req.params;
