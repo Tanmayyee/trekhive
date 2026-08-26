@@ -1,4 +1,5 @@
 import Listing from '../models/trekhiveschema.js';
+import { cloudinary } from '../cloudinary/index.js';
 
 import * as maptilerClient from "@maptiler/client";
 
@@ -75,20 +76,34 @@ export const renderEditForm = async(req,res)=>{
 
 export const updateTrek = async (req, res) => {
   const { id } = req.params;
+  const listing = await Listing.findById(id);
 
-  // MapTiler Geocoding
+  const deletedCount = req.body.deleteImages ? req.body.deleteImages.length : 0;
+  const remainingImagesCount = listing.image.length - deletedCount;
+
+  if (req.files && (remainingImagesCount + req.files.length > 5)) {
+      req.flash('error', `Max 5 images allowed. You have ${remainingImagesCount} images and tried to add ${req.files.length} more.`);
+      return res.redirect(`/listing/${id}/edit`);
+  }
+
+  //MapTiler Geocoding
   maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
   const geoData = await maptilerClient.geocoding.forward(req.body.listing.location, { limit: 1 });
-  
   if (!geoData.features?.length) {
       req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
       return res.redirect(`/listing/${id}/edit`);
   }
 
   const updatedListing = await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { runValidators: true, returnDocument: "after" });
-
   updatedListing.geometry = geoData.features[0].geometry;
   updatedListing.location = geoData.features[0].place_name;
+
+  if (req.body.deleteImages && req.body.deleteImages.length > 0) {
+      for (let filename of req.body.deleteImages) {
+          await cloudinary.uploader.destroy(filename);
+      }
+      await updatedListing.updateOne({ $pull: { image: { filename: { $in: req.body.deleteImages } } } });
+  }
 
   if (req.files && req.files.length > 0) {
       const newimgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
@@ -105,11 +120,20 @@ export const updateTrek = async (req, res) => {
 
 export const deleteTrek= async(req,res)=>{
   const {id}=req.params;
-  const deleted= await Listing.findByIdAndDelete(id)
-  
-  if(!deleted){
+  const listing = await Listing.findById(id);
+  if(!listing){
     req.flash('error','Trek not found.')
+    return res.redirect('/listing')
   }
+
+  if (listing.image && listing.image.length > 0) {
+      for (let img of listing.image) {
+          await cloudinary.uploader.destroy(img.filename);
+      }
+  }
+
+  await Listing.findByIdAndDelete(id)
+  
   req.flash('success', 'Trek deleted successfully.'); 
   const redirectUrl = req.query.redirect || '/listing';
   res.redirect(redirectUrl)

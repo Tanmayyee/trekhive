@@ -8,7 +8,8 @@ export const listingValidationSchema=joi.object({
         description:joi.string().allow(''),   // Fun fact: HTML forms send blank fields as empty strings (""), not undefined.
                                               // Joi blocks empty strings by default, so we have to explicitly .allow('') it. 
                                               // You can also add .optional() here to make it crystal clear that the field isn't mandatory!
-    }).required()
+    }).required(),
+    deleteImages: joi.array().items(joi.string())
 })
 
 

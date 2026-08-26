@@ -23,7 +23,7 @@
                       </label>
                       <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" required
                           class="peer w-full px-3.5 py-2 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all duration-200 group-[.was-validated]:invalid:border-rose-500 group-[.was-validated]:invalid:focus:ring-rose-500 group-[.was-validated]:valid:border-emerald-500 group-[.was-validated]:valid:focus:ring-emerald-500">
-                      <!-- Error Message -->
+                      <!-- Error-->
                       <p class="hidden group-[.was-validated]:peer-invalid:block text-[11px] text-rose-500 mt-1 font-medium">Please provide a valid trek title.</p>
                   </div>
 
@@ -41,14 +41,12 @@
                 <!-- Image -->
                 <div>
                     <label class="block text-[13px] font-bold text-slate-700 mb-1.5">
-                        Add New Images <span class="font-normal text-slate-500">(Max 5, up to 10MB each)</span>
+                        Add New Images <span class="font-normal text-slate-500">(Max 5 total, up to 10MB each)</span>
                     </label>
                     
                     <div class="flex flex-col sm:flex-row items-start gap-4">
-                        <!-- Hidden real input  -->
-                        <input type="file" name="listing[image]" id="image-upload" multiple accept="image/*"  class="hidden">
+                        <input type="file" name="listing[image]" id="image-upload" multiple accept="image/*" class="hidden" data-existing="<%= listing.image ? listing.image.length : 0 %>">
                         
-                        <!-- Button -->
                         <label for="image-upload" class="shrink-0 inline-flex items-center justify-center px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 cursor-pointer shadow-sm transition-all focus-within:ring-2 focus-within:ring-slate-900 active:scale-95">
                             <svg class="w-4 h-4 mr-2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -56,24 +54,35 @@
                             Choose Images
                         </label>
                         <p class="hidden group-[.was-validated]:peer-invalid:block text-[11px] text-rose-500 mt-1 font-medium">You must upload at least one image.</p>
-                        
-                        <!-- Preview area -->
+                    </div>
 
+                    <!-- preview image -->
+                    <div class="flex flex-wrap gap-4 mt-3" id="existing-images-container">
                         <% if(listing.image && listing.image.length > 0) { %>
                             <% listing.image.forEach(function(img,i) { %>
-                                <div>
-                                <div class="w-14 h-14 mt-0.5 rounded-md overflow-hidden border border-slate-200 shadow-sm relative group" title="Already Uploaded">
-                                    <img src="<%= img.url %>" class="w-full h-full object-cover">
-                                </div>
-                                <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%= img.filename %>" class="w-2 h-2 cursor-pointer rounded-full appearance-none border border-slate-800 bg-white checked:bg-blue-600 checked:border-transparent transition-all focus:outline-none focus:ring-2 focus:ring-blue-500/20  ">
-                                <label for="image-<%=i%>" class="text-[11px] font-bold text-red-600 cursor-pointer">Remove</label>
+                                <div class="relative mt-2" id="existing-img-box-<%=i%>">
+                                    
+                                    <!-- Image Box -->
+                                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden border border-slate-200 shadow-sm relative">
+                                        <img src="<%= img.url %>" class="w-full h-full object-cover">
+                                    </div>
+                                    
+                                    <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%= img.filename %>" class="hidden delete-checkbox">
+                                    
+                                    <button type="button" onclick="removeExistingImage('image-<%=i%>', 'existing-img-box-<%=i%>')" 
+                                        class="absolute -top-2 -right-2 bg-rose-500 hover:bg-rose-600 text-white rounded-full w-5 h-5 flex items-center justify-center shadow-md transition-all hover:scale-110 focus:outline-none cursor-pointer z-10">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+
                                 </div>
                             <% }) %>
                         <% } %>
+                    </div>
 
-                        <div id="image-preview-container" class="flex flex-wrap gap-2 empty:hidden pt-0.5">
-                        </div>
-
+                    <!-- New Uploads Container -->
+                    <div id="image-preview-container" class="flex flex-wrap gap-4 empty:hidden">
                     </div>
                     
                     <!-- Error -->
@@ -138,6 +147,5 @@
             </form>
         </div>
     </div>
-
 
 <script src="/image.js"></script>
