@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trekhive</title>
     <link rel="stylesheet" href="/app.css">
+    <script src="/mobileMenu.js"></script>
+    <script src="/clientSideStyle.js"></script> 
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/v3.6.1/maptiler-sdk.umd.min.js"></script>
+    <link href="https://cdn.maptiler.com/maptiler-sdk-js/v3.6.1/maptiler-sdk.css" rel="stylesheet">
 </head>
 <body class="flex flex-col min-h-screen bg-slate-50 ">
    <%- include('../partials/navbar') %> <!-- to include ejs file -->
@@ -18,12 +22,9 @@
 
    <%- include('../partials/footer') %>
    
-   <script src="/clientSideStyle.js"></script> <!-- to include js files -->
    <!-- clietSideStyle.js file present inside public folder but ,
         Express treats public as a root folder because of "app.use(express.static(path.join(import.meta.dirname, "public")))"
        , so the path starts from '/' -->
-
-   <script src="/mobileMenu.js"></script>
 
 </body>
 </html>

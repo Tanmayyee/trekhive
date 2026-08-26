@@ -135,3 +135,32 @@ function closeReviewsModal(event) {
         }, 300);
     }
 }
+
+
+//  'Show more' Description
+   document.addEventListener('DOMContentLoaded', () => {
+     const descElement = document.getElementById('listing-description');
+     const showMoreBtn = document.getElementById('show-more-desc-btn');
+     const showMoreText = document.getElementById('show-more-desc-text');
+     const showMoreIcon = document.getElementById('show-more-desc-icon');
+
+     if (descElement && showMoreBtn) {
+         if (descElement.scrollHeight > descElement.clientHeight) {
+            showMoreBtn.classList.remove('hidden');
+             showMoreBtn.classList.add('flex');
+             
+             showMoreBtn.addEventListener('click', () => {
+                 descElement.classList.toggle('line-clamp-4');
+                 
+                 if (descElement.classList.contains('line-clamp-4')) {
+                     showMoreText.textContent = 'Show more';
+                     showMoreIcon.classList.remove('rotate-180');
+                 } else {
+                     showMoreText.textContent = 'Show less';
+                     showMoreIcon.classList.add('rotate-180');
+                 }
+             });
+          }
+        }
+    });
+    
