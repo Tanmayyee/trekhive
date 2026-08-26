@@ -33,29 +33,29 @@ map.on('load', function () {
         filter: ['has', 'point_count'],
 
         paint: {
-            'circle-color': [
-                'step',
-                ['get', 'point_count'],
-                '#00BCD4',
-                10,
-                '#2196F3',
-                30,
-                '#3F51B5'
-            ],
+    'circle-color': [
+        'step',
+        ['get', 'point_count'],
+        '#00BCD4',
+        10,
+        '#2196F3',
+        30,
+        '#3F51B5'
+    ],
 
-            'circle-radius': [
-                'step',
-                ['get', 'point_count'],
-                15,
-                10,
-                20,
-                30,
-                25
-            ],
+    'circle-radius': [
+        'step',
+        ['get', 'point_count'],
+        12,
+        10,
+        16,
+        30,
+        20
+    ],
 
-            'circle-stroke-width': 2,
-            'circle-stroke-color': '#ffffff'
-        }
+    'circle-stroke-width': 2,
+    'circle-stroke-color': '#ffffff'
+}
     });
 
 
