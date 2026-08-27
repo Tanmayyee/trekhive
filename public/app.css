@@ -48,6 +48,7 @@
     --color-white: #fff;
     --spacing: 0.25rem;
     --container-xs: 20rem;
+    --container-sm: 24rem;
     --container-md: 28rem;
     --container-lg: 32rem;
     --container-xl: 36rem;
@@ -416,8 +417,14 @@
   .z-120 {
     z-index: 120;
   }
+  .z-150 {
+    z-index: 150;
+  }
   .z-9999 {
     z-index: 9999;
+  }
+  .z-\[150\] {
+    z-index: 150;
   }
   .col-span-2 {
     grid-column: span 2 / span 2;
@@ -659,6 +666,9 @@
   .h-12 {
     height: calc(var(--spacing) * 12);
   }
+  .h-14 {
+    height: calc(var(--spacing) * 14);
+  }
   .h-16 {
     height: calc(var(--spacing) * 16);
   }
@@ -746,6 +756,9 @@
   .w-12 {
     width: calc(var(--spacing) * 12);
   }
+  .w-14 {
+    width: calc(var(--spacing) * 14);
+  }
   .w-16 {
     width: calc(var(--spacing) * 16);
   }
@@ -811,6 +824,9 @@
   }
   .max-w-md {
     max-width: var(--container-md);
+  }
+  .max-w-sm {
+    max-width: var(--container-sm);
   }
   .max-w-xl {
     max-width: var(--container-xl);
@@ -1270,6 +1286,9 @@
   }
   .bg-rose-500 {
     background-color: var(--color-rose-500);
+  }
+  .bg-rose-600 {
+    background-color: var(--color-rose-600);
   }
   .bg-slate-50 {
     background-color: var(--color-slate-50);
@@ -2129,6 +2148,9 @@
     .hover\:border-slate-300:hover {
       border-color: var(--color-slate-300);
     }
+    .hover\:border-slate-400:hover {
+      border-color: var(--color-slate-400);
+    }
     .hover\:border-slate-900:hover {
       border-color: var(--color-slate-900);
     }
@@ -2152,6 +2174,9 @@
     }
     .hover\:bg-rose-600:hover {
       background-color: var(--color-rose-600);
+    }
+    .hover\:bg-rose-700:hover {
+      background-color: var(--color-rose-700);
     }
     .hover\:bg-slate-50:hover {
       background-color: var(--color-slate-50);
