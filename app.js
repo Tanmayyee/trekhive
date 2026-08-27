@@ -117,6 +117,9 @@ app.use((req,res,next)=>{
 
 
 app.use('/',userRoutes)
+app.get('/', (req, res) => {
+  res.redirect('/home');
+});
 app.get('/home',async(req,res)=>{
   const listings= await Listing.find({})
  res.render('places/home',{listings})
