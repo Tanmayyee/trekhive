@@ -27,6 +27,9 @@ import listingsRoutes from './routes/listings.js'
 import reviewsRoutes from './routes/reviews.js'
 import userRoutes from './routes/user.js'
 
+// const dbUrl= process.env.DB_URL
+// "mongodb://127.0.0.1:27017/trekhive-v2"
+
 const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive-v2";
 
 const connectDB = async () => {

@@ -34,7 +34,7 @@
                                     class="absolute inset-0 w-full h-full object-cover blur-xl opacity-40 scale-110 pointer-events-none"
                                     alt="">
                                 <img src="<%= img.url %>" alt="<%= listing.title %> - image <%= index + 1 %>"
-                                    class="relative w-full h-full cursor-pointer hover:scale-[1.02] transition-transform duration-500 ease-out z-10"
+                                    class="relative block w-full h-full cursor-pointer hover:scale-[1.02] transition-transform duration-500 ease-out z-10"
                                     onload="this.classList.add(this.naturalWidth > this.naturalHeight ? 'object-cover' : 'object-contain')"
                                     onclick="openLightbox(parseInt('<%= index %>', 10))">
                             </div>
@@ -411,7 +411,7 @@
     
     
     <!-- Delete warning -->
-    <div id="delete-modal" class="fixed inset-0 z-[150] hidden bg-black/60 backdrop-blur-sm flex-col items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeDeleteModal()">
+    <div id="delete-modal" class="fixed inset-0 z-150 hidden bg-black/60 backdrop-blur-sm flex-col items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeDeleteModal()">
       <div class="relative w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-2xl p-6 text-center transform scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
         
         <div class="mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-rose-100 mb-4 shadow-inner">
