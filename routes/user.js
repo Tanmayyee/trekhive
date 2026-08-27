@@ -4,7 +4,7 @@ const router=express.Router()
 import passport from 'passport';
 import ExpressError from '../utils/ExpressError.js';
 import { storeReturnTo,userValidation } from '../middleware.js';
-import { createNewUser, login, logout, renderLogin, renderRegisterForm } from '../controllers/usercontroller.js';
+import { createNewUser, login, logout, renderLogin, renderRegisterForm ,renderUserProfile} from '../controllers/usercontroller.js';
 
 router.route('/register')
     .get(renderRegisterForm)
@@ -18,5 +18,7 @@ router.route('/login')
     .post(storeReturnTo, passport.authenticate('local', {failureFlash:true, failureRedirect:'/login'} ),login)
 
 router.get('/logout', logout)
+
+router.get('/user/:username', renderUserProfile)
 
 export default router

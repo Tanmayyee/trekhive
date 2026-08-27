@@ -1,4 +1,5 @@
 import User from '../models/usermodel.js'
+import Listing from '../models/trekhiveschema.js'
 
 export const renderRegisterForm= (req,res)=>{
     res.render('auth/register')
@@ -48,4 +49,31 @@ export const logout= (req,res,next)=>{
          const redirectUrl = req.get('Referer') || '/home';
          res.redirect(redirectUrl)
     });
+}
+
+
+export const renderUserProfile = async (req, res) => {
+    try {
+        // 1. URL se username nikalein
+        const { username } = req.params;
+
+        // 2. Username se database me user ko dhoondhein
+        const profileUser = await User.findOne({ username: username });
+
+        if (!profileUser) {
+            req.flash('error', 'User not found.');
+            return res.redirect('/listing');
+        }
+
+        // 3. Is user ki ID (_id) ka use karke uske saare uploaded treks fetch karein
+        const userTreks = await Listing.find({ author: profileUser._id });
+
+        // 4. EJS page par data bhejein
+        res.render('places/userTreks', { profileUser, userTreks });
+
+    } catch (err) {
+        console.error(err);
+        req.flash('error', 'Something went wrong while fetching the profile.');
+        res.redirect('/listing');
+    }
 }
