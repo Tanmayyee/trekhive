@@ -21,6 +21,7 @@ import LocalStrategy from 'passport-local';
 import User from './models/usermodel.js'
 import Listing from './models/trekhiveschema.js';
 import sanitizeV5 from './utils/mongoSanitizeV5.js';
+import helmet from 'helmet';
 
 import listingsRoutes from './routes/listings.js'
 import reviewsRoutes from './routes/reviews.js'
@@ -44,6 +45,11 @@ app.engine("ejs", ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(import.meta.dirname, '/views'));
 
+app.use(helmet({ contentSecurityPolicy: { directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.maptiler.com"], 
+  styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.maptiler.com"], imgSrc: ["'self'", "data:", "blob:", "https://res.cloudinary.com", "https://encrypted-tbn0.gstatic.com", "https://api.maptiler.com", "https://*.maptiler.com"], 
+  connectSrc: ["'self'", "https://api.maptiler.com", "https://*.maptiler.com"], fontSrc: ["'self'", "data:", "https://*.maptiler.com"], workerSrc: ["'self'", "blob:"], 
+  objectSrc: ["'none'"], baseUri: ["'self'"], frameAncestors: ["'self'"] } } }));
+  
 app.use(express.static(path.join(import.meta.dirname, "public")));
 app.use(sanitizeV5({ replaceWith: '_' }));
 
@@ -51,6 +57,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method")); 
 
 const sessionConfig= {
+  name:'th.sid',
   secret: process.env.SESSION_SECRET || 'fallbacksecret',
   resave:false,
   saveUninitialized:true,
@@ -58,6 +65,7 @@ const sessionConfig= {
   cookie:{
     httpOnly:true,  // Prevent JavaScript from accessing the cookie
     // expires:new Date(Date.now()+7*24*60*60*1000),  
+    // secure:true,
     maxAge:7*24*60*60*1000 
   }
 }
