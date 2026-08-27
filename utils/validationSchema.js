@@ -1,11 +1,34 @@
-import joi from 'joi';
+import BaseJoi from 'joi';
+import sanitizeHtml from 'sanitize-html'
+
+const extension= (joi)=>({
+    type:'string',
+    base: joi.string(),
+    messages: {
+        'string.escapeHTML':'{{#label}} must not include HTML!'
+    },
+    rules:{
+        escapeHTML:{
+            validate(value,helpers){
+                const clean= sanitizeHtml(value,{
+                    allowedTags:[],
+                    allowedAttributes:{},
+                });
+                if(clean !==value )return helpers.error('string.escapeHTML',{value})
+                return clean;
+            }
+        }
+    }
+})
+
+const joi=BaseJoi.extend(extension)
 
 export const listingValidationSchema=joi.object({
     listing:joi.object({
-        title:joi.string().required(),
+        title:joi.string().required().escapeHTML(),
         price:joi.number().required().min(0),
-        location:joi.string().required(),
-        description:joi.string().allow(''),   // Fun fact: HTML forms send blank fields as empty strings (""), not undefined.
+        location:joi.string().required().escapeHTML(),
+        description:joi.string().allow('').escapeHTML(),   // Fun fact: HTML forms send blank fields as empty strings (""), not undefined.
                                               // Joi blocks empty strings by default, so we have to explicitly .allow('') it. 
                                               // You can also add .optional() here to make it crystal clear that the field isn't mandatory!
     }).required(),
@@ -15,25 +38,25 @@ export const listingValidationSchema=joi.object({
 
 export const reviewValidationSchema=joi.object({
     review:joi.object({
-        body:joi.string().max(600).required(),
+        body:joi.string().max(600).required().escapeHTML(),
         rating:joi.number().required().min(1).max(5)
     }).required()
 })
 
 export const userValidationSchema= joi.object({
-         username: joi.string().alphanum().min(3).max(30).required().messages({
+         username: joi.string().alphanum().min(3).max(30).required().escapeHTML().messages({
             'string.alphanum': '"Username" can only contain letters, numbers, and underscores.',        
             'string.empty': '"Username" is required.',
             'string.min': '"Username" must be at least 3 characters long.',
             'string.max': '"Username" cannot exceed 30 characters.'
         }),
         
-    email: joi.string().email().required().messages({
+    email: joi.string().email().required().escapeHTML().messages({
             'string.email': 'Please provide a valid email address.',
             'string.empty': 'Email is required.'
         }),
         
-    password: joi.string().min(8).required().messages({
+    password: joi.string().min(8).required().escapeHTML().messages({
             'string.min': 'Password must be at least 8 characters long.',
             'string.empty': 'Password is required.'
         })
