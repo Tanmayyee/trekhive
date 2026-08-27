@@ -30,10 +30,10 @@ import userRoutes from './routes/user.js'
  
 import MongoStore from 'connect-mongo';
 
-// const dbUrl= process.env.DB_URL
-const dbUrl= "mongodb://127.0.0.1:27017/trekhive-v2"
+const dbUrl= process.env.DB_URL
+// const dbUrl= "mongodb://127.0.0.1:27017/trekhive-v2"
 
-const MONGO_URI = dbUrl;
+const MONGO_URI = dbUrl || "mongodb://127.0.0.1:27017/trekhive-v2" ;
 
 const connectDB = async () => {
   try {
@@ -144,6 +144,7 @@ app.use((err,req,res,next)=>{
   res.status(status).render('./places/error',{err});
 })
 
-app.listen(3000, () => {
-    console.log('Trekhive server is running on port 3000!');
+const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+  console.log(`Serving on port ${port}`)
 });
