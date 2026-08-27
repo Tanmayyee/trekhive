@@ -470,6 +470,12 @@
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
   }
+  .mt-2\.5 {
+    margin-top: calc(var(--spacing) * 2.5);
+  }
+  .mt-2\.75 {
+    margin-top: calc(var(--spacing) * 2.75);
+  }
   .mt-3 {
     margin-top: calc(var(--spacing) * 3);
   }
@@ -490,6 +496,12 @@
   }
   .mt-16 {
     margin-top: calc(var(--spacing) * 16);
+  }
+  .mt-\[9px\] {
+    margin-top: 9px;
+  }
+  .mt-\[11px\] {
+    margin-top: 11px;
   }
   .mt-auto {
     margin-top: auto;
@@ -568,6 +580,9 @@
   }
   .block {
     display: block;
+  }
+  .contents {
+    display: contents;
   }
   .flex {
     display: flex;
@@ -2529,6 +2544,9 @@
     }
     .sm\:text-\[12px\] {
       font-size: 12px;
+    }
+    .sm\:opacity-100 {
+      opacity: 100%;
     }
   }
   @media (width >= 48rem) {
