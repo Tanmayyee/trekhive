@@ -8,9 +8,6 @@
       "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-amber-100: oklch(96.2% 0.059 95.617);
-    --color-amber-200: oklch(92.4% 0.12 95.746);
-    --color-amber-300: oklch(87.9% 0.169 91.605);
     --color-amber-400: oklch(82.8% 0.189 84.429);
     --color-amber-500: oklch(76.9% 0.188 70.08);
     --color-amber-600: oklch(66.6% 0.179 58.318);
@@ -23,10 +20,6 @@
     --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-blue-600: oklch(54.6% 0.245 262.881);
     --color-blue-700: oklch(48.8% 0.243 264.376);
-    --color-purple-600: oklch(55.8% 0.288 302.321);
-    --color-purple-700: oklch(49.6% 0.265 301.924);
-    --color-pink-600: oklch(59.2% 0.249 0.584);
-    --color-pink-700: oklch(52.5% 0.223 3.958);
     --color-rose-50: oklch(96.9% 0.015 12.422);
     --color-rose-100: oklch(94.1% 0.03 12.58);
     --color-rose-200: oklch(89.2% 0.058 10.001);
@@ -46,10 +39,8 @@
     --color-slate-800: oklch(27.9% 0.041 260.031);
     --color-slate-900: oklch(20.8% 0.042 265.755);
     --color-slate-950: oklch(12.9% 0.042 264.695);
-    --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-700: oklch(37.3% 0.034 259.733);
-    --color-gray-800: oklch(27.8% 0.033 256.848);
     --color-gray-900: oklch(21% 0.034 264.665);
     --color-black: #000;
     --color-white: #fff;
@@ -109,18 +100,12 @@
     --radius-4xl: 2rem;
     --drop-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.15);
     --drop-shadow-md: 0 3px 3px rgb(0 0 0 / 0.12);
-    --drop-shadow-lg: 0 4px 4px rgb(0 0 0 / 0.15);
-    --drop-shadow-2xl: 0 25px 25px rgb(0 0 0 / 0.15);
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-    --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-    --animate-bounce: bounce 1s infinite;
     --blur-sm: 8px;
     --blur-md: 12px;
-    --blur-lg: 16px;
     --blur-xl: 24px;
     --blur-2xl: 40px;
-    --blur-3xl: 64px;
     --aspect-video: 16 / 9;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -2801,22 +2786,6 @@
 @property --tw-ease {
   syntax: "*";
   inherits: false;
-}
-@keyframes ping {
-  75%, 100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(-25%);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  50% {
-    transform: none;
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
 }
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {

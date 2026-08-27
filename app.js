@@ -9,6 +9,7 @@ if (process.env.NODE_ENV !== "production") {
 import express from 'express';
 import path from 'path';
 const app = express();
+app.set('query parser', 'extended');
 import mongoose from 'mongoose'
 import ejsMate from 'ejs-mate'
 import methodOverride from "method-override";
@@ -19,6 +20,7 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import User from './models/usermodel.js'
 import Listing from './models/trekhiveschema.js';
+import sanitizeV5 from './utils/mongoSanitizeV5.js';
 
 import listingsRoutes from './routes/listings.js'
 import reviewsRoutes from './routes/reviews.js'
@@ -43,6 +45,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(import.meta.dirname, '/views'));
 
 app.use(express.static(path.join(import.meta.dirname, "public")));
+app.use(sanitizeV5({ replaceWith: '_' }));
 
 app.use(express.urlencoded({ extended: true }));       
 app.use(methodOverride("_method")); 
@@ -70,6 +73,7 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 app.use((req,res,next)=>{
+  // console.log(req.query)   //check working of express-mongo-sanitize
   res.locals.currentUser= req.user; // Make the currently authenticated user available in all views (templates), includes user object ( username , id , email etc...)
   res.locals.success= req.flash('success');
   res.locals.error= req.flash('error')
