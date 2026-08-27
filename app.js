@@ -62,7 +62,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method")); 
 
 const store = MongoStore.create({
-    mongoUrl: dbUrl,
+    mongoUrl: process.env.DB_URL,
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret:process.env.MONGOSTORE_SECRET
@@ -144,7 +144,4 @@ app.use((err,req,res,next)=>{
   res.status(status).render('./places/error',{err});
 })
 
-const port = process.env.PORT || 3000;
-  app.listen(port, () => {
-  console.log(`Serving on port ${port}`)
-});
+export default app;
