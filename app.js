@@ -8,6 +8,9 @@ if (process.env.NODE_ENV !== "production") {
 
 import express from 'express';
 import path from 'path';
+import { fileURLToPath } from 'url'; 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 app.set('query parser', 'extended');
 import mongoose from 'mongoose'
@@ -49,14 +52,14 @@ await connectDB();
 
 app.engine("ejs", ejsMate);
 app.set('view engine', 'ejs');
-app.set('views', path.join(process.cwd(), '/views'));
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(helmet({ contentSecurityPolicy: { directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.maptiler.com"], scriptSrcAttr: ["'unsafe-inline'"], 
    styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.maptiler.com"], imgSrc: ["'self'", "data:", "blob:", "https://res.cloudinary.com", "https://encrypted-tbn0.gstatic.com", "https://api.maptiler.com", "https://*.maptiler.com", "https://img.icons8.com"], 
    connectSrc: ["'self'", "https://api.maptiler.com", "https://*.maptiler.com"], fontSrc: ["'self'", "data:", "https://*.maptiler.com"], workerSrc: ["'self'", "blob:"], objectSrc: ["'none'"],
    baseUri: ["'self'"], frameAncestors: ["'self'"] } } }));
    
-app.use(express.static(path.join(process.cwd(), "public")));
+app.use(express.static(path.join(__dirname, 'public')));
    
 app.use(sanitizeV5({ replaceWith: '_' }));
 
@@ -143,7 +146,7 @@ app.use((err,req,res,next)=>{
   }
 
   const {status=500}= err;
-  res.status(status).render('/places/error',{err});
+  res.status(status).render('places/error',{err});
 })
 
 export default app;
