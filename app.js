@@ -18,6 +18,7 @@ import flash from 'connect-flash'
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import User from './models/usermodel.js'
+import Listing from './models/trekhiveschema.js';
 
 import listingsRoutes from './routes/listings.js'
 import reviewsRoutes from './routes/reviews.js'
@@ -85,12 +86,13 @@ app.use((req,res,next)=>{
 
 
 app.use('/',userRoutes)
+app.get('/home',async(req,res)=>{
+  const listings= await Listing.find({})
+ res.render('places/home',{listings})
+})
 app.use('/listing',listingsRoutes);
 app.use('/listing/:id/reviews',reviewsRoutes)
 
-app.get('/', (req, res) => {
-    res.render('places/home');
-});
 
 
 //for paths/routes other than previosly defined(above) paths

@@ -45,6 +45,7 @@ export const logout= (req,res,next)=>{
             return next(err);
         }
          req.flash('success',"Signed out securely.")
-         res.redirect('/listing')
+         const redirectUrl = req.get('Referer') || '/home';
+         res.redirect(redirectUrl)
     });
 }
