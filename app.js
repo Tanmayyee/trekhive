@@ -27,10 +27,13 @@ import listingsRoutes from './routes/listings.js'
 import reviewsRoutes from './routes/reviews.js'
 import userRoutes from './routes/user.js'
 
-// const dbUrl= process.env.DB_URL
-// "mongodb://127.0.0.1:27017/trekhive-v2"
+ 
+import MongoStore from 'connect-mongo';
 
-const MONGO_URI = "mongodb://127.0.0.1:27017/trekhive-v2";
+// const dbUrl= process.env.DB_URL
+const dbUrl= "mongodb://127.0.0.1:27017/trekhive-v2"
+
+const MONGO_URI = dbUrl;
 
 const connectDB = async () => {
   try {
@@ -58,7 +61,16 @@ app.use(sanitizeV5({ replaceWith: '_' }));
 app.use(express.urlencoded({ extended: true }));       
 app.use(methodOverride("_method")); 
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret:process.env.MONGOSTORE_SECRET
+    }
+});
+
 const sessionConfig= {
+  store,
   name:'th.sid',
   secret: process.env.SESSION_SECRET || 'fallbacksecret',
   resave:false,
