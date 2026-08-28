@@ -11,7 +11,7 @@ A full-stack travel and place-discovery platform where people can discover, shar
 ## 🌐 Live Demo
 
 <p align="center">
-  <a href="https://trekhive.vercel.app/home" target="_blank">
+  <a href="[https://trekhive.vercel.app/hom](https://trekhive.vercel.app/home)e" target="_blank">
     <strong>🏔️ Open TrekHive →</strong>
   </a>
 </p>
