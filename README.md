@@ -8,7 +8,15 @@ A full-stack travel and place-discovery platform where people can discover, shar
 
 <br>
 
-### 🌐 <a href="https://trekhive.vercel.app/home" target="_blank"><strong>Live Demo → trekhive.vercel.app</strong></a>
+## 🌐 Live Demo
+
+Experience TrekHive:
+
+<p align="center">
+  <a href="https://trekhive.vercel.app/home" target="_blank">
+    <strong>🏔️ Open TrekHive →</strong>
+  </a>
+</p>
 
 <br>
 
@@ -20,104 +28,31 @@ A full-stack travel and place-discovery platform where people can discover, shar
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge\&logo=tailwindcss\&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge\&logo=vercel\&logoColor=white)
 
-<br>
-
-<a href="https://github.com/Tanmayyee/trekhive/issues" target="_blank">Report a Bug</a>
- ·  <a href="https://github.com/Tanmayyee/trekhive/issues" target="_blank">Request a Feature</a>
-
 </div>
 
 ---
 
 ## 📖 About
 
-**TrekHive** is a community-driven place-discovery platform built for people who love exploring new destinations.
+TrekHive is a community-driven place-listing platform — think of it as a shared travel journal for anywhere worth visiting. On TrekHive, a "trek" isn't just a hiking trail: it's any place a user has found amazing and wants others to discover — a summit trail, a hidden waterfall, a quiet local viewpoint, a campsite, or a full-blown tourist attraction.
 
-A "trek" on TrekHive isn't limited to hiking trails. It can be anything worth discovering — a mountain viewpoint, hidden waterfall, peaceful campsite, local attraction, scenic location, or any memorable place.
+Users can browse everything on an interactive cluster map, post their own spots with photos and a location, and leave star ratings and reviews on places shared by the community.
 
-Users can:
-
-* Discover places shared by the community
-* Explore listings through an interactive map
-* Create and share their own places
-* Upload multiple images
-* Add locations and view them on a map
-* Rate places using a 1–5 star rating system
-* Write reviews
-* Manage their own listings
-* Explore their personal **My Treks** dashboard
-
-> 🚧 **Status:** Actively in development. New features and improvements are being added progressively.
-
----
+> 🚧 **Status:** Actively in development — features are being added progressively, so some functionality may evolve.
 
 ## ✨ Features
 
-### 🔐 Authentication & Authorization
-
-* User registration and login
-* Passport.js local authentication
-* Secure password hashing
-* MongoDB-backed sessions
-* Protected routes
-* Author-only listing modification
-* Author-only review deletion
-
-### 🗺️ Interactive Maps
-
-* MapTiler-powered maps
-* Clustered markers on the explore page
-* Individual location markers on listing pages
-* Automatic geocoding of listing locations
-* Map-based place discovery
-
-### 📍 Place Listings
-
-* Create new places
-* Edit existing places
-* Delete your own listings
-* Add descriptions and locations
-* Upload multiple images
-* Cloudinary image storage
-
-### ⭐ Reviews & Ratings
-
-* 1–5 star ratings
-* Community reviews
-* Review deletion permissions
-* Listing-specific reviews
-
-### 🧳 My Treks
-
-* Personal dashboard
-* View all places created by the logged-in user
-* Manage personal listings
-
-### 🛡️ Security
-
-* Helmet security headers
-* Content Security Policy
-* MongoDB query sanitization
-* HTML sanitization
-* Joi server-side validation
-* Protected authentication routes
-* Secure session configuration
-
-### 📱 Responsive UI
-
-* Responsive design
-* Tailwind CSS v4
-* Mobile-friendly navigation
-* Image previews
-* Interactive client-side components
-
-### ☁️ Deployment
-
-* Deployed on Vercel
-* MongoDB Atlas database support
-* Cloudinary media storage
-* Production-ready environment configuration
-
+- 🔐 **Authentication & sessions** — secure sign-up/login with Passport.js, hashed credentials, and MongoDB-backed sessions
+- 🗺️ **Interactive maps** — MapTiler-powered cluster map on the explore page and a location marker on every listing's detail page
+- 📍 **Geocoding** — locations are automatically geocoded to map coordinates on create/update
+- 🖼️ **Image uploads** — multi-image upload (up to 5 per listing) stored and served via Cloudinary
+- ⭐ **Reviews & ratings** — leave 1–5 star reviews on places, with author-only delete permissions
+- 👤 **User authorization** — only a listing's author can edit or delete it; same for reviews
+- 🧳 **"My Treks"** — a personal dashboard of every place you've shared
+- 🛡️ **Security hardening** — Helmet CSP headers, MongoDB query sanitization, and HTML sanitization to prevent XSS
+- ✅ **Server-side validation** — Joi schemas validate listings, reviews, and user input before they touch the database
+- 📱 **Responsive UI** — built with Tailwind CSS v4 for a clean experience across devices
+- ☁️ **Deployed & live** — running on Vercel with a MongoDB Atlas backend
 ---
 
 ## 🛠️ Tech Stack
@@ -233,100 +168,56 @@ TrekHive/
 
 ### Prerequisites
 
-Make sure you have the following installed or configured:
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- A [MongoDB](https://www.mongodb.com/) database (local or [Atlas](https://www.mongodb.com/atlas))
+- A [Cloudinary](https://cloudinary.com/) account (for image uploads)
+- A [MapTiler](https://www.maptiler.com/) account (for geocoding & maps)
 
-* <a href="https://nodejs.org/" target="_blank">Node.js</a> **v18+**
-* <a href="https://www.mongodb.com/" target="_blank">MongoDB</a> database or MongoDB Atlas
-* <a href="https://cloudinary.com/" target="_blank">Cloudinary</a> account
-* <a href="https://www.maptiler.com/" target="_blank">MapTiler</a> account
-* Git
+### Installation
 
----
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Tanmayyee/trekhive.git
+   cd trekhive
+   ```
 
-### 1. Clone the Repository
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-```bash
-git clone https://github.com/Tanmayyee/trekhive.git
-```
+3. **Configure environment variables**
 
-```bash
-cd trekhive
-```
+   Create a `.env` file in the project root:
+   ```env
+   DB_URL=mongodb://127.0.0.1:27017/trekhive-v2
+   SESSION_SECRET=your_session_secret
+   MONGOSTORE_SECRET=your_mongostore_secret
+   MAPTILER_API_KEY=your_maptiler_api_key
+   CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+   CLOUDINARY_CLOUD_KEY=your_cloudinary_api_key
+   CLOUDINARY_SECRET=your_cloudinary_api_secret
+   ```
 
----
+4. **Build Tailwind CSS** (optional — watches for changes during development)
+   ```bash
+   npm run dev:css
+   ```
 
-### 2. Install Dependencies
+5. **Run the app**
+   ```bash
+   npm start
+   ```
 
-```bash
-npm install
-```
-
----
-
-### 3. Configure Environment Variables
-
-Create a `.env` file in the project root:
-
-```env
-DB_URL=mongodb://127.0.0.1:27017/trekhive-v2
-
-SESSION_SECRET=your_session_secret
-MONGOSTORE_SECRET=your_mongostore_secret
-
-MAPTILER_API_KEY=your_maptiler_api_key
-
-CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
-CLOUDINARY_CLOUD_KEY=your_cloudinary_api_key
-CLOUDINARY_SECRET=your_cloudinary_api_secret
-```
-
-> ⚠️ Never commit your `.env` file or expose your API keys and secrets publicly.
+   The app will be running at `http://localhost:3000` (or your configured port).
 
 ---
 
-### 4. Run Tailwind CSS
-
-For development, start the Tailwind CSS watcher:
-
-```bash
-npm run dev:css
-```
-
----
-
-### 5. Start the Application
-
-```bash
-npm start
-```
-
-The application will be available at:
-
-```text
-http://localhost:3000
-```
-
----
-
-## 🌐 Live Demo
-
-Experience TrekHive:
-
-<p align="center">
-  <a href="https://trekhive.vercel.app/home" target="_blank">
-    <strong>🏔️ Open TrekHive →</strong>
-  </a>
-</p>
-
----
-
-## 🗺️ Roadmap
+## 🔮 Future Improvements
 
 * [ ] Search functionality
 * [ ] Advanced filtering
 * [ ] Categories for different types of places
-* [ ] Tags for listings
-* [ ] Improved map interactions
 * [ ] Additional UI/UX improvements
 * [ ] More community features
 
@@ -364,12 +255,6 @@ To contribute:
 5. Push your branch
 6. Open a Pull Request
 
-For bugs and feature requests:
-
-<a href="https://github.com/Tanmayyee/trekhive/issues" target="_blank">
-  <strong>Open an Issue →</strong>
-</a>
-
 ---
 
 ## 📄 License
@@ -383,6 +268,10 @@ See the [LICENSE](LICENSE) file for more information.
 ## 👤 Author
 
 ### **Tanmay Johri**
+
+<a href="https://www.linkedin.com/in/tanmayjohri/" target="_blank">LinkedIn</a>
+  ·  
+<a href="https://www.instagram.com/tanmay._.ye/" target="_blank">Instagram</a>
 
 Built with ❤️ and a passion for exploring amazing places.
 
