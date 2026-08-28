@@ -10,8 +10,6 @@ A full-stack travel and place-discovery platform where people can discover, shar
 
 ## 🌐 Live Demo
 
-Experience TrekHive:
-
 <p align="center">
   <a href="https://trekhive.vercel.app/home" target="_blank">
     <strong>🏔️ Open TrekHive →</strong>
@@ -96,9 +94,11 @@ TrekHive/
 ├── public/
 │   ├── video/
 │   │   ├── back-view-hiker-watching-sunset-from-mountain.jpg
-│   │   └── original-1635cb72296909630c60363b5cb129dd.mp4
+│   │   ├── original-1635cb72296909630c60363b5cb129dd.mp4
+│   │   └── favicon-32x32.png
 │   │
 │   ├── app.css
+│   ├── auth.js
 │   ├── clientSideStyle.js
 │   ├── clusterMap.js
 │   ├── flash.css
