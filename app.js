@@ -35,7 +35,7 @@ import MongoStore from 'connect-mongo';
 
 const dbUrl= process.env.DB_URL
 // const dbUrl= "mongodb://127.0.0.1:27017/trekhive-v2"
-//updated DB_URL
+//updated DB_URL env
 
 const MONGO_URI = dbUrl || "mongodb://127.0.0.1:27017/trekhive-v2" ;
 
