@@ -20,7 +20,7 @@ export const createTrek= async(req,res)=>{
 
   maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
 
-  const geoData = await maptilerClient.geocoding.forward(req.body.listing.location, { limit: 1 });
+  const geoData = await maptilerClient.geocoding.forward(req.body.listing.location, { limit: 1, language: 'en' });
   //  console.log(geoData);
    if (!geoData.features?.length) {
        req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
@@ -88,7 +88,7 @@ export const updateTrek = async (req, res) => {
 
   //MapTiler Geocoding
   maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
-  const geoData = await maptilerClient.geocoding.forward(req.body.listing.location, { limit: 1 });
+  const geoData = await maptilerClient.geocoding.forward(req.body.listing.location, { limit: 1,language:'en' });
   if (!geoData.features?.length) {
       req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
       return res.redirect(`/listing/${id}/edit`);
