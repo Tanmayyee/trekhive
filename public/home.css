@@ -13,3 +13,9 @@
         .delay-200 { transition-delay: 0.2s; }
         .delay-300 { transition-delay: 0.3s; }
         .delay-400 { transition-delay: 0.4s; }
+
+    @media (max-width: 767px) {
+       .mobile-video-pos {
+        object-position: 25% center;
+     }
+    }

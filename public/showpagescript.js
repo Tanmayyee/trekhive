@@ -208,3 +208,31 @@ function closeReviewsModal(event) {
         }
     }
     
+    document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.getElementById('image-carousel');
+        if (carousel && window.listingData && window.listingData.totalSlides > 1) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        const swipeThreshold = 50; 
+
+        carousel.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        carousel.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeDistance = touchStartX - touchEndX;
+            
+            if (swipeDistance > swipeThreshold) {
+                if (typeof nextSlide === 'function') nextSlide();
+            } else if (swipeDistance < -swipeThreshold) {
+                if (typeof prevSlide === 'function') prevSlide();
+            }
+        }
+    }
+});
