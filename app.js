@@ -41,14 +41,24 @@ const MONGO_URI = dbUrl || "mongodb://127.0.0.1:27017/trekhive-v2" ;
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(MONGO_URI);
+    await mongoose.connect(MONGO_URI, {
+      serverSelectionTimeoutMS: 5000, 
+    });
     console.log("MongoDB connected successfully");
   } catch (error) {
     console.error(`Error connecting to MongoDB: ${error.message}`);
-    process.exit(1); // Stops the server if the database fails to connect.
+    throw error; 
   }
 };
 await connectDB();
+
+mongoose.connection.on('error', (err) => {
+  console.error('MongoDB connection error:', err.message);
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('Unhandled Rejection:', reason);
+});
 
 
 app.engine("ejs", ejsMate);
@@ -102,7 +112,7 @@ passport.deserializeUser(User.deserializeUser())
 
 app.use((req,res,next)=>{
   // console.log(req.query)   //check working of express-mongo-sanitize
-  res.locals.currentUser= req.user; // Make the currently authenticated user available in all views (templates), includes user object ( username , id , email etc...)
+  res.locals.currentUser = req.user || null; // Make the currently authenticated user available in all views (templates), includes user object ( username , id , email etc...)
   res.locals.success= req.flash('success');
   res.locals.error= req.flash('error')
   next();
