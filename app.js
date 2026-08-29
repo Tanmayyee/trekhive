@@ -39,16 +39,28 @@ const dbUrl= process.env.DB_URL
 
 const MONGO_URI = dbUrl || "mongodb://127.0.0.1:27017/trekhive-v2" ;
 
+let cached = global._mongooseConn;
+if (!cached) {
+  cached = global._mongooseConn = { conn: null, promise: null };
+}
+
 const connectDB = async () => {
-  try {
-    await mongoose.connect(MONGO_URI, {
-      serverSelectionTimeoutMS: 5000, 
+  if (cached.conn) return cached.conn;
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(MONGO_URI, {
+      serverSelectionTimeoutMS: 5000,
+      maxPoolSize: 5,
+    }).then((m) => {
+      console.log("MongoDB connected successfully");
+      return m;
+    }).catch((error) => {
+      console.error(`Error connecting to MongoDB: ${error.message}`);
+      cached.promise = null;
+      throw error;
     });
-    console.log("MongoDB connected successfully");
-  } catch (error) {
-    console.error(`Error connecting to MongoDB: ${error.message}`);
-    throw error; 
   }
+  cached.conn = await cached.promise;
+  return cached.conn;
 };
 await connectDB();
 
@@ -78,7 +90,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method")); 
 
 const store = MongoStore.create({
-    mongoUrl: process.env.DB_URL,
+    clientPromise: mongoose.connection.asPromise().then(conn => conn.getClient()),
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret:process.env.MONGOSTORE_SECRET
