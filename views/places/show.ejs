@@ -369,6 +369,23 @@
                         <p class="text-slate-600 text-[13px] leading-relaxed wrap-break-word break-all">
                             <%= review.body %>
                         </p>
+
+                        <% if(currentUser && review.author.equals(currentUser._id)) { %>
+                            <form id="delete-review-modal-<%= review._id %>" class="mt-3 flex"
+                                action="/listing/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                method="POST">
+                                <button type="button" onclick="showDeleteModal('delete-review-modal-<%= review._id %>')"
+                                    class="inline-flex items-center justify-center px-2.5 py-1 bg-white text-rose-600 border border-rose-200 text-[11px] font-semibold rounded-md shadow-sm hover:bg-rose-50 hover:border-rose-300 focus:ring-4 focus:ring-rose-100 focus:outline-none transition-all duration-200 cursor-pointer">
+                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                        </path>
+                                    </svg>
+                                    Remove
+                                </button>
+                            </form>
+                        <% } %>                        
                     </div>
                 <% }) %>
             </div>
